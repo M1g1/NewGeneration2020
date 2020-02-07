@@ -109,14 +109,14 @@ namespace Gallery.Controllers
             try
             {
                 FileInfo fileInfo = new FileInfo(LoadExifPath);
-                FileStream fs = new FileStream(LoadExifPath, FileMode.Open);
-
-                BitmapSource img = BitmapFrame.Create(fs);
                
-                BitmapMetadata md = (BitmapMetadata)img.Metadata;
-
-                if (fileInfo.Name.Contains(".jpg") || fileInfo.Name.Contains(".jpeg"))
+                if (fileInfo.Extension.Equals(".jpg") || fileInfo.Extension.Equals(".jpeg"))
                 {
+                    FileStream fs = new FileStream(LoadExifPath, FileMode.Open);
+
+                    BitmapSource img = BitmapFrame.Create(fs);
+
+                    BitmapMetadata md = (BitmapMetadata)img.Metadata;
                     //
                     //manufacturer from EXIF
                     if (string.IsNullOrEmpty(md.CameraManufacturer))
@@ -138,6 +138,7 @@ namespace Gallery.Controllers
                     else
                         dateCreation = md.DateTaken;
 
+                    fs.Close();
                 }
                 else
                 {
@@ -145,6 +146,7 @@ namespace Gallery.Controllers
                     modelOfCamera = "Data not found";
                     dateCreation = "Data not found";
                 }
+
                 //
                 //title from FileInfo
                 if (string.IsNullOrEmpty(fileInfo.Name))
@@ -171,7 +173,7 @@ namespace Gallery.Controllers
                 else
                     dateUpload = fileInfo.CreationTime.ToString("dd.MM.yyyy HH:mm:ss");
 
-                fs.Close();
+               
             }
             catch(Exception err)
             {
