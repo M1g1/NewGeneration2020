@@ -8,21 +8,32 @@ using System.Windows.Media.Imaging;
 using System.Drawing;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
 using System.Runtime.InteropServices;
 using System.Drawing.Imaging;
+using System.Configuration;
+
 
 namespace Gallery.Controllers
 {
     public class HomeController : Controller
-    {
-        public static string title;
-        public static string manufacturer;
-        public static string modelOfCamera;
-        public static string fileSize;
-        public static string dateCreation;
-        public static string dateUpload;
+    { 
+
+        private static string title;
+        private static string manufacturer;
+        private static string modelOfCamera;
+        private static string fileSize;
+        private static string dateCreation;
+        private static string dateUpload; 
+        private static string pathToSave = ConfigurationManager.AppSettings["PathToSave"] + "/Images/";
+        
+
+        public static string Title { get => title; set => title = value; }
+        public static string Manufacturer { get => manufacturer; set => manufacturer = value; }
+        public static string ModelOfCamera { get => modelOfCamera; set => modelOfCamera = value; }
+        public static string FileSize { get => fileSize; set => fileSize = value; }
+        public static string DateCreation { get => dateCreation; set => dateCreation = value; }
+        public static string DateUpload { get => dateUpload; set => dateUpload = value; }
+        public static string PathToSave { get => pathToSave; set => pathToSave = value; }
 
         //
         // Hash-Function
@@ -99,6 +110,7 @@ namespace Gallery.Controllers
                 FileStream fs = new FileStream(LoadExifPath, FileMode.Open);
 
                 BitmapSource img = BitmapFrame.Create(fs);
+               
                 BitmapMetadata md = (BitmapMetadata)img.Metadata;
 
                 
@@ -162,19 +174,18 @@ namespace Gallery.Controllers
        
             
         }
-        //Picture picture = new Picture();
-        //[HttpGet]
+        
 
         
         [HttpGet]
-        public ActionResult Delete(string T = "")
+        public ActionResult Delete(string fileToDelete = "")
         {
             try
             {
-                if (T.Replace("/Content/Images/", "").Replace(Path.GetFileName(T), "").Replace("/", "") == ComputeSha256Hash(User.Identity.Name))
+                if (fileToDelete.Replace(pathToSave, "").Replace(Path.GetFileName(fileToDelete), "").Replace("/", "") == ComputeSha256Hash(User.Identity.Name))
                 {
-                    if (T != "" && Directory.Exists(Server.MapPath(T.Replace(Path.GetFileName(T), ""))))
-                        System.IO.File.Delete(Server.MapPath(T));
+                    if (fileToDelete != "" && Directory.Exists(Server.MapPath(fileToDelete.Replace(Path.GetFileName(fileToDelete), ""))))
+                        System.IO.File.Delete(Server.MapPath(fileToDelete));
                     else
                     {
                         ViewBag.Error = "File not found!";
@@ -198,6 +209,7 @@ namespace Gallery.Controllers
 
         public ActionResult Index()
         {
+            //System.Windows.MessageBox.Show(pathToSave);
             return View();
         }
         public ActionResult Error()
@@ -224,7 +236,7 @@ namespace Gallery.Controllers
                                 bool IsLoad = true;
 
                                 // Encrypted User's directory path
-                                string DirPath = Server.MapPath("~/Content/Images/") + ComputeSha256Hash(User.Identity.Name);
+                                string DirPath = Server.MapPath(pathToSave) + ComputeSha256Hash(User.Identity.Name);
 
                                 // extract only the filename
                                 var fileName = Path.GetFileName(files.FileName);
@@ -247,7 +259,7 @@ namespace Gallery.Controllers
                                         TempFileStream.Close();
 
                                         // List of all Directories names
-                                        List<string> dirsname = Directory.GetDirectories(Server.MapPath("~/Content/Images/")).ToList<string>();
+                                        List<string> dirsname = Directory.GetDirectories(Server.MapPath(pathToSave)).ToList<string>();
 
                                         FileStream CheckFileStream;
                                         Bitmap CheckBmp;
@@ -305,7 +317,6 @@ namespace Gallery.Controllers
                                     System.IO.File.Delete(TempPath);
                                     return View("Error");
                                 }
-
                             }
                             else
                             {
@@ -313,7 +324,6 @@ namespace Gallery.Controllers
                                 return View("Error");
                             }
                             // redirect back to the index action to show the form once again
-
                         }
                         else
                         {

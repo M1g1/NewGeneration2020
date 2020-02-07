@@ -3,26 +3,21 @@
 }
 
 
-
-   
-
-
-
-
 @using Gallery.Controllers
 @{
+    string pathToSave = HomeController.PathToSave;
     // Directory path with all User's directories
-    string ImagesDirPath = Server.MapPath("~/Content/Images");
+    string ImagesDirFullPath = Server.MapPath(pathToSave);
 
     // Encrypted User's directory path
-    string DirPath = Server.MapPath("~/Content/Images/") + HomeController.ComputeSha256Hash(User.Identity.Name);
+    string DirPath = Server.MapPath(pathToSave) + HomeController.ComputeSha256Hash(User.Identity.Name);
 
     // Directory path with temp files
     string TempDirPath = Server.MapPath("~/Content/Temp");
 
-    if (!Directory.Exists(ImagesDirPath))
+    if (!Directory.Exists(ImagesDirFullPath))
     {
-        Directory.CreateDirectory(ImagesDirPath);
+        Directory.CreateDirectory(ImagesDirFullPath);
     }
 
     if (!Directory.Exists(TempDirPath))
@@ -35,18 +30,20 @@
         Directory.CreateDirectory(DirPath);
     }
 
-    List<string> dirsname = Directory.GetDirectories(Server.MapPath("~/Content/Images/")).ToList<string>();
+    List<string> dirsname = Directory.GetDirectories(Server.MapPath(pathToSave)).ToList<string>();
     List<string> filesname;
     int i = 0;
-            
-            //The Modal
+    string hashNamesUsers;
+    string fullPathToImage;
+
+    //The Modal
 
         <div id="myModal" class="modal">
             <img class="modal-content" id="img01">
             <div id="caption"></div>
         </div>
         <script>
-             // Get the modal
+            // Get the modal
             var modal = document.getElementById('myModal');
                     // Get the <span> element that closes the modal
             var span = document.getElementsByClassName("modal")[0];
@@ -64,43 +61,45 @@
         {
             i++;
             HomeController.LoadExifData(fl);
+            hashNamesUsers = dir.Replace(Server.MapPath(pathToSave), "");
+            fullPathToImage = pathToSave + hashNamesUsers + "/" + Path.GetFileName(fl);
 <div class="body">
     <div class="bodyT">
 
         <p class="textT">
-            <b>Photo title: @HomeController.title</b>
+            <b>Photo title: @HomeController.Title</b>
         </p>
         <p class="textT">
-            <b>Manufacturer of the camera: @HomeController.manufacturer</b>
+            <b>Manufacturer of the camera: @HomeController.Manufacturer</b>
         </p>
         <p class="textT">
-            <b>Model of the camera: @HomeController.modelOfCamera</b>
+            <b>Model of the camera: @HomeController.ModelOfCamera</b>
         </p>
         <p class="textT">
-            <b>File size: @HomeController.fileSize</b>
+            <b>File size: @HomeController.FileSize</b>
         </p>
         <p class="textT">
-            <b>Date of creation of the photo: @HomeController.dateCreation</b>
+            <b>Date of creation of the photo: @HomeController.DateCreation</b>
         </p>
         <p class="textT">
-            <b>Date of uploading of the photo: @HomeController.dateUpload</b>
+            <b>Date of uploading of the photo: @HomeController.DateUpload</b>
         </p>
     </div>
 
     <div class="hov">
         <a class="picture">
-            <img id="@i" class="pictureIMG" src="~/Content/Images/@dir.Replace(Server.MapPath("~/Content/Images/"), "").Replace('\\', '/')/@Path.GetFileName(fl)" alt="@Path.GetFileName(fl)">
+            <img id="@i" class="pictureIMG" src="@fullPathToImage" alt="@Path.GetFileName(fl)">
         </a>
         <ul class="pictureDownload">
-            <a href="~/Content/Images/@dir.Replace(Server.MapPath("~/Content/Images/"), "").Replace('\\', '/')/@Path.GetFileName(fl)" download>
+            <a href="@fullPathToImage" download>
                 <i class="fa fa-download" style="color:green; text-shadow: 2px 2px 3px #000" aria-hidden="true"></i>
             </a>
         </ul>
             @using (Html.BeginForm("Delete", "Home", FormMethod.Get, new { enctype = "string" }))
-            {  
-                <input type="text" name="T" value="~/Content/Images/@dir.Replace(Server.MapPath("~/Content/Images/"), "").Replace('\\', '/')/@Path.GetFileName(fl)" hidden />
+            {
+                <input type="text" name="fileToDelete" value="@fullPathToImage" hidden />
 
-                if (dir.Replace(Server.MapPath("~/Content/Images/"), "") == HomeController.ComputeSha256Hash(User.Identity.Name))
+                if (hashNamesUsers == HomeController.ComputeSha256Hash(User.Identity.Name))
                 {
                     <button type="submit" class="pictureDelete" aria-label="Delete">
 
@@ -112,28 +111,21 @@
 
         </div>
 
-
-
-
-
-
-
-
     <script>
             // Get the image and insert it inside the modal - use its "alt" text as a caption
             var img = document.getElementById("@i");
             var modalImg = document.getElementById("img01");
             var captionText = document.getElementById("caption");
-            img.onclick = function () {
-                modal.style.display = "block";
-                modalImg.src = this.src;
-                captionText.innerHTML = this.alt;
-            }
+        img.onclick = function () {
+            modal.style.display = "block";
+            modalImg.src = this.src;
+            captionText.innerHTML = this.alt;
+        }
     </script>
     
                         
 
 </div>
+            }
         }
     }
-}
