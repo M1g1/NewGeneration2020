@@ -25,7 +25,8 @@ namespace Gallery.Controllers
         private static string dateCreation;
         private static string dateUpload; 
         private static string pathToSave = ConfigurationManager.AppSettings["PathToSave"] + "/";
-        
+        private static string imageType = ConfigurationManager.AppSettings["ImageFormat"];
+
 
         public static string Title { get => title; set => title = value; }
         public static string Manufacturer { get => manufacturer; set => manufacturer = value; }
@@ -34,6 +35,7 @@ namespace Gallery.Controllers
         public static string DateCreation { get => dateCreation; set => dateCreation = value; }
         public static string DateUpload { get => dateUpload; set => dateUpload = value; }
         public static string PathToSave { get => pathToSave; set => pathToSave = value; }
+        public static string ImageType { get => imageType; set => imageType = value; }
 
         //
         // Hash-Function
@@ -113,30 +115,42 @@ namespace Gallery.Controllers
                
                 BitmapMetadata md = (BitmapMetadata)img.Metadata;
 
-                
+                if (fileInfo.Name.Contains(".jpg") || fileInfo.Name.Contains(".jpeg"))
+                {
+                    //
+                    //manufacturer from EXIF
+                    if (string.IsNullOrEmpty(md.CameraManufacturer))
+                        manufacturer = "Data not found";
+                    else
+                        manufacturer = md.CameraManufacturer;
+
+                    //
+                    //modelOfCamera from EXIF
+                    if (string.IsNullOrEmpty(md.CameraModel))
+                        modelOfCamera = "Data not found";
+                    else
+                        modelOfCamera = md.CameraModel;
+
+                    //
+                    //DateCreation from EXIF
+                    if (string.IsNullOrEmpty(md.DateTaken))
+                        dateCreation = "Data not found";
+                    else
+                        dateCreation = md.DateTaken;
+
+                }
+                else
+                {
+                    manufacturer = "Data not found";
+                    modelOfCamera = "Data not found";
+                    dateCreation = "Data not found";
+                }
                 //
                 //title from FileInfo
                 if (string.IsNullOrEmpty(fileInfo.Name))
                     title = "Data not found";
                 else
                     title = fileInfo.Name;
-
-
-                //
-                //manufacturer from EXIF
-                if (string.IsNullOrEmpty(md.CameraManufacturer))
-                    manufacturer = "Data not found";
-                else
-                    manufacturer = md.CameraManufacturer;
-
-
-                //
-                //modelOfCamera from EXIF
-                if (string.IsNullOrEmpty(md.CameraModel))
-                    modelOfCamera = "Data not found";
-                else
-                    modelOfCamera = md.CameraModel;
-
 
                 //
                 //FileSize from FileInfo
@@ -157,18 +171,11 @@ namespace Gallery.Controllers
                 else
                     dateUpload = fileInfo.CreationTime.ToString("dd.MM.yyyy HH:mm:ss");
 
-
-                //
-                //DateCreation from EXIF
-                if (string.IsNullOrEmpty(md.DateTaken))
-                    dateCreation = "Data not found";
-                else
-                    dateCreation = md.DateTaken;
                 fs.Close();
             }
             catch(Exception err)
             {
-               
+                
                 // need to static errors
             }
        
@@ -227,7 +234,7 @@ namespace Gallery.Controllers
                 {
                     if (!string.IsNullOrEmpty(User.Identity.Name))
                     {
-                        if (files.ContentType == "image/jpeg")
+                        if (imageType.Contains(files.ContentType))
                         {
                             FileStream TempFileStream;
                             // Verify that the user selected a file and User is logged in
@@ -247,17 +254,18 @@ namespace Gallery.Controllers
                                 BitmapSource img = BitmapFrame.Create(TempFileStream);
                                 BitmapMetadata md = (BitmapMetadata)img.Metadata;
                                 var DateTaken = md.DateTaken;
+                               
                                 TempFileStream.Close();
-
-                                if (!string.IsNullOrEmpty(DateTaken))
+                                
+                                if (DateTaken != "")
                                 {
-                                    if (Convert.ToDateTime(DateTaken) >= DateTime.Now.AddYears(-1))
+                                    if (Convert.ToDateTime(DateTaken) >= DateTime.Now.AddYears(-1) || DateTaken == null)
                                     {
                                         TempFileStream = new FileStream(TempPath, FileMode.Open);
                                         Bitmap TempBmp = new Bitmap(TempFileStream);
                                         TempBmp = new Bitmap(TempBmp, 64, 64);
                                         TempFileStream.Close();
-
+                                        
                                         // List of all Directories names
                                         List<string> dirsname = Directory.GetDirectories(Server.MapPath(pathToSave)).ToList<string>();
 
@@ -277,7 +285,7 @@ namespace Gallery.Controllers
                                                 CheckBmp = new Bitmap(CheckBmp, 64, 64);
 
                                                 CheckFileStream.Close();
-
+                                                
                                                 if (CompareBitmapsFast(TempBmp, CheckBmp))
                                                 {
                                                     IsLoad = false;
@@ -346,8 +354,8 @@ namespace Gallery.Controllers
             catch (Exception err)
             {
 
-                //ViewBag.Error = "Unexpected error: " + err.Message;
-                //return View("Error");
+                /*ViewBag.Error = "Unexpected error: " + err.Message;
+                return View("Error");*/
 
             }
             return RedirectToAction("Index");
