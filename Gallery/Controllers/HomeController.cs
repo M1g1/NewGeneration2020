@@ -24,7 +24,7 @@ namespace Gallery.Controllers
         private static string fileSize;
         private static string dateCreation;
         private static string dateUpload; 
-        private static string pathToSave = ConfigurationManager.AppSettings["PathToSave"] + "/Images/";
+        private static string pathToSave = ConfigurationManager.AppSettings["PathToSave"] + "/";
         
 
         public static string Title { get => title; set => title = value; }
