@@ -232,14 +232,16 @@ namespace Gallery.Controllers
         {
             try
             {
+                // Verify that the user selected a file
                 if (files != null)
                 {
+                    // Verify that the User is logged in
                     if (!string.IsNullOrEmpty(User.Identity.Name))
                     {
                         if (imageType.Contains(files.ContentType))
                         {
                             FileStream TempFileStream;
-                            // Verify that the user selected a file and User is logged in
+                            
                             if (files.ContentLength > 0)
                             {
                                 bool IsLoad = true;
@@ -259,9 +261,9 @@ namespace Gallery.Controllers
                                
                                 TempFileStream.Close();
                                 
-                                if (DateTaken != "")
+                                if (!string.IsNullOrEmpty(DateTaken) || files.ContentType != "image/jpeg")
                                 {
-                                    if (Convert.ToDateTime(DateTaken) >= DateTime.Now.AddYears(-1) || DateTaken == null)
+                                    if (Convert.ToDateTime(DateTaken) >= DateTime.Now.AddYears(-1) || files.ContentType != "image/jpeg")
                                     {
                                         TempFileStream = new FileStream(TempPath, FileMode.Open);
                                         Bitmap TempBmp = new Bitmap(TempFileStream);
