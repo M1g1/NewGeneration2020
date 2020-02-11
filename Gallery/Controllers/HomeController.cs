@@ -27,15 +27,14 @@ namespace Gallery.Controllers
         private static string pathToSave = ConfigurationManager.AppSettings["PathToSave"] + "/";
         private static string imageType = ConfigurationManager.AppSettings["ImageFormat"];
 
-
-        public static string Title { get => title; set => title = value; }
-        public static string Manufacturer { get => manufacturer; set => manufacturer = value; }
-        public static string ModelOfCamera { get => modelOfCamera; set => modelOfCamera = value; }
-        public static string FileSize { get => fileSize; set => fileSize = value; }
-        public static string DateCreation { get => dateCreation; set => dateCreation = value; }
-        public static string DateUpload { get => dateUpload; set => dateUpload = value; }
-        public static string PathToSave { get => pathToSave; set => pathToSave = value; }
-        public static string ImageType { get => imageType; set => imageType = value; }
+        public static string Title { get => title;}
+        public static string Manufacturer { get => manufacturer;}
+        public static string ModelOfCamera { get => modelOfCamera;}
+        public static string FileSize { get => fileSize;}
+        public static string DateCreation { get => dateCreation;}
+        public static string DateUpload { get => dateUpload;}
+        public static string PathToSave { get => pathToSave;}
+        public static string ImageType { get => imageType;}
 
         //
         // Hash-Function
@@ -186,24 +185,34 @@ namespace Gallery.Controllers
         
 
         
-        [HttpGet]
-        public ActionResult Delete(string fileToDelete = "")
+        [HttpPost]
+        public ActionResult Delete(string fileToDelete)
         {
             try
-            {
-                if (fileToDelete.Replace(pathToSave, "").Replace(Path.GetFileName(fileToDelete), "").Replace("/", "") == ComputeSha256Hash(User.Identity.Name))
+            { 
+                if (!string.IsNullOrEmpty(fileToDelete))
                 {
-                    if (fileToDelete != "" && Directory.Exists(Server.MapPath(fileToDelete.Replace(Path.GetFileName(fileToDelete), ""))))
-                        System.IO.File.Delete(Server.MapPath(fileToDelete));
+                    string dirHashName = fileToDelete.Replace(pathToSave, "").Replace(Path.GetFileName(fileToDelete), "").Replace("/", "");
+
+                    if (dirHashName == ComputeSha256Hash(User.Identity.Name))
+                    {
+                        if (Directory.Exists(Server.MapPath(fileToDelete.Replace(Path.GetFileName(fileToDelete), ""))))
+                            System.IO.File.Delete(Server.MapPath(fileToDelete));
+                        else
+                        {
+                            ViewBag.Error = "File not found!";
+                            return View("Error");
+                        }
+                    }
                     else
                     {
-                        ViewBag.Error = "File not found!";
+                        ViewBag.Error = "Authorisation Error!";
                         return View("Error");
                     }
                 }
                 else
                 {
-                    ViewBag.Error = "Authorisation Error!";
+                    ViewBag.Error = "Path not found!";
                     return View("Error");
                 }
             }
