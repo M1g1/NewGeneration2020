@@ -1,3 +1,4 @@
-/Gallery/obj
-/packages
-/.vs
+Gallery/bin
+Gallery/obj
+packages
+.vs
