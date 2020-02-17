@@ -2,40 +2,40 @@
     ViewBag.Title = "Home Page";
 }
 
-
-@using Gallery.Controllers
-@using Gallery.Settings
+@using Gallery.Core
 @{
-    string pathToSave = GalleryConfigurationManager.GetPathToSave();
-    // Directory path with all User's directories
-    string ImagesDirFullPath = Server.MapPath(pathToSave);
+                string pathToSave = GalleryConfigurationManager.GetPathToSave();
+                // Directory path with all User's directories
+                string ImagesDirFullPath = Server.MapPath(pathToSave);
 
-    // Encrypted User's directory path
-    string DirPath = Server.MapPath(pathToSave) + HomeController.ComputeSha256Hash(User.Identity.Name);
+                // Encrypted User's directory path
+                string DirPath = Server.MapPath(pathToSave) + Servises.ComputeSha256Hash(User.Identity.Name);
 
-    // Directory path with temp files
-    string TempDirPath = Server.MapPath("~/Content/Temp");
+                // Directory path with temp files
+                string TempDirPath = Server.MapPath("~/Content/Temp");
 
-    if (!Directory.Exists(ImagesDirFullPath))
-    {
-        Directory.CreateDirectory(ImagesDirFullPath);
-    }
+                if (!Directory.Exists(ImagesDirFullPath))
+                {
+                    Directory.CreateDirectory(ImagesDirFullPath);
+                }
 
-    if (!Directory.Exists(TempDirPath))
-    {
-        Directory.CreateDirectory(TempDirPath);
-    }
+                if (!Directory.Exists(TempDirPath))
+                {
+                    Directory.CreateDirectory(TempDirPath);
+                }
 
-    if (!Directory.Exists(DirPath) && User.Identity.Name != "")
-    {
-        Directory.CreateDirectory(DirPath);
-    }
+                if (!Directory.Exists(DirPath) && User.Identity.Name != "")
+                {
+                    Directory.CreateDirectory(DirPath);
+                }
 
-    List<string> dirsname = Directory.GetDirectories(Server.MapPath(pathToSave)).ToList<string>();
-    List<string> filesname;
-    int i = 0;
-    string hashNamesUsers;
-    string fullPathToImage;
+                List<string> dirsname = Directory.GetDirectories(Server.MapPath(pathToSave)).ToList<string>();
+                List<string> filesname;
+                int i = 0;
+                string hashNamesUsers;
+                string fullPathToImage;
+    
+                Picture Image = new Picture();
 
     //The Modal
 
@@ -61,29 +61,29 @@
         foreach (string fl in filesname)
         {
             i++;
-            HomeController.LoadExifData(fl);
+            Image.LoadExifData(fl);
             hashNamesUsers = dir.Replace(Server.MapPath(pathToSave), "");
             fullPathToImage = pathToSave + hashNamesUsers + "/" + Path.GetFileName(fl);
 <div class="body">
     <div class="bodyT">
 
         <p class="textT">
-            <b>Photo title: @HomeController.Title</b>
+            <b>Photo title: @Image.Title</b>
         </p>
         <p class="textT">
-            <b>Manufacturer of the camera: @HomeController.Manufacturer</b>
+            <b>Manufacturer of the camera: @Image.Manufacturer</b>
         </p>
         <p class="textT">
-            <b>Model of the camera: @HomeController.ModelOfCamera</b>
+            <b>Model of the camera: @Image.ModelOfCamera</b>
         </p>
         <p class="textT">
-            <b>File size: @HomeController.FileSize</b>
+            <b>File size: @Image.FileSize</b>
         </p>
         <p class="textT">
-            <b>Date of creation of the photo: @HomeController.DateCreation</b>
+            <b>Date of creation of the photo: @Image.DateCreation</b>
         </p>
         <p class="textT">
-            <b>Date of uploading of the photo: @HomeController.DateUpload</b>
+            <b>Date of uploading of the photo: @Image.DateUpload</b>
         </p>
     </div>
 
@@ -100,7 +100,7 @@
             {
                 <input type="text" name="fileToDelete" value="@fullPathToImage" hidden />
 
-                if (hashNamesUsers == HomeController.ComputeSha256Hash(User.Identity.Name))
+                if (hashNamesUsers == Servises.ComputeSha256Hash(User.Identity.Name))
                 {
                     <button type="submit" class="pictureDelete" aria-label="Delete">
 
@@ -115,13 +115,13 @@
     <script>
             // Get the image and insert it inside the modal - use its "alt" text as a caption
             var img = document.getElementById("@i");
-            var modalImg = document.getElementById("img01");
-            var captionText = document.getElementById("caption");
-        img.onclick = function () {
-            modal.style.display = "block";
-            modalImg.src = this.src;
-            captionText.innerHTML = this.alt;
-        }
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    img.onclick = function () {
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    }
     </script>
     
                         
