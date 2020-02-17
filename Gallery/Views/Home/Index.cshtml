@@ -4,8 +4,9 @@
 
 
 @using Gallery.Controllers
+@using Gallery.Settings
 @{
-    string pathToSave = HomeController.PathToSave;
+    string pathToSave = GalleryConfigurationManager.GetPathToSave();
     // Directory path with all User's directories
     string ImagesDirFullPath = Server.MapPath(pathToSave);
 

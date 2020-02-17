@@ -10,13 +10,18 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.Drawing.Imaging;
-using System.Configuration;
-
+using Gallery.Settings;
 
 namespace Gallery.Controllers
 {
     public class HomeController : Controller
     { 
+
+      
+        private static string pathToSave = GalleryConfigurationManager.GetPathToSave();
+        private static string imageType = GalleryConfigurationManager.GetAvailableImageTypes();
+
+
 
         private static string title;
         private static string manufacturer;
@@ -24,17 +29,12 @@ namespace Gallery.Controllers
         private static string fileSize;
         private static string dateCreation;
         private static string dateUpload; 
-        private static string pathToSave = ConfigurationManager.AppSettings["PathToSave"] + "/";
-        private static string imageType = ConfigurationManager.AppSettings["ImageFormat"];
-
         public static string Title { get => title;}
         public static string Manufacturer { get => manufacturer;}
         public static string ModelOfCamera { get => modelOfCamera;}
         public static string FileSize { get => fileSize;}
         public static string DateCreation { get => dateCreation;}
         public static string DateUpload { get => dateUpload;}
-        public static string PathToSave { get => pathToSave;}
-        public static string ImageType { get => imageType;}
 
         //
         // Hash-Function

@@ -1,4 +1,5 @@
 #Folders for ignore
+Gallery/App_Data
 Gallery/bin
 Gallery/obj
 packages
