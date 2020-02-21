@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GalleryPL", "Gallery\Galler
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GalleryBLL", "Gallery.Core\GalleryBLL.csproj", "{CA608805-1A5C-4758-ACCD-EA186AB9F411}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GallaryDAL", "GallaryDAL\GallaryDAL.csproj", "{6CDB8FB5-9B81-4120-828E-84D2C86C684A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{CA608805-1A5C-4758-ACCD-EA186AB9F411}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA608805-1A5C-4758-ACCD-EA186AB9F411}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA608805-1A5C-4758-ACCD-EA186AB9F411}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CDB8FB5-9B81-4120-828E-84D2C86C684A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CDB8FB5-9B81-4120-828E-84D2C86C684A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CDB8FB5-9B81-4120-828E-84D2C86C684A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CDB8FB5-9B81-4120-828E-84D2C86C684A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
