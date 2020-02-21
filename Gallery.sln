@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallery", "Gallery\Gallery.csproj", "{B7A175BE-6AB1-472B-A2F4-FF7EB5615590}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GalleryPL", "Gallery\GalleryPL.csproj", "{B7A175BE-6AB1-472B-A2F4-FF7EB5615590}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallery.Core", "Gallery.Core\Gallery.Core.csproj", "{CA608805-1A5C-4758-ACCD-EA186AB9F411}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GalleryBLL", "Gallery.Core\GalleryBLL.csproj", "{CA608805-1A5C-4758-ACCD-EA186AB9F411}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
