@@ -1,8 +1,9 @@
 #Folders for ignore
 Gallery/bin
 Gallery/obj
-Gallery/App_Data
-Gallery.Core/bin
-Gallery.Core/obj
+Gallery.Service/bin
+Gallery.Service/obj
+Gallery.DAL/bin
+Gallery.DAL/obj
 packages
 .vs

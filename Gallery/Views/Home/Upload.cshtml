@@ -2,29 +2,29 @@
     ViewBag.Title = "Upload";
 }
 
-    
 
-    <h1 class="htext">
-        Click the button to upload image!
-        <div class="row">
 
-            @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
-                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-                <div class="example-2">
-                    <div class="form-group">
-                        <input type="file" name="files" id="file" class="input-file" required />
-                        <label for="file" class="btn btn-tertiary js-labelFile">
-                            <i id="mark" class="fa fa-upload" aria-hidden="true"></i>
-                            <span id="fileName" class="js-fileName">Загрузить файл</span>
-                        </label>
-                    </div>
+<h1 class="htext">
+    Click the button to upload image!
+    <div class="row">
+
+        @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <div class="example-2">
+                <div class="form-group">
+                    <input type="file" name="files" id="file" class="input-file" required />
+                    <label for="file" class="btn btn-tertiary js-labelFile">
+                        <i id="mark" class="fa fa-upload" aria-hidden="true"></i>
+                        <span id="fileName" class="js-fileName">Загрузить файл</span>
+                    </label>
                 </div>
-                <input type="submit" name="submit" value="OK" id="submit" />
-            }
-        </div>
-    </h1>
-    <script>
+            </div>
+            <input type="submit" name="submit" value="OK" id="submit" />
+        }
+    </div>
+</h1>
+<script>
         document.getElementById("file").onchange = function () {
 
             if (document.getElementById("file").value == "")
@@ -32,13 +32,13 @@
                 document.getElementById('mark').className = 'fa fa-upload';
                 document.getElementById('mark').style = "color:black;";
             }
-            else   
-            { 
+            else
+            {
                 document.getElementById('mark').className = 'fa fa-check';
                 document.getElementById('mark').style = "color:green;";
             }
         }
-         
+
 
         document.getElementById("submit").onclick = function () {
             if (document.getElementById("file").value == "")
@@ -46,4 +46,4 @@
             else
                 alert("Loading...");
         }
-    </script>
+</script>

@@ -2,48 +2,54 @@
     ViewBag.Title = "Home Page";
 }
 
-@using Gallery.Core
+
+@using Gallery.Service
 @{
-                string pathToSave = GalleryConfigurationManager.GetPathToSave();
-                // Directory path with all User's directories
-                string ImagesDirFullPath = Server.MapPath(pathToSave);
 
-                // Encrypted User's directory path
-                string DirPath = Server.MapPath(pathToSave) + Servises.ComputeSha256Hash(User.Identity.Name);
+    //Temporary variable
+    string UserNameTemp = "Temporary"; 
 
-                // Directory path with temp files
-                string TempDirPath = Server.MapPath("~/Content/Temp");
 
-                if (!Directory.Exists(ImagesDirFullPath))
-                {
-                    Directory.CreateDirectory(ImagesDirFullPath);
-                }
+    string pathToSave = GalleryConfigurationManager.GetPathToSave();
+    // Directory path with all User's directories
+    string ImagesDirFullPath = Server.MapPath(pathToSave);
 
-                if (!Directory.Exists(TempDirPath))
-                {
-                    Directory.CreateDirectory(TempDirPath);
-                }
+    // Encrypted User's directory path
+    string DirPath = Server.MapPath(pathToSave) + Servises.ComputeSha256Hash(UserNameTemp);
 
-                if (!Directory.Exists(DirPath) && User.Identity.Name != "")
-                {
-                    Directory.CreateDirectory(DirPath);
-                }
+    // Directory path with temp files
+    string TempDirPath = Server.MapPath("~/Content/Temp");
 
-                List<string> dirsname = Directory.GetDirectories(Server.MapPath(pathToSave)).ToList<string>();
-                List<string> filesname;
-                int i = 0;
-                string hashNamesUsers;
-                string fullPathToImage;
-    
-                Picture Image = new Picture();
+    if (!Directory.Exists(ImagesDirFullPath))
+    {
+        Directory.CreateDirectory(ImagesDirFullPath);
+    }
+
+    if (!Directory.Exists(TempDirPath))
+    {
+        Directory.CreateDirectory(TempDirPath);
+    }
+
+    if (!Directory.Exists(DirPath) && UserNameTemp != "")
+    {
+        Directory.CreateDirectory(DirPath);
+    }
+
+    List<string> dirsname = Directory.GetDirectories(Server.MapPath(pathToSave)).ToList<string>();
+    List<string> filesname;
+    int i = 0;
+    string hashNamesUsers;
+    string fullPathToImage;
+
+    Picture Image = new Picture();
 
     //The Modal
 
-        <div id="myModal" class="modal">
-            <img class="modal-content" id="img01">
-            <div id="caption"></div>
-        </div>
-        <script>
+    <div id="myModal" class="modal">
+        <img class="modal-content" id="img01">
+        <div id="caption"></div>
+    </div>
+    <script>
             // Get the modal
             var modal = document.getElementById('myModal');
                     // Get the <span> element that closes the modal
@@ -53,7 +59,7 @@
             span.onclick = function () {
                 modal.style.display = "none";
             }
-        </script>
+    </script>
     foreach (string dir in dirsname)
     {
         filesname = Directory.GetFiles(dir).ToList<string>();
@@ -64,55 +70,55 @@
             Image.LoadExifData(fl);
             hashNamesUsers = dir.Replace(Server.MapPath(pathToSave), "");
             fullPathToImage = pathToSave + hashNamesUsers + "/" + Path.GetFileName(fl);
-<div class="body">
-    <div class="bodyT">
+            <div class="body">
+                <div class="bodyT">
 
-        <p class="textT">
-            <b>Photo title: @Image.Title</b>
-        </p>
-        <p class="textT">
-            <b>Manufacturer of the camera: @Image.Manufacturer</b>
-        </p>
-        <p class="textT">
-            <b>Model of the camera: @Image.ModelOfCamera</b>
-        </p>
-        <p class="textT">
-            <b>File size: @Image.FileSize</b>
-        </p>
-        <p class="textT">
-            <b>Date of creation of the photo: @Image.DateCreation</b>
-        </p>
-        <p class="textT">
-            <b>Date of uploading of the photo: @Image.DateUpload</b>
-        </p>
-    </div>
+                    <p class="textT">
+                        <b>Photo title: @Image.Title</b>
+                    </p>
+                    <p class="textT">
+                        <b>Manufacturer of the camera: @Image.Manufacturer</b>
+                    </p>
+                    <p class="textT">
+                        <b>Model of the camera: @Image.ModelOfCamera</b>
+                    </p>
+                    <p class="textT">
+                        <b>File size: @Image.FileSize</b>
+                    </p>
+                    <p class="textT">
+                        <b>Date of creation of the photo: @Image.DateCreation</b>
+                    </p>
+                    <p class="textT">
+                        <b>Date of uploading of the photo: @Image.DateUpload</b>
+                    </p>
+                </div>
 
-    <div class="hov">
-        <a class="picture">
-            <img id="@i" class="pictureIMG" src="@fullPathToImage" alt="@Path.GetFileName(fl)">
-        </a>
-        <ul class="pictureDownload">
-            <a href="@fullPathToImage" download>
-                <i class="fa fa-download" style="color:green; text-shadow: 2px 2px 3px #000" aria-hidden="true"></i>
-            </a>
-        </ul>
-            @using (Html.BeginForm("Delete", "Home", FormMethod.Post, new { enctype = "string" }))
-            {
-                <input type="text" name="fileToDelete" value="@fullPathToImage" hidden />
+                <div class="hov">
+                    <a class="picture">
+                        <img id="@i" class="pictureIMG" src="@fullPathToImage" alt="@Path.GetFileName(fl)">
+                    </a>
+                    <ul class="pictureDownload">
+                        <a href="@fullPathToImage" download>
+                            <i class="fa fa-download" style="color:green; text-shadow: 2px 2px 3px #000" aria-hidden="true"></i>
+                        </a>
+                    </ul>
+                    @using (Html.BeginForm("Delete", "Home", FormMethod.Post, new { enctype = "string" }))
+                    {
+                        <input type="text" name="fileToDelete" value="@fullPathToImage" hidden />
 
-                if (hashNamesUsers == Servises.ComputeSha256Hash(User.Identity.Name))
-                {
-                    <button type="submit" class="pictureDelete" aria-label="Delete">
+                        if (hashNamesUsers == Servises.ComputeSha256Hash(UserNameTemp))
+                        {
+                            <button type="submit" class="pictureDelete" aria-label="Delete">
 
-                        <i class="fa fa-trash" style="color:darkred; text-shadow: 2px 2px 3px #000" aria-hidden="true"></i>
+                                <i class="fa fa-trash" style="color:darkred; text-shadow: 2px 2px 3px #000" aria-hidden="true"></i>
 
-                    </button>
-                }
-            }
+                            </button>
+                        }
+                    }
 
-        </div>
+                </div>
 
-    <script>
+                <script>
             // Get the image and insert it inside the modal - use its "alt" text as a caption
             var img = document.getElementById("@i");
     var modalImg = document.getElementById("img01");
@@ -122,11 +128,11 @@
         modalImg.src = this.src;
         captionText.innerHTML = this.alt;
     }
-    </script>
-    
-                        
+                </script>
 
-</div>
-            }
+
+
+            </div>
         }
     }
+}

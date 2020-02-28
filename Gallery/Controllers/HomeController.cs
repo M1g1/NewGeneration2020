@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Windows.Media.Imaging;
 using System.Drawing;
-using Gallery.Core;
+using Gallery.Service;
 
 namespace Gallery.Controllers
 {
@@ -15,17 +15,19 @@ namespace Gallery.Controllers
         private static string pathToSave = GalleryConfigurationManager.GetPathToSave();
         private static string imageType = GalleryConfigurationManager.GetAvailableImageTypes();
 
-       
+        //Temporary variable 
+        private const string UserNameTemp = "Temporary";
+
         [HttpPost]
         public ActionResult Delete(string fileToDelete)
         {
             try
-            { 
+            {
                 if (!string.IsNullOrEmpty(fileToDelete))
                 {
                     string dirHashName = fileToDelete.Replace(pathToSave, "").Replace(Path.GetFileName(fileToDelete), "").Replace("/", "");
 
-                    if (dirHashName == Servises.ComputeSha256Hash(User.Identity.Name))
+                    if (dirHashName == Servises.ComputeSha256Hash(UserNameTemp))
                     {
                         if (Directory.Exists(Server.MapPath(fileToDelete.Replace(Path.GetFileName(fileToDelete), ""))))
                             System.IO.File.Delete(Server.MapPath(fileToDelete));
@@ -47,7 +49,7 @@ namespace Gallery.Controllers
                     return View("Error");
                 }
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 ViewBag.Error = "Unexpected error: " + err.Message;
                 return View("Error");
@@ -64,118 +66,118 @@ namespace Gallery.Controllers
                 if (files != null)
                 {
                     // Verify that the User is logged in
-                    if (!string.IsNullOrEmpty(User.Identity.Name))
+                    /*if (!string.IsNullOrEmpty(UserNameTemp))
+                    {*/
+                    if (imageType.Contains(files.ContentType))
                     {
-                        if (imageType.Contains(files.ContentType))
+                        FileStream TempFileStream;
+
+                        if (files.ContentLength > 0)
                         {
-                            FileStream TempFileStream;
-                            
-                            if (files.ContentLength > 0)
+                            bool IsLoad = true;
+
+                            // Encrypted User's directory path
+                            string DirPath = Server.MapPath(pathToSave) + Servises.ComputeSha256Hash(UserNameTemp);
+
+                            // extract only the filename
+                            var fileName = Path.GetFileName(files.FileName);
+                            // store the file inside ~/Content/Temp folder
+                            var TempPath = Path.Combine(Server.MapPath("~/Content/Temp"), fileName);
+                            files.SaveAs(TempPath);
+                            TempFileStream = new FileStream(TempPath, FileMode.Open);
+                            BitmapSource img = BitmapFrame.Create(TempFileStream);
+                            BitmapMetadata md = (BitmapMetadata)img.Metadata;
+                            var DateTaken = md.DateTaken;
+
+                            TempFileStream.Close();
+
+                            if (!string.IsNullOrEmpty(DateTaken) || files.ContentType != "image/jpeg")
                             {
-                                bool IsLoad = true;
-
-                                // Encrypted User's directory path
-                                string DirPath = Server.MapPath(pathToSave) + Servises.ComputeSha256Hash(User.Identity.Name);
-
-                                // extract only the filename
-                                var fileName = Path.GetFileName(files.FileName);
-                                // store the file inside ~/Content/Temp folder
-                                var TempPath = Path.Combine(Server.MapPath("~/Content/Temp"), fileName);
-                                files.SaveAs(TempPath);
-                                TempFileStream = new FileStream(TempPath, FileMode.Open);
-                                BitmapSource img = BitmapFrame.Create(TempFileStream);
-                                BitmapMetadata md = (BitmapMetadata)img.Metadata;
-                                var DateTaken = md.DateTaken;
-                               
-                                TempFileStream.Close();
-                                
-                                if (!string.IsNullOrEmpty(DateTaken) || files.ContentType != "image/jpeg")
+                                if (Convert.ToDateTime(DateTaken) >= DateTime.Now.AddYears(-1) || files.ContentType != "image/jpeg")
                                 {
-                                    if (Convert.ToDateTime(DateTaken) >= DateTime.Now.AddYears(-1) || files.ContentType != "image/jpeg")
+                                    TempFileStream = new FileStream(TempPath, FileMode.Open);
+                                    Bitmap TempBmp = new Bitmap(TempFileStream);
+                                    TempBmp = new Bitmap(TempBmp, 64, 64);
+                                    TempFileStream.Close();
+
+                                    // List of all Directories names
+                                    List<string> dirsname = Directory.GetDirectories(Server.MapPath(pathToSave)).ToList<string>();
+
+                                    FileStream CheckFileStream;
+                                    Bitmap CheckBmp;
+
+                                    List<string> filesname;
+
+                                    // foreach inside foreach in order to check a new photo for its copies in all folders of all users
+                                    foreach (string dir in dirsname)
                                     {
-                                        TempFileStream = new FileStream(TempPath, FileMode.Open);
-                                        Bitmap TempBmp = new Bitmap(TempFileStream);
-                                        TempBmp = new Bitmap(TempBmp, 64, 64);
-                                        TempFileStream.Close();
-                                        
-                                        // List of all Directories names
-                                        List<string> dirsname = Directory.GetDirectories(Server.MapPath(pathToSave)).ToList<string>();
-
-                                        FileStream CheckFileStream;
-                                        Bitmap CheckBmp;
-
-                                        List<string> filesname;
-
-                                        // foreach inside foreach in order to check a new photo for its copies in all folders of all users
-                                        foreach (string dir in dirsname)
+                                        filesname = Directory.GetFiles(dir).ToList<string>();
+                                        foreach (string fl in filesname)
                                         {
-                                            filesname = Directory.GetFiles(dir).ToList<string>();
-                                            foreach (string fl in filesname)
-                                            {
-                                                CheckFileStream = new FileStream(fl, FileMode.Open);
-                                                CheckBmp = new Bitmap(CheckFileStream);
-                                                CheckBmp = new Bitmap(CheckBmp, 64, 64);
+                                            CheckFileStream = new FileStream(fl, FileMode.Open);
+                                            CheckBmp = new Bitmap(CheckFileStream);
+                                            CheckBmp = new Bitmap(CheckBmp, 64, 64);
 
-                                                CheckFileStream.Close();
-                                                
-                                                if (Servises.CompareBitmapsFast(TempBmp, CheckBmp))
-                                                {
-                                                    IsLoad = false;
-                                                    ViewBag.Error = "Photo already exists!";
-                                                    CheckBmp.Dispose();
-                                                    break;
-                                                }
-                                                else
-                                                    CheckBmp.Dispose();
+                                            CheckFileStream.Close();
+
+                                            if (Servises.CompareBitmapsFast(TempBmp, CheckBmp))
+                                            {
+                                                IsLoad = false;
+                                                ViewBag.Error = "Photo already exists!";
+                                                CheckBmp.Dispose();
+                                                break;
                                             }
+                                            else
+                                                CheckBmp.Dispose();
                                         }
                                     }
-                                    else
-                                    {
-                                        ViewBag.Error = "Photo created more than a year ago!";
-                                        IsLoad = false;
-                                    }
                                 }
                                 else
                                 {
-                                    ViewBag.Error = "Photo creation date not found!";
+                                    ViewBag.Error = "Photo created more than a year ago!";
                                     IsLoad = false;
-                                }
-
-                                if (IsLoad)
-                                {
-                                    // extract only the filename
-                                    var OriginalFileName = Path.GetFileName(files.FileName);
-                                    // store the file inside User's folder
-                                    var OriginalPath = Path.Combine(DirPath, OriginalFileName);
-                                    //System.Windows.MessageBox.Show(OriginalPath);
-                                    files.SaveAs(OriginalPath);
-                                    System.IO.File.Delete(TempPath);
-                                }
-                                else
-                                {
-                                    System.IO.File.Delete(TempPath);
-                                    return View("Error");
                                 }
                             }
                             else
                             {
-                                ViewBag.Error = "File too small!";
+                                ViewBag.Error = "Photo creation date not found!";
+                                IsLoad = false;
+                            }
+
+                            if (IsLoad)
+                            {
+                                // extract only the filename
+                                var OriginalFileName = Path.GetFileName(files.FileName);
+                                // store the file inside User's folder
+                                var OriginalPath = Path.Combine(DirPath, OriginalFileName);
+                                //System.Windows.MessageBox.Show(OriginalPath);
+                                files.SaveAs(OriginalPath);
+                                System.IO.File.Delete(TempPath);
+                            }
+                            else
+                            {
+                                System.IO.File.Delete(TempPath);
                                 return View("Error");
                             }
-                            // redirect back to the index action to show the form once again
                         }
                         else
                         {
-                            ViewBag.Error = "Inappropriate format!";
+                            ViewBag.Error = "File too small!";
                             return View("Error");
                         }
+                        // redirect back to the index action to show the form once again
                     }
+                    else
+                    {
+                        ViewBag.Error = "Inappropriate format!";
+                        return View("Error");
+                    }
+                    /*}
                     else
                     {
                         ViewBag.Error = "Log in please!";
                         return View("Error");
-                    }
+                    }*/
                 }
                 else
                 {
