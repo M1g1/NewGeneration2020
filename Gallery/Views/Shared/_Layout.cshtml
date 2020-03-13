@@ -25,11 +25,11 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Upload Images", "Upload", "Home")</li>
                 </ul>
-                @if (!Request.IsAuthenticated)
+                @if (Request.IsAuthenticated)
                 {
                     <ul class="nav navbar-nav navbar-right">
                         <li>@Html.ActionLink("Hello, " + User.Identity.Name + "!", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Logout", "Index", "Home")</li> 
+                        <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
                         <!-- Temporary Logout -->
                     </ul>
                 }
