@@ -15,8 +15,6 @@ namespace Gallery.Controllers
         private static string pathToSave = GalleryConfigurationManager.GetPathToSave();
         private static string imageType = GalleryConfigurationManager.GetAvailableImageTypes();
 
-        //Temporary variable 
-        private const string UserNameTemp = "Temporary";
 
         [HttpPost]
         public ActionResult Delete(string fileToDelete)
@@ -27,7 +25,7 @@ namespace Gallery.Controllers
                 {
                     string dirHashName = fileToDelete.Replace(pathToSave, "").Replace(Path.GetFileName(fileToDelete), "").Replace("/", "");
 
-                    if (dirHashName == Servises.ComputeSha256Hash(UserNameTemp))
+                    if (dirHashName == Servises.ComputeSha256Hash(User.Identity.Name))
                     {
                         if (Directory.Exists(Server.MapPath(fileToDelete.Replace(Path.GetFileName(fileToDelete), ""))))
                             System.IO.File.Delete(Server.MapPath(fileToDelete));
@@ -57,6 +55,7 @@ namespace Gallery.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Upload(HttpPostedFileBase files)
         {
@@ -65,9 +64,7 @@ namespace Gallery.Controllers
                 // Verify that the user selected a file
                 if (files != null)
                 {
-                    // Verify that the User is logged in
-                    /*if (!string.IsNullOrEmpty(UserNameTemp))
-                    {*/
+
                     if (imageType.Contains(files.ContentType))
                     {
                         FileStream TempFileStream;
@@ -77,7 +74,7 @@ namespace Gallery.Controllers
                             bool IsLoad = true;
 
                             // Encrypted User's directory path
-                            string DirPath = Server.MapPath(pathToSave) + Servises.ComputeSha256Hash(UserNameTemp);
+                            string DirPath = Server.MapPath(pathToSave) + Servises.ComputeSha256Hash(User.Identity.Name);
 
                             // extract only the filename
                             var fileName = Path.GetFileName(files.FileName);
@@ -172,12 +169,6 @@ namespace Gallery.Controllers
                         ViewBag.Error = "Inappropriate format!";
                         return View("Error");
                     }
-                    /*}
-                    else
-                    {
-                        ViewBag.Error = "Log in please!";
-                        return View("Error");
-                    }*/
                 }
                 else
                 {
@@ -198,14 +189,12 @@ namespace Gallery.Controllers
 
         public ActionResult Index()
         {
-            //System.Windows.MessageBox.Show(pathToSave);
             return View();
         }
         public ActionResult Error()
         {
             return View();
         }
-
 
         public ActionResult Upload()
         {

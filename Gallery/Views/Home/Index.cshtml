@@ -5,17 +5,12 @@
 
 @using Gallery.Service
 @{
-
-    //Temporary variable
-    string UserNameTemp = "Temporary"; 
-
-
     string pathToSave = GalleryConfigurationManager.GetPathToSave();
     // Directory path with all User's directories
     string ImagesDirFullPath = Server.MapPath(pathToSave);
 
     // Encrypted User's directory path
-    string DirPath = Server.MapPath(pathToSave) + Servises.ComputeSha256Hash(UserNameTemp);
+    string DirPath = Server.MapPath(pathToSave) + Servises.ComputeSha256Hash(User.Identity.Name);
 
     // Directory path with temp files
     string TempDirPath = Server.MapPath("~/Content/Temp");
@@ -30,7 +25,7 @@
         Directory.CreateDirectory(TempDirPath);
     }
 
-    if (!Directory.Exists(DirPath) && UserNameTemp != "")
+    if (!Directory.Exists(DirPath) && !string.IsNullOrEmpty(User.Identity.Name))
     {
         Directory.CreateDirectory(DirPath);
     }
@@ -50,15 +45,14 @@
         <div id="caption"></div>
     </div>
     <script>
-            // Get the modal
-            var modal = document.getElementById('myModal');
-                    // Get the <span> element that closes the modal
-            var span = document.getElementsByClassName("modal")[0];
-
-            // When the user clicks on <span> (x), close the modal
-            span.onclick = function () {
-                modal.style.display = "none";
-            }
+        // Get the modal
+        var modal = document.getElementById('myModal');
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("modal")[0];
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
     </script>
     foreach (string dir in dirsname)
     {
@@ -106,7 +100,7 @@
                     {
                         <input type="text" name="fileToDelete" value="@fullPathToImage" hidden />
 
-                        if (hashNamesUsers == Servises.ComputeSha256Hash(UserNameTemp))
+                        if (hashNamesUsers == Servises.ComputeSha256Hash(User.Identity.Name))
                         {
                             <button type="submit" class="pictureDelete" aria-label="Delete">
 
@@ -129,9 +123,6 @@
         captionText.innerHTML = this.alt;
     }
                 </script>
-
-
-
             </div>
         }
     }
