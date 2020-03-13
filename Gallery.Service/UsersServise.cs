@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Gallery.Service
 {
-    public class UsersService : IUserService
+    public class UsersService : IUsersService
     {
         private readonly IRepository _repo;
         public UsersService(IRepository repo)
