@@ -48,10 +48,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contract\UserDTO.cs" />
-    <Compile Include="IUsersServise.cs" />
-    <Compile Include="Service.cs" />
+    <Compile Include="Interfaces\IUsersServise.cs" />
+    <Compile Include="Services\Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UsersServise.cs" />
+    <Compile Include="Services\UsersServise.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
