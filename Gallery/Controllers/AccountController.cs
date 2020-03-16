@@ -49,12 +49,8 @@ namespace Gallery.Controllers
                 if (isUserExist == false)
                 {
 
-                    using (UserContext database = new UserContext())
-                    {
-                        database.Users.Add(new User { Email = model.Email, Password = model.Password });
-                        database.SaveChanges();
-                    }
-
+                    await _usersService.AddUserToDatabase(model.Email, model.Password);
+    
                     var userId = _usersService.GetUserId(model.Email).ToString();
 
                     ClaimsIdentity claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);

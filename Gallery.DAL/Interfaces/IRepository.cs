@@ -9,6 +9,9 @@ namespace Gallery.DAL
     public interface IRepository
     {
         Task<bool> IsUserExistAsync(string email, string password);
+
+        Task AddUserToDatabase(string email, string password);
+
         int GetUserId(string email);
        
     }

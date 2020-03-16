@@ -46,18 +46,12 @@ namespace Gallery.Service
 
     public class Picture
     {
-        private string title;
-        private string manufacturer;
-        private string modelOfCamera;
-        private string fileSize;
-        private string dateCreation;
-        private string dateUpload;
-        public string Title { get => title; }
-        public string Manufacturer { get => manufacturer; }
-        public string ModelOfCamera { get => modelOfCamera; }
-        public string FileSize { get => fileSize; }
-        public string DateCreation { get => dateCreation; }
-        public string DateUpload { get => dateUpload; }
+        public string Title { get; private set; }
+        public string Manufacturer { get; private set; }
+        public string ModelOfCamera { get; private set; }
+        public string FileSize { get; private set; }
+        public string DateCreation { get; private set; }
+        public string DateUpload { get; private set; }
 
         public void LoadExifData(string LoadExifPath)
         {
@@ -75,39 +69,39 @@ namespace Gallery.Service
                     //
                     //manufacturer from EXIF
                     if (string.IsNullOrEmpty(md.CameraManufacturer))
-                        manufacturer = "Data not found";
+                        Manufacturer = "Data not found";
                     else
-                        manufacturer = md.CameraManufacturer;
+                        Manufacturer = md.CameraManufacturer;
 
                     //
                     //modelOfCamera from EXIF
                     if (string.IsNullOrEmpty(md.CameraModel))
-                        modelOfCamera = "Data not found";
+                        ModelOfCamera = "Data not found";
                     else
-                        modelOfCamera = md.CameraModel;
+                        ModelOfCamera = md.CameraModel;
 
                     //
                     //DateCreation from EXIF
                     if (string.IsNullOrEmpty(md.DateTaken))
-                        dateCreation = "Data not found";
+                        DateCreation = "Data not found";
                     else
-                        dateCreation = md.DateTaken;
+                        DateCreation = md.DateTaken;
 
                     fs.Close();
                 }
                 else
                 {
-                    manufacturer = "Data not found";
-                    modelOfCamera = "Data not found";
-                    dateCreation = "Data not found";
+                    Manufacturer = "Data not found";
+                    ModelOfCamera = "Data not found";
+                    DateCreation = "Data not found";
                 }
 
                 //
                 //title from FileInfo
                 if (string.IsNullOrEmpty(fileInfo.Name))
-                    title = "Data not found";
+                    Title = "Data not found";
                 else
-                    title = fileInfo.Name;
+                    Title = fileInfo.Name;
 
                 //
                 //FileSize from FileInfo
@@ -115,20 +109,20 @@ namespace Gallery.Service
 
                 if (fileInfo.Length >= 1024)
                 {
-                    fileSize = Math.Round((fileInfo.Length / 1024f), 1).ToString() + " KB";
+                    FileSize = Math.Round((fileInfo.Length / 1024f), 1).ToString() + " KB";
                     if ((fileInfo.Length / 1024f) >= 1024f)
-                        fileSize = Math.Round((fileInfo.Length / 1024f) / 1024f, 2).ToString() + " MB";
+                        FileSize = Math.Round((fileInfo.Length / 1024f) / 1024f, 2).ToString() + " MB";
                 }
                 else
-                    fileSize = fileInfo.Length.ToString() + " B";
+                    FileSize = fileInfo.Length.ToString() + " B";
 
 
                 //
                 //DateUpload from FileInfo
                 if (fileInfo.CreationTime == null)
-                    dateUpload = "Data not found";
+                    DateUpload = "Data not found";
                 else
-                    dateUpload = fileInfo.CreationTime.ToString("dd.MM.yyyy HH:mm:ss");
+                    DateUpload = fileInfo.CreationTime.ToString("dd.MM.yyyy HH:mm:ss");
 
 
             }

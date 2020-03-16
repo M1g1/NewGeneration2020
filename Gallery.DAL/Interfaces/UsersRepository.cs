@@ -24,6 +24,12 @@ namespace Gallery.DAL
                                              u.Password == password.Trim());
         }
 
+        public async Task AddUserToDatabase(string email, string password)
+        {
+            _ctx.Users.Add(new User { Email = email, Password = password });
+            _ctx.SaveChanges();
+        }
+
         public int GetUserId(string email)
         {
             return _ctx.Users.Where(u => u.Email == email).Select(u => u.Id).FirstOrDefault();
