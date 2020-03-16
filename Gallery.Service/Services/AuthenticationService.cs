@@ -20,5 +20,13 @@ namespace Gallery.Service
             }, claims);
         }
 
+        public ClaimsIdentity CreateClaimsIdentity(string userId)
+        {
+            ClaimsIdentity claims = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, userId, ClaimValueTypes.String));
+            claims.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
+                "OWIN Provider", ClaimValueTypes.String));
+            return  claims;
+        }
     }
 }

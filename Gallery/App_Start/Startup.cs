@@ -13,6 +13,7 @@ namespace Gallery.App_Start
             {
                 AuthenticationType = "ApplicationCookie",
                 LoginPath = new PathString("/Account/Login"),
+                CookieName = "LoginCoockie",
             });
         }
     }

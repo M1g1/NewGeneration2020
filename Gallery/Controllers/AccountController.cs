@@ -53,12 +53,9 @@ namespace Gallery.Controllers
     
                     var userId = _usersService.GetUserId(model.Email).ToString();
 
-                    ClaimsIdentity claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-                    claim.AddClaim(new Claim(ClaimTypes.NameIdentifier, userId, ClaimValueTypes.String));
-                    claim.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
-                        "OWIN Provider", ClaimValueTypes.String));
+                    ClaimsIdentity claims  = _authenticationService.CreateClaimsIdentity(userId);
 
-                    _authenticationService.AutorizeContext(HttpContext.GetOwinContext(), claim);
+                    _authenticationService.AutorizeContext(HttpContext.GetOwinContext(), claims);
 
                     return RedirectToAction("Index", "Home");
 
@@ -90,13 +87,10 @@ namespace Gallery.Controllers
 
                     var userId = _usersService.GetUserId(model.Email).ToString();
 
-                    ClaimsIdentity claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-                    claim.AddClaim(new Claim(ClaimTypes.NameIdentifier, userId, ClaimValueTypes.String));
-                    claim.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
-                        "OWIN Provider", ClaimValueTypes.String));
-                    
-                    _authenticationService.AutorizeContext(HttpContext.GetOwinContext(), claim);
-                   
+                    ClaimsIdentity claims = _authenticationService.CreateClaimsIdentity(userId);
+
+                    _authenticationService.AutorizeContext(HttpContext.GetOwinContext(), claims);
+
                     return RedirectToAction("Index", "Home");
                 }
                 else
