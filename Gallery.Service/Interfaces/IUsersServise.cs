@@ -5,8 +5,8 @@ namespace Gallery.Service
 {
     public interface IUsersService
     { 
-        Task<bool> IsUserExistAsync(string username, string password);
-        Task<UserDTO> FindUserAsync(string username, string password);
+        Task<bool> IsUserExistAsync(string email, string password);
+        Task<UserDTO> FindUserAsync(string email, string password);
 
     }
 

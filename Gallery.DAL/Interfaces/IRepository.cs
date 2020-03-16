@@ -8,7 +8,7 @@ namespace Gallery.DAL
 {
     public interface IRepository
     {
-        Task<bool> IsUserExistAsync(string username, string password);
+        Task<bool> IsUserExistAsync(string email, string password);
 
     }
 }

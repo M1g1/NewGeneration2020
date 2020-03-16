@@ -13,11 +13,11 @@ namespace Gallery.Service
             _repo = repo 
                 ?? throw new ArgumentNullException(nameof(repo));
         }
-        public async Task<bool> IsUserExistAsync(string username, string password)
+        public async Task<bool> IsUserExistAsync(string email, string password)
         {
-            return await _repo.IsUserExistAsync(username, password);
+            return await _repo.IsUserExistAsync(email, password);
         }
-        public Task<UserDTO> FindUserAsync(string username, string password)
+        public Task<UserDTO> FindUserAsync(string email, string password)
         {
             throw new NotImplementedException();
         }

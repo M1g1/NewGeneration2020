@@ -18,9 +18,9 @@ namespace Gallery.DAL
         }
 
 
-        public async Task<bool> IsUserExistAsync(string username, string password)
+        public async Task<bool> IsUserExistAsync(string email, string password)
         {
-            return await _ctx.Users.AnyAsync(u => u.Email == username.Trim().ToLower() &&
+            return await _ctx.Users.AnyAsync(u => u.Email == email.Trim().ToLower() &&
                                              u.Password == password.Trim());
         }
 
