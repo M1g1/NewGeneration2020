@@ -38,18 +38,18 @@ namespace Gallery.Controllers
         {
             if (ModelState.IsValid)
             {
-                var isUserExist = await _usersService.IsUserExistAsync(model.Name, model.Password);
+                var isUserExist = await _usersService.IsUserExistAsync(model.Email, model.Password);
 
                 if (isUserExist == false)
                 {
 
                     using (UserContext database = new UserContext())
                     {
-                        database.Users.Add(new User { Email = model.Name, Password = model.Password });
+                        database.Users.Add(new User { Email = model.Email, Password = model.Password });
                         database.SaveChanges();
                     }
 
-                    FormsAuthentication.SetAuthCookie(model.Name, true);
+                    FormsAuthentication.SetAuthCookie(model.Email, true);
                     return RedirectToAction("Index", "Home");
 
                 }
@@ -73,11 +73,11 @@ namespace Gallery.Controllers
         {
             if (ModelState.IsValid)
             {
-                var canAuthorize = await _usersService.IsUserExistAsync(model.Name, model.Password);
+                var canAuthorize = await _usersService.IsUserExistAsync(model.Email, model.Password);
 
                 if (canAuthorize)
                 {
-                    FormsAuthentication.SetAuthCookie(model.Name, true);
+                    FormsAuthentication.SetAuthCookie(model.Email, true);
                     return RedirectToAction("Index", "Home");
                 }
                 else

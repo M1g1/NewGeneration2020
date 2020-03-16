@@ -1,8 +1,14 @@
-﻿namespace Gallery.DAL.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Gallery.DAL.Models
 {
     public class RegisterModel
     {
-        public string Name { get; set; }
+        [Required]
+        public string Email { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
     }
 }
