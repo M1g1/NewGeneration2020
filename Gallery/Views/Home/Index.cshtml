@@ -9,9 +9,6 @@
     // Directory path with all User's directories
     string ImagesDirFullPath = Server.MapPath(pathToSave);
 
-    // Encrypted User's directory path
-    string DirPath = Server.MapPath(pathToSave) + Servises.ComputeSha256Hash(User.Identity.Name);
-
     // Directory path with temp files
     string TempDirPath = Server.MapPath("~/Content/Temp");
 
@@ -25,9 +22,14 @@
         Directory.CreateDirectory(TempDirPath);
     }
 
-    if (!Directory.Exists(DirPath) && !string.IsNullOrEmpty(User.Identity.Name))
+    if (Request.IsAuthenticated)
     {
-        Directory.CreateDirectory(DirPath);
+        // Encrypted User's directory path
+        string DirPath = Server.MapPath(pathToSave) + Servises.ComputeSha256Hash(User.Identity.Name);
+        if (!Directory.Exists(DirPath))
+        {
+            Directory.CreateDirectory(DirPath);
+        }
     }
 
     List<string> dirsname = Directory.GetDirectories(Server.MapPath(pathToSave)).ToList<string>();
