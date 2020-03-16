@@ -22,6 +22,9 @@ namespace Gallery.Service
             throw new NotImplementedException();
         }
 
-
+        public int GetUserId(string email)
+        {
+           return _repo.GetUserId(email);
+        }
     }
 }

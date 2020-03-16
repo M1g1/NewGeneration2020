@@ -25,7 +25,7 @@ namespace Gallery.Controllers
                 {
                     string dirHashName = fileToDelete.Replace(pathToSave, "").Replace(Path.GetFileName(fileToDelete), "").Replace("/", "");
 
-                    if (dirHashName == Servises.ComputeSha256Hash(User.Identity.Name))
+                    if (dirHashName == Servises.ComputeSha256Hash("Temporary"))
                     {
                         if (Directory.Exists(Server.MapPath(fileToDelete.Replace(Path.GetFileName(fileToDelete), ""))))
                             System.IO.File.Delete(Server.MapPath(fileToDelete));
@@ -74,7 +74,7 @@ namespace Gallery.Controllers
                             bool IsLoad = true;
 
                             // Encrypted User's directory path
-                            string DirPath = Server.MapPath(pathToSave) + Servises.ComputeSha256Hash(User.Identity.Name);
+                            string DirPath = Server.MapPath(pathToSave) + Servises.ComputeSha256Hash("Temporary");
 
                             // extract only the filename
                             var fileName = Path.GetFileName(files.FileName);

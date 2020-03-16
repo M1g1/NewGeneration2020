@@ -25,7 +25,7 @@
     if (Request.IsAuthenticated)
     {
         // Encrypted User's directory path
-        string DirPath = Server.MapPath(pathToSave) + Servises.ComputeSha256Hash(User.Identity.Name);
+        string DirPath = Server.MapPath(pathToSave) + Servises.ComputeSha256Hash("Temporary");
         if (!Directory.Exists(DirPath))
         {
             Directory.CreateDirectory(DirPath);
@@ -102,7 +102,7 @@
                     {
                         <input type="text" name="fileToDelete" value="@fullPathToImage" hidden />
 
-                        if (hashNamesUsers == Servises.ComputeSha256Hash(User.Identity.Name))
+                        if (hashNamesUsers == Servises.ComputeSha256Hash("Temporary"))
                         {
                             <button type="submit" class="pictureDelete" aria-label="Delete">
 

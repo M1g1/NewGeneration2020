@@ -7,7 +7,7 @@ namespace Gallery.Service
     { 
         Task<bool> IsUserExistAsync(string email, string password);
         Task<UserDTO> FindUserAsync(string email, string password);
-
+        int GetUserId(string email);
     }
 
 

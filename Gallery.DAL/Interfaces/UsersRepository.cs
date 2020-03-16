@@ -24,6 +24,10 @@ namespace Gallery.DAL
                                              u.Password == password.Trim());
         }
 
+        public int GetUserId(string email)
+        {
+            return _ctx.Users.Where(u => u.Email == email).Select(u => u.Id).FirstOrDefault();
+        }
     }
 
 }
