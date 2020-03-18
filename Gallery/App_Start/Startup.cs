@@ -1,6 +1,7 @@
 ﻿using Microsoft.Owin;
 using Owin;
 using Microsoft.Owin.Security.Cookies;
+using System;
 
 [assembly: OwinStartup(typeof(Gallery.App_Start.Startup))]
 namespace Gallery.App_Start
@@ -13,8 +14,10 @@ namespace Gallery.App_Start
             {
                 AuthenticationType = "ApplicationCookie",
                 LoginPath = new PathString("/Account/Login"),
-                CookieName = "LoginCoockie",
-            });
+                CookieName = "LoginCookie",
+                ExpireTimeSpan = TimeSpan.FromDays(30),
+                SlidingExpiration = true
+            }); ;
         }
     }
 }
