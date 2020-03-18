@@ -1,4 +1,5 @@
 ﻿using Gallery.Service.Contract;
+using System.Data;
 using System.Threading.Tasks;
 
 namespace Gallery.Service
@@ -9,6 +10,7 @@ namespace Gallery.Service
         Task<UserDTO> FindUserAsync(string email, string password);
         Task AddUserToDatabase(string email, string password);
         int GetUserId(string email);
+        Task<bool> IsConnectionAvailableAsync();
     }
 
 

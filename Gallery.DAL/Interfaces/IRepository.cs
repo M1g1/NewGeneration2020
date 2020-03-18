@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +13,8 @@ namespace Gallery.DAL
         Task AddUserToDatabase(string email, string password);
 
         int GetUserId(string email);
+
+        Task<bool> IsConnectionAvailableAsync();
        
     }
 }

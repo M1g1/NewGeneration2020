@@ -1,7 +1,9 @@
 ﻿using Gallery.DAL.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,12 +29,26 @@ namespace Gallery.DAL
         public async Task AddUserToDatabase(string email, string password)
         {
             _ctx.Users.Add(new User { Email = email, Password = password });
-            _ctx.SaveChanges();
+            await _ctx.SaveChangesAsync();
         }
 
         public int GetUserId(string email)
         {
             return _ctx.Users.Where(u => u.Email == email).Select(u => u.Id).FirstOrDefault();
+        }
+
+        public async Task<bool> IsConnectionAvailableAsync()
+        {
+            try
+            {
+                await _ctx.Database.Connection.OpenAsync();
+                _ctx.Database.Connection.Close();
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+            return true;
         }
     }
 

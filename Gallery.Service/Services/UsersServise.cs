@@ -1,6 +1,7 @@
 ﻿using Gallery.DAL;
 using Gallery.Service.Contract;
 using System;
+using System.Data;
 using System.Threading.Tasks;
 
 namespace Gallery.Service
@@ -30,6 +31,11 @@ namespace Gallery.Service
         public int GetUserId(string email)
         {
            return _repo.GetUserId(email);
+        }
+
+        public async Task<bool> IsConnectionAvailableAsync()
+        {
+            return await _repo.IsConnectionAvailableAsync();
         }
     }
 }
