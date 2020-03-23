@@ -12,19 +12,15 @@ namespace Gallery.Controllers
     public class AccountController : Controller
     {
         private IUsersService _usersService;
-        private IAuthentication _authenticationService = new AuthenticationService();
-        public AccountController(IUsersService usersService)
+        private IAuthentication _authenticationService;
+        public AccountController(IUsersService usersService, IAuthentication authenticationService)
         {
             _usersService = usersService ?? throw new ArgumentNullException(nameof(usersService));
-        }
-
-        public AccountController() : this(new UsersService(new UsersRepository(new UserContext()))) { }
-
-
-        public AccountController(IAuthentication authenticationService)
-        {
             _authenticationService = authenticationService ?? throw new ArgumentNullException(nameof(authenticationService));
         }
+
+        public AccountController() : this(new UsersService(new UsersRepository(new UserContext())), new AuthenticationService()) { }
+
         public ActionResult Logout()
         {
             HttpContext.GetOwinContext().Authentication.SignOut();
