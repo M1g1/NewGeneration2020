@@ -2,6 +2,7 @@
 using Owin;
 using Microsoft.Owin.Security.Cookies;
 using System;
+using System.Web.Http;
 
 [assembly: OwinStartup(typeof(Gallery.App_Start.Startup))]
 namespace Gallery.App_Start
@@ -17,7 +18,8 @@ namespace Gallery.App_Start
                 CookieName = "LoginCookie",
                 ExpireTimeSpan = TimeSpan.FromDays(30),
                 SlidingExpiration = true
-            }); ;
+            });
+            DIConfig.Configure(new HttpConfiguration());
         }
     }
 }

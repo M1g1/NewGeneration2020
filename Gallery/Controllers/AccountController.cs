@@ -11,15 +11,13 @@ namespace Gallery.Controllers
 {
     public class AccountController : Controller
     {
-        private IUsersService _usersService;
-        private IAuthentication _authenticationService;
+        private readonly IUsersService _usersService;
+        private readonly IAuthentication _authenticationService;
         public AccountController(IUsersService usersService, IAuthentication authenticationService)
         {
             _usersService = usersService ?? throw new ArgumentNullException(nameof(usersService));
             _authenticationService = authenticationService ?? throw new ArgumentNullException(nameof(authenticationService));
         }
-
-        public AccountController() : this(new UsersService(new UsersRepository(new UserContext())), new AuthenticationService()) { }
 
         public ActionResult Logout()
         {
