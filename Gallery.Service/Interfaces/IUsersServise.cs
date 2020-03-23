@@ -1,5 +1,4 @@
 ﻿using Gallery.Service.Contract;
-using System.Data;
 using System.Threading.Tasks;
 
 namespace Gallery.Service

@@ -1,7 +1,6 @@
 ﻿using Gallery.DAL;
 using Gallery.Service.Contract;
 using System;
-using System.Data;
 using System.Threading.Tasks;
 
 namespace Gallery.Service
