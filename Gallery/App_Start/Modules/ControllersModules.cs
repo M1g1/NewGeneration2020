@@ -18,7 +18,7 @@ namespace Gallery.App_Start.Modules
 
             containerBuilder.RegisterType<UsersService>().As<IUsersService>();
 
-            containerBuilder.RegisterType<AuthenticationService>().As<IAuthentication>();
+            containerBuilder.RegisterType<AuthenticationManager>().As<IAuthentication>();
         }
     }
 }

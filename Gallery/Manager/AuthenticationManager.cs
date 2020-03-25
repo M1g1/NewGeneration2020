@@ -4,7 +4,7 @@ using System.Security.Claims;
 
 namespace Gallery
 {
-    public class AuthenticationService : IAuthentication
+    public class AuthenticationManager : IAuthentication
     {
         public void AutorizeContext(IOwinContext ctx, ClaimsIdentity claims)
         {
@@ -15,10 +15,10 @@ namespace Gallery
             }, claims);
         }
 
-        public ClaimsIdentity CreateClaimsIdentity(string userId)
+        public ClaimsIdentity CreateClaimsIdentity(string value)
         {
             ClaimsIdentity claims = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-            claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, userId, ClaimValueTypes.String));
+            claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, value, ClaimValueTypes.String));
             claims.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
                 "OWIN Provider", ClaimValueTypes.String));
             return  claims;
