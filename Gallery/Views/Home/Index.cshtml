@@ -104,7 +104,7 @@
                     {
                         <input type="text" name="fileToDelete" value="@fullPathToImage" hidden />
 
-                        if (hashNamesUsers == Servises.ComputeSha256Hash("Temporary"))
+                        if (Request.IsAuthenticated)
                         {
                             <button type="submit" class="pictureDelete" aria-label="Delete">
 
