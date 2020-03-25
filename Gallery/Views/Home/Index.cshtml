@@ -41,7 +41,7 @@
     string hashNamesUsers;
     string fullPathToImage;
 
-    Picture Image = new Picture();
+    IImageService _imageService = new ImageService();
 
     //The Modal
 
@@ -66,29 +66,28 @@
         foreach (string fl in filesname)
         {
             i++;
-            Image.LoadExifData(fl);
             hashNamesUsers = dir.Replace(Server.MapPath(pathToSave), "");
             fullPathToImage = pathToSave + hashNamesUsers + "/" + Path.GetFileName(fl);
             <div class="body">
                 <div class="bodyT">
 
                     <p class="textT">
-                        <b>Photo title: @Image.Title</b>
+                        <b>Photo title: @_imageService.GetTitle(fl)</b>
                     </p>
                     <p class="textT">
-                        <b>Manufacturer of the camera: @Image.Manufacturer</b>
+                        <b>Manufacturer of the camera: @_imageService.GetManufacturer(fl)</b>
                     </p>
                     <p class="textT">
-                        <b>Model of the camera: @Image.ModelOfCamera</b>
+                        <b>Model of the camera: @_imageService.GetModelOfCamera(fl)</b>
                     </p>
                     <p class="textT">
-                        <b>File size: @Image.FileSize</b>
+                        <b>File size: @_imageService.GetFileSize(fl)</b>
                     </p>
                     <p class="textT">
-                        <b>Date of creation of the photo: @Image.DateCreation</b>
+                        <b>Date of creation of the photo: @_imageService.GetDateCreation(fl)</b>
                     </p>
                     <p class="textT">
-                        <b>Date of uploading of the photo: @Image.DateUpload</b>
+                        <b>Date of uploading of the photo: @_imageService.GetDateUpload(fl)</b>
                     </p>
                 </div>
 

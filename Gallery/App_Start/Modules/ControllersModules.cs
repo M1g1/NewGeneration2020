@@ -22,6 +22,8 @@ namespace Gallery.App_Start.Modules
             containerBuilder.RegisterType<AuthenticationManager>().As<IAuthentication>();
 
             containerBuilder.RegisterType<GalleryConfigurationManager>().As<IGalleryConfiguration>();
+
+            containerBuilder.RegisterType<ImageService>().As<IImageService>();
         }
     }
 }
