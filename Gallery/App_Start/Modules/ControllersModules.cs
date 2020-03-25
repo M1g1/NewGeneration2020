@@ -3,6 +3,7 @@ using Autofac.Integration.Mvc;
 using Gallery.Service;
 using Gallery.DAL.Models;
 using Gallery.DAL;
+using Gallery.Manager;
 
 namespace Gallery.App_Start.Modules
 {
@@ -19,6 +20,8 @@ namespace Gallery.App_Start.Modules
             containerBuilder.RegisterType<UsersService>().As<IUsersService>();
 
             containerBuilder.RegisterType<AuthenticationManager>().As<IAuthentication>();
+
+            containerBuilder.RegisterType<GalleryConfigurationManager>().As<IGalleryConfiguration>();
         }
     }
 }

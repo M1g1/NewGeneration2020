@@ -2,7 +2,7 @@
 using Microsoft.Owin.Security;
 using System.Security.Claims;
 
-namespace Gallery
+namespace Gallery.Manager
 {
     public class AuthenticationManager : IAuthentication
     {

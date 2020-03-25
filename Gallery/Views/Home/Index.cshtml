@@ -3,9 +3,12 @@
 }
 
 
+@using Gallery.Manager
 @using Gallery.Service
 @{
-    string pathToSave = GalleryConfigurationManager.GetPathToSave();
+    IGalleryConfiguration _configManager = new GalleryConfigurationManager();
+
+    string pathToSave = _configManager.GetPathToSave();
     // Directory path with all User's directories
     string ImagesDirFullPath = Server.MapPath(pathToSave);
 
