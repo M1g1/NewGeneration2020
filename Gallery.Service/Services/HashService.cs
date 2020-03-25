@@ -1,19 +1,16 @@
-﻿using System.Drawing;
-using System.Drawing.Imaging;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
 namespace Gallery.Service
 {
-    public class Servises
+    public class HashService : IHashService
     {
         //
         // Hash-Function
         // Input: String
         // Otput: String with ShaHash
         //
-        public static string ComputeSha256Hash(string rawData)
+        public string ComputeSha256Hash(string rawData)
         {
             // Create a SHA256   
             using (SHA256 sha256Hash = SHA256.Create())
