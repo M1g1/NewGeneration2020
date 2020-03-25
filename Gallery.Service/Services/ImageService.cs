@@ -49,7 +49,7 @@ namespace Gallery.Service
         {
             var fileInfo = new FileInfo(loadExifPath);
 
-            if (!fileInfo.Extension.Equals(".jpg") && !fileInfo.Extension.Equals(".jpeg")) 
+            if (!fileInfo.Extension.Equals(".jpg") && !fileInfo.Extension.Equals(".jpeg"))
                 return "Data not found";
             using (FileStream fs = new FileStream(loadExifPath, FileMode.Open))
             {
@@ -66,7 +66,7 @@ namespace Gallery.Service
         {
             var fileInfo = new FileInfo(loadExifPath);
 
-            if (!fileInfo.Extension.Equals(".jpg") && !fileInfo.Extension.Equals(".jpeg")) 
+            if (!fileInfo.Extension.Equals(".jpg") && !fileInfo.Extension.Equals(".jpeg"))
                 return "Data not found";
             using (FileStream fs = new FileStream(loadExifPath, FileMode.Open))
             {
@@ -137,6 +137,11 @@ namespace Gallery.Service
             bmp2.UnlockBits(bitmapData2);
 
             return result;
+        }
+
+        public void Delete(string fileToDelete)
+        {
+            File.Delete(fileToDelete);
         }
     }
 }

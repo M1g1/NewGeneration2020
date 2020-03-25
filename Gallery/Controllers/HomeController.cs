@@ -22,35 +22,27 @@ namespace Gallery.Controllers
             _hashService = hashService ?? throw new ArgumentNullException(nameof(hashService));
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Delete(string fileToDelete)
         {
             try
             {
-                if (!string.IsNullOrEmpty(fileToDelete))
-                {
-                    string dirHashName = fileToDelete.Replace(_configManager.GetPathToSave(), "").Replace(Path.GetFileName(fileToDelete), "").Replace("/", "");
-
-                    if (dirHashName == _hashService.ComputeSha256Hash("Temporary"))
-                    {
-                        if (Directory.Exists(Server.MapPath(fileToDelete.Replace(Path.GetFileName(fileToDelete), ""))))
-                            System.IO.File.Delete(Server.MapPath(fileToDelete));
-                        else
-                        {
-                            ViewBag.Error = "File not found!";
-                            return View("Error");
-                        }
-                    }
-                    else
-                    {
-                        ViewBag.Error = "Authorisation Error!";
-                        return View("Error");
-                    }
-                }
-                else
+                if (string.IsNullOrEmpty(fileToDelete))
                 {
                     ViewBag.Error = "Path not found!";
                     return View("Error");
+                }
+                else
+                { 
+                    var fullPathToImage = Server.MapPath(fileToDelete);
+                    var fileExist = System.IO.File.Exists(fullPathToImage);
+                    if (!fileExist)
+                    {
+                        ViewBag.Error = "File not found!";
+                        return View("Error");
+                    }
+                    _imageService.Delete(fullPathToImage);
                 }
             }
             catch (Exception err)
