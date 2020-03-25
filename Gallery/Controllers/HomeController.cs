@@ -14,10 +14,12 @@ namespace Gallery.Controllers
     {
         private readonly IGalleryConfiguration _configManager;
         private readonly IImageService _imageService;
-        public HomeController(IGalleryConfiguration configManager, IImageService imageService)
+        private readonly IHashService _hashService;
+        public HomeController(IGalleryConfiguration configManager, IImageService imageService, IHashService hashService)
         {
             _configManager = configManager ?? throw new ArgumentNullException(nameof(configManager));
             _imageService = imageService ?? throw new ArgumentNullException(nameof(imageService));
+            _hashService = hashService ?? throw new ArgumentNullException(nameof(hashService));
         }
 
         [HttpPost]
@@ -29,7 +31,7 @@ namespace Gallery.Controllers
                 {
                     string dirHashName = fileToDelete.Replace(_configManager.GetPathToSave(), "").Replace(Path.GetFileName(fileToDelete), "").Replace("/", "");
 
-                    if (dirHashName == Servises.ComputeSha256Hash("Temporary"))
+                    if (dirHashName == _hashService.ComputeSha256Hash("Temporary"))
                     {
                         if (Directory.Exists(Server.MapPath(fileToDelete.Replace(Path.GetFileName(fileToDelete), ""))))
                             System.IO.File.Delete(Server.MapPath(fileToDelete));
@@ -78,7 +80,7 @@ namespace Gallery.Controllers
                             bool IsLoad = true;
 
                             // Encrypted User's directory path
-                            string DirPath = Server.MapPath(_configManager.GetPathToSave()) + Servises.ComputeSha256Hash("Temporary");
+                            string DirPath = Server.MapPath(_configManager.GetPathToSave()) + _hashService.ComputeSha256Hash("Temporary");
 
                             // extract only the filename
                             var fileName = Path.GetFileName(files.FileName);

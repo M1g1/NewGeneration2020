@@ -24,6 +24,8 @@ namespace Gallery.App_Start.Modules
             containerBuilder.RegisterType<GalleryConfigurationManager>().As<IGalleryConfiguration>();
 
             containerBuilder.RegisterType<ImageService>().As<IImageService>();
+
+            containerBuilder.RegisterType<HashService>().As<IHashService>();
         }
     }
 }

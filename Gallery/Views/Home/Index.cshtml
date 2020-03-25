@@ -7,6 +7,7 @@
 @using Gallery.Service
 @{
     IGalleryConfiguration _configManager = new GalleryConfigurationManager();
+    IHashService _hashService = new HashService(); 
 
     string pathToSave = _configManager.GetPathToSave();
     // Directory path with all User's directories
@@ -28,7 +29,7 @@
     if (Request.IsAuthenticated)
     {
         // Encrypted User's directory path
-        string DirPath = Server.MapPath(pathToSave) + Servises.ComputeSha256Hash("Temporary");
+        string DirPath = Server.MapPath(pathToSave) + _hashService.ComputeSha256Hash("Temporary");
         if (!Directory.Exists(DirPath))
         {
             Directory.CreateDirectory(DirPath);
