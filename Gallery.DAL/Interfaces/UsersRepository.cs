@@ -26,7 +26,7 @@ namespace Gallery.DAL
                                              u.Password == password.Trim());
         }
 
-        public async Task AddUserToDatabase(string email, string password)
+        public async Task AddUserToDatabaseAsync(string email, string password)
         {
             _ctx.Users.Add(new User { Email = email, Password = password });
             await _ctx.SaveChangesAsync();

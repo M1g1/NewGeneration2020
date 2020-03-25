@@ -45,7 +45,7 @@ namespace Gallery.Controllers
                     if (isUserExist == false)
                     {
 
-                        await _usersService.AddUserToDatabase(model.Email, model.Password);
+                        await _usersService.AddUserToDatabaseAsync(model.Email, model.Password);
 
                         var userId = _usersService.GetUserId(model.Email).ToString();
 

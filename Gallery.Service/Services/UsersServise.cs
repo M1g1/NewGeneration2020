@@ -22,9 +22,9 @@ namespace Gallery.Service
             throw new NotImplementedException();
         }
 
-        public async Task AddUserToDatabase(string email, string password)
+        public async Task AddUserToDatabaseAsync(string email, string password)
         {
-            await _repo.AddUserToDatabase(email, password);
+            await _repo.AddUserToDatabaseAsync(email, password);
         }
 
         public int GetUserId(string email)
