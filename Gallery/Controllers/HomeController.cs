@@ -13,9 +13,11 @@ namespace Gallery.Controllers
     public class HomeController : Controller
     {
         private readonly IGalleryConfiguration _configManager;
-        public HomeController(IGalleryConfiguration configManager)
+        private readonly IImageService _imageService;
+        public HomeController(IGalleryConfiguration configManager, IImageService imageService)
         {
             _configManager = configManager ?? throw new ArgumentNullException(nameof(configManager));
+            _imageService = imageService ?? throw new ArgumentNullException(nameof(imageService));
         }
 
         [HttpPost]
@@ -119,7 +121,7 @@ namespace Gallery.Controllers
 
                                             CheckFileStream.Close();
 
-                                            if (Servises.CompareBitmapsFast(TempBmp, CheckBmp))
+                                            if (_imageService.CompareBitmaps(TempBmp, CheckBmp))
                                             {
                                                 IsLoad = false;
                                                 ViewBag.Error = "Photo already exists!";
