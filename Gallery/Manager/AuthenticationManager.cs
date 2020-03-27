@@ -18,9 +18,7 @@ namespace Gallery.Manager
         public ClaimsIdentity CreateClaimsIdentity(string value)
         {
             ClaimsIdentity claims = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-            claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, value, ClaimValueTypes.String));
-            claims.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
-                "OWIN Provider", ClaimValueTypes.String));
+            claims.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, value, ClaimValueTypes.String));
             return  claims;
         }
     }
