@@ -141,7 +141,10 @@ namespace Gallery.Service
 
         public void Delete(string fileToDelete)
         {
-            File.Delete(fileToDelete);
+            if (File.Exists(fileToDelete))
+            {
+                File.Delete(fileToDelete);
+            }
         }
     }
 }
