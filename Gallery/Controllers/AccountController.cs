@@ -35,37 +35,29 @@ namespace Gallery.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterModel model)
         {
-            bool canConnect = await _usersService.IsConnectionAvailableAsync();
-            if (canConnect)
+
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                var isUserExist = await _usersService.IsUserExistAsync(model.Email, model.Password);
+
+                if (isUserExist == false)
                 {
-                    var isUserExist = await _usersService.IsUserExistAsync(model.Email, model.Password);
 
-                    if (isUserExist == false)
-                    {
+                    await _usersService.AddUserToDatabaseAsync(model.Email, model.Password);
 
-                        await _usersService.AddUserToDatabaseAsync(model.Email, model.Password);
+                    var userId = _usersService.GetUserId(model.Email).ToString();
 
-                        var userId = _usersService.GetUserId(model.Email).ToString();
+                    ClaimsIdentity claims = _authenticationService.CreateClaimsIdentity(userId);
 
-                        ClaimsIdentity claims = _authenticationService.CreateClaimsIdentity(userId);
+                    _authenticationService.AutorizeContext(HttpContext.GetOwinContext(), claims);
 
-                        _authenticationService.AutorizeContext(HttpContext.GetOwinContext(), claims);
+                    return RedirectToAction("Index", "Home");
 
-                        return RedirectToAction("Index", "Home");
-
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "User already exists");
-                    }
-                }  
-            }
-            else
-            {
-                ViewBag.Error = "Database not available!";
-                return View("Error");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "User already exists");
+                }
             }
             return View(model);
         }
@@ -80,34 +72,25 @@ namespace Gallery.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginModel model)
         {
-            bool canConnect = await _usersService.IsConnectionAvailableAsync();
-            if (canConnect)
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                var canAuthorize = await _usersService.IsUserExistAsync(model.Email, model.Password);
+
+                if (canAuthorize)
                 {
-                    var canAuthorize = await _usersService.IsUserExistAsync(model.Email, model.Password);
 
-                    if (canAuthorize)
-                    {
+                    var userId = _usersService.GetUserId(model.Email).ToString();
 
-                        var userId = _usersService.GetUserId(model.Email).ToString();
+                    ClaimsIdentity claims = _authenticationService.CreateClaimsIdentity(userId);
 
-                        ClaimsIdentity claims = _authenticationService.CreateClaimsIdentity(userId);
+                    _authenticationService.AutorizeContext(HttpContext.GetOwinContext(), claims);
 
-                        _authenticationService.AutorizeContext(HttpContext.GetOwinContext(), claims);
-
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "User not found");
-                    }
+                    return RedirectToAction("Index", "Home");
                 }
-            }
-            else
-            {
-                ViewBag.Error = "Database not available!";
-                return View("Error");
+                else
+                {
+                    ModelState.AddModelError("", "User not found");
+                }
             }
             return View(model);
         }

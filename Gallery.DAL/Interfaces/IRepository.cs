@@ -10,7 +10,5 @@ namespace Gallery.DAL
 
         int GetUserId(string email);
 
-        Task<bool> IsConnectionAvailableAsync();
-       
     }
 }

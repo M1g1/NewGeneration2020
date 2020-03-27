@@ -32,9 +32,5 @@ namespace Gallery.Service
            return _repo.GetUserId(email);
         }
 
-        public async Task<bool> IsConnectionAvailableAsync()
-        {
-            return await _repo.IsConnectionAvailableAsync();
-        }
     }
 }

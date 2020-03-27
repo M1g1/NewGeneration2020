@@ -9,7 +9,6 @@ namespace Gallery.Service
         Task<UserDTO> FindUserAsync(string email, string password);
         Task AddUserToDatabaseAsync(string email, string password);
         int GetUserId(string email);
-        Task<bool> IsConnectionAvailableAsync();
     }
 
 
