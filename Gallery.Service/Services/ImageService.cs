@@ -146,10 +146,5 @@ namespace Gallery.Service
                 File.Delete(fileToDelete);
             }
         }
-
-        public void UploadImage(byte[] _img, string _pathToSave)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
