@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Gallery.DAL.Models;
+using Gallery.Filters;
 using Gallery.Service;
 
 namespace Gallery.Controllers
@@ -33,32 +34,30 @@ namespace Gallery.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateModelState]
         public async Task<ActionResult> Register(RegisterModel model)
         {
+            var isUserExist = await _usersService.IsUserExistAsync(model.Email, model.Password);
 
-            if (ModelState.IsValid)
+            if (isUserExist == false)
             {
-                var isUserExist = await _usersService.IsUserExistAsync(model.Email, model.Password);
 
-                if (isUserExist == false)
-                {
+                await _usersService.AddUserToDatabaseAsync(model.Email, model.Password);
 
-                    await _usersService.AddUserToDatabaseAsync(model.Email, model.Password);
+                var userId = _usersService.GetUserId(model.Email).ToString();
 
-                    var userId = _usersService.GetUserId(model.Email).ToString();
+                ClaimsIdentity claims = _authenticationService.CreateClaimsIdentity(userId);
 
-                    ClaimsIdentity claims = _authenticationService.CreateClaimsIdentity(userId);
+                _authenticationService.AutorizeContext(HttpContext.GetOwinContext(), claims);
 
-                    _authenticationService.AutorizeContext(HttpContext.GetOwinContext(), claims);
+                return RedirectToAction("Index", "Home");
 
-                    return RedirectToAction("Index", "Home");
-
-                }
-                else
-                {
-                    ModelState.AddModelError("", "User already exists");
-                }
             }
+            else
+            {
+                ModelState.AddModelError("", "User already exists");
+            }
+
             return View(model);
         }
 
@@ -70,28 +69,27 @@ namespace Gallery.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateModelState]
         public async Task<ActionResult> Login(LoginModel model)
         {
-            if (ModelState.IsValid)
+            var canAuthorize = await _usersService.IsUserExistAsync(model.Email, model.Password);
+            
+            if (canAuthorize)
             {
-                var canAuthorize = await _usersService.IsUserExistAsync(model.Email, model.Password);
 
-                if (canAuthorize)
-                {
+                var userId = _usersService.GetUserId(model.Email).ToString();
 
-                    var userId = _usersService.GetUserId(model.Email).ToString();
+                ClaimsIdentity claims = _authenticationService.CreateClaimsIdentity(userId);
 
-                    ClaimsIdentity claims = _authenticationService.CreateClaimsIdentity(userId);
+                _authenticationService.AutorizeContext(HttpContext.GetOwinContext(), claims);
 
-                    _authenticationService.AutorizeContext(HttpContext.GetOwinContext(), claims);
-
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "User not found");
-                }
+                return RedirectToAction("Index", "Home");
             }
+            else
+            {
+                ModelState.AddModelError("", "User not found");
+            }
+
             return View(model);
         }
     }
