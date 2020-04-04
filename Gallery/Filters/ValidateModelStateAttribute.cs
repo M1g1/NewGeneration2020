@@ -1,19 +1,17 @@
-﻿using System.Net;
-using System.Web.Http.Controllers;
-using System.Web.Http.Filters;
+﻿using System.Web.Mvc;
 
 namespace Gallery.Filters
 {
     public class ValidateModelStateAttribute : ActionFilterAttribute
     {
-        public override void OnActionExecuting(HttpActionContext actionContext)
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var isValid = actionContext.ModelState.IsValid;
+            var isValid = filterContext.Controller.ViewData.ModelState.IsValid;
             if (!isValid)
             {
-                actionContext.Response.StatusCode = HttpStatusCode.BadRequest;
+                filterContext.HttpContext.Response.StatusCode = 400;
             }
-            base.OnActionExecuting(actionContext);
+            base.OnActionExecuting(filterContext);
         }
 
     }
