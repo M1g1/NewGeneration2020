@@ -8,7 +8,6 @@ namespace Gallery.Filters
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            
             var request = filterContext.HttpContext.Request;
             var ipAddress = request.ServerVariables["HTTP_X_FORWARDED_FOR"] ?? request.UserHostAddress;
             var machineName = filterContext.HttpContext.Server.MachineName;
@@ -21,6 +20,15 @@ namespace Gallery.Filters
                                     "\n\tHttpMethod: " + httpMethod + "\n}";
             Logger.Info(messageRequest);
             base.OnActionExecuting(filterContext);
+        }
+
+        public override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            var response = filterContext.HttpContext.Response;
+            var status = response.Status;
+            string messageResponse = "\n{\n\tResponse" + "\n\tStatusCode: " + status + "\n}";
+            Logger.Info(messageResponse);
+            base.OnActionExecuted(filterContext);
         }
     }
 }
