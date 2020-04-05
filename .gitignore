@@ -1,6 +1,7 @@
 #Folders for ignore
 Gallery/bin
 Gallery/obj
+Gallery/logs
 Gallery.Service/bin
 Gallery.Service/obj
 Gallery.DAL/bin
