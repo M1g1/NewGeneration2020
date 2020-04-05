@@ -19,6 +19,7 @@ namespace Gallery.Controllers
             _authenticationService = authenticationService ?? throw new ArgumentNullException(nameof(authenticationService));
         }
 
+        [LogFilter]
         public ActionResult Logout()
         {
             HttpContext.GetOwinContext().Authentication.SignOut();
@@ -35,6 +36,7 @@ namespace Gallery.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateModelState]
+        [LogFilter]
         public async Task<ActionResult> Register(RegisterModel model)
         {
             var isUserExist = await _usersService.IsUserExistAsync(model.Email, model.Password);
@@ -70,6 +72,7 @@ namespace Gallery.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateModelState]
+        [LogFilter]
         public async Task<ActionResult> Login(LoginModel model)
         {
             var canAuthorize = await _usersService.IsUserExistAsync(model.Email, model.Password);
