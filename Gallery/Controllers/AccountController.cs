@@ -3,8 +3,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Gallery.DAL.Models;
 using Gallery.Filters;
+using Gallery.Models;
 using Gallery.Service;
 
 namespace Gallery.Controllers
