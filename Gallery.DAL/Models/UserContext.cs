@@ -4,7 +4,7 @@ namespace Gallery.DAL.Models
 {
     public class UserContext : DbContext
     {
-        public UserContext() : base("DefaultConnection")
+        public UserContext(string nameOrConnectionString) : base(nameOrConnectionString)
         { }
         public DbSet<User> Users { get; set; }
     }
