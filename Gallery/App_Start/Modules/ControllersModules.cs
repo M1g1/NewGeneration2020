@@ -13,15 +13,15 @@ namespace Gallery.App_Start.Modules
         {
             containerBuilder.RegisterControllers(typeof(MvcApplication).Assembly);
 
-            containerBuilder.RegisterType<UserContext>().AsSelf();
+            var connectionString = GalleryConfigurationManager.GetSqlConnectionString();
+
+            containerBuilder.Register(ctx => new UserContext(connectionString)).AsSelf();
 
             containerBuilder.RegisterType<UsersRepository>().As<IRepository>();
 
             containerBuilder.RegisterType<UsersService>().As<IUsersService>();
 
             containerBuilder.RegisterType<AuthenticationManager>().As<IAuthentication>();
-
-            containerBuilder.RegisterType<GalleryConfigurationManager>().As<IGalleryConfiguration>();
 
             containerBuilder.RegisterType<ImageService>().As<IImageService>();
 
