@@ -1,8 +1,9 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 
 namespace Gallery.Manager
 {
-    public class GalleryConfigurationManager : IGalleryConfiguration
+    public static class GalleryConfigurationManager
     {
 
         private const string _pathKeyName = "PathToSave";
@@ -11,8 +12,14 @@ namespace Gallery.Manager
         private const string _defaultPathToSave = "/Images/";
         private const string _defaultImageTypes = "image/jpeg; image/png";
 
+        public static string GetSqlConnectionString()
+        {
+            var connectionStrings = ConfigurationManager.ConnectionStrings;
+            var sqlConnectionString = connectionStrings["SqlConnection"] ?? throw new ArgumentException("SQL");
+            return sqlConnectionString.ConnectionString;
+        }
 
-        public string GetPathToSave()
+        public static string GetPathToSave()
         {
             var appSettings = ConfigurationManager.AppSettings;
             string _pathToSave = _defaultPathToSave;
@@ -24,7 +31,7 @@ namespace Gallery.Manager
         }
 
 
-        public string GetAvailableImageTypes()
+        public static string GetAvailableImageTypes()
         {
             var appSettings = ConfigurationManager.AppSettings;
             string _imageTypes = _defaultImageTypes;
