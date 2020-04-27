@@ -6,10 +6,9 @@
 @using Gallery.Manager
 @using Gallery.Service
 @{
-    IGalleryConfiguration _configManager = new GalleryConfigurationManager();
     IHashService _hashService = new HashService(); 
 
-    string pathToSave = _configManager.GetPathToSave();
+    string pathToSave = GalleryConfigurationManager.GetPathToSave();
     // Directory path with all User's directories
     string ImagesDirFullPath = Server.MapPath(pathToSave);
 

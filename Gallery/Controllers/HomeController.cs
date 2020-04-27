@@ -7,17 +7,16 @@ using System.Web.Mvc;
 using System.Windows.Media.Imaging;
 using System.Drawing;
 using Gallery.Service;
+using Gallery.Manager;
 
 namespace Gallery.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IGalleryConfiguration _configManager;
         private readonly IImageService _imageService;
         private readonly IHashService _hashService;
-        public HomeController(IGalleryConfiguration configManager, IImageService imageService, IHashService hashService)
+        public HomeController(IImageService imageService, IHashService hashService)
         {
-            _configManager = configManager ?? throw new ArgumentNullException(nameof(configManager));
             _imageService = imageService ?? throw new ArgumentNullException(nameof(imageService));
             _hashService = hashService ?? throw new ArgumentNullException(nameof(hashService));
         }
@@ -62,8 +61,8 @@ namespace Gallery.Controllers
                 // Verify that the user selected a file
                 if (files != null)
                 {
-
-                    if (_configManager.GetAvailableImageTypes().Contains(files.ContentType))
+                    var imgTypes = GalleryConfigurationManager.GetAvailableImageTypes();
+                    if (imgTypes.Contains(files.ContentType))
                     {
                         FileStream TempFileStream;
 
@@ -71,8 +70,10 @@ namespace Gallery.Controllers
                         {
                             bool IsLoad = true;
 
+                            var pathToSave = GalleryConfigurationManager.GetPathToSave();
+
                             // Encrypted User's directory path
-                            string DirPath = Server.MapPath(_configManager.GetPathToSave()) + _hashService.ComputeSha256Hash("Temporary");
+                            string DirPath = Server.MapPath(pathToSave) + _hashService.ComputeSha256Hash("Temporary");
 
                             // extract only the filename
                             var fileName = Path.GetFileName(files.FileName);
@@ -96,7 +97,7 @@ namespace Gallery.Controllers
                                     TempFileStream.Close();
 
                                     // List of all Directories names
-                                    List<string> dirsname = Directory.GetDirectories(Server.MapPath(_configManager.GetPathToSave())).ToList<string>();
+                                    List<string> dirsname = Directory.GetDirectories(Server.MapPath(pathToSave)).ToList<string>();
 
                                     FileStream CheckFileStream;
                                     Bitmap CheckBmp;
