@@ -12,6 +12,8 @@ namespace Gallery.App_Start
         {
             var containerBuilder = new ContainerBuilder();
 
+            containerBuilder.RegisterControllers(typeof(MvcApplication).Assembly);
+
             containerBuilder.RegisterModule<ControllersModules>();
 
             var container = containerBuilder.Build();

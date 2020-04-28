@@ -11,8 +11,6 @@ namespace Gallery.App_Start.Modules
     {
         protected override void Load(ContainerBuilder containerBuilder)
         {
-            containerBuilder.RegisterControllers(typeof(MvcApplication).Assembly);
-
             var connectionString = GalleryConfigurationManager.GetSqlConnectionString();
 
             containerBuilder.Register(ctx => new UserContext(connectionString)).AsSelf();
