@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Models\Media.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserContext.cs" />
