@@ -7,13 +7,7 @@ namespace Gallery.DAL.Models
         public int Id { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public List<Role> Roles { get; set; }
-        public List<Media> Media { get; set; }
-
-        public User()
-        {
-            Roles = new List<Role>();
-            Media = new List<Media>();
-        }
+        public List<Role> Roles { get; set; } = new List<Role>();
+        public List<Media> Media { get; set; } = new List<Media>();
     }
 }

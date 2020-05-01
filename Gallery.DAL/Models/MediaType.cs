@@ -14,10 +14,6 @@ namespace Gallery.DAL.Models
         public int Id { get; set; }
         public EnumMediaType Type { get; set; }
 
-        public List<Media> Media { get; set; }
-        public MediaType()
-        {
-            Media = new List<Media>();
-        }
+        public List<Media> Media { get; set; } = new List<Media>();
     }
 }
