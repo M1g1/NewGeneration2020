@@ -9,5 +9,6 @@ namespace Gallery.DAL.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Media> Media { get; set; }
+        public DbSet<MediaType> MediaTypes { get; set; }
     }
 }
