@@ -49,6 +49,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Migrations\202005011408201_InitialCreate.cs" />
+    <Compile Include="Migrations\202005011408201_InitialCreate.designer.cs">
+      <DependentUpon>202005011408201_InitialCreate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\MediaType.cs" />
@@ -62,7 +66,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202005011408201_InitialCreate.resx">
+      <DependentUpon>202005011408201_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
