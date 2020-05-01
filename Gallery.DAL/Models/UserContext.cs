@@ -7,5 +7,6 @@ namespace Gallery.DAL.Models
         public UserContext(string nameOrConnectionString) : base(nameOrConnectionString)
         { }
         public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
     }
 }
