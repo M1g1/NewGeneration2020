@@ -53,6 +53,10 @@
     <Compile Include="Migrations\202005011408201_InitialCreate.designer.cs">
       <DependentUpon>202005011408201_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005012114380_Migrations.cs" />
+    <Compile Include="Migrations\202005012114380_Migrations.designer.cs">
+      <DependentUpon>202005012114380_Migrations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\MediaType.cs" />
@@ -69,6 +73,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202005011408201_InitialCreate.resx">
       <DependentUpon>202005011408201_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005012114380_Migrations.resx">
+      <DependentUpon>202005012114380_Migrations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
