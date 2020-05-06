@@ -60,6 +60,10 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\MediaType.cs" />
+    <Compile Include="Models\ModelsMappings\MediaMap.cs" />
+    <Compile Include="Models\ModelsMappings\MediaTypeMap.cs" />
+    <Compile Include="Models\ModelsMappings\RoleMap.cs" />
+    <Compile Include="Models\ModelsMappings\UserMap.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserContext.cs" />
@@ -78,6 +82,7 @@
       <DependentUpon>202005012114380_Migrations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
