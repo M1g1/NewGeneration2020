@@ -8,3 +8,4 @@ Gallery.DAL/bin
 Gallery.DAL/obj
 packages
 .vs
+*.user
