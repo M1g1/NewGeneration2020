@@ -61,6 +61,10 @@
     <Compile Include="Migrations\202005070138581_DbModelsMigration.designer.cs">
       <DependentUpon>202005070138581_DbModelsMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005070152597_AddNewDefaultSchema.cs" />
+    <Compile Include="Migrations\202005070152597_AddNewDefaultSchema.designer.cs">
+      <DependentUpon>202005070152597_AddNewDefaultSchema.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\MediaType.cs" />
@@ -87,6 +91,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005070138581_DbModelsMigration.resx">
       <DependentUpon>202005070138581_DbModelsMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005070152597_AddNewDefaultSchema.resx">
+      <DependentUpon>202005070152597_AddNewDefaultSchema.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
