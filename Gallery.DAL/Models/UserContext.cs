@@ -12,6 +12,7 @@ namespace Gallery.DAL.Models
         public DbSet<Role> Roles { get; set; }
         public DbSet<Media> Media { get; set; }
         public DbSet<MediaType> MediaTypes { get; set; }
+        public DbSet<Attempt> Attempts { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -20,6 +21,7 @@ namespace Gallery.DAL.Models
             modelBuilder.Configurations.Add(new RoleMap());
             modelBuilder.Configurations.Add(new MediaMap());
             modelBuilder.Configurations.Add(new MediaTypeMap());
+            modelBuilder.Configurations.Add(new AttemptMap());
         }
     }
 }
