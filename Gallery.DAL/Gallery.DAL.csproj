@@ -57,6 +57,10 @@
     <Compile Include="Migrations\202005012114380_Migrations.designer.cs">
       <DependentUpon>202005012114380_Migrations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005070138581_DbModelsMigration.cs" />
+    <Compile Include="Migrations\202005070138581_DbModelsMigration.designer.cs">
+      <DependentUpon>202005070138581_DbModelsMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\MediaType.cs" />
@@ -80,6 +84,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005012114380_Migrations.resx">
       <DependentUpon>202005012114380_Migrations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005070138581_DbModelsMigration.resx">
+      <DependentUpon>202005070138581_DbModelsMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
