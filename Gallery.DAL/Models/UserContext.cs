@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using Gallery.DAL.Models.ModelsMappings;
 
 namespace Gallery.DAL.Models
 {
@@ -11,5 +12,14 @@ namespace Gallery.DAL.Models
         public DbSet<Role> Roles { get; set; }
         public DbSet<Media> Media { get; set; }
         public DbSet<MediaType> MediaTypes { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultSchema("Gallery");
+            modelBuilder.Configurations.Add(new UserMap());
+            modelBuilder.Configurations.Add(new RoleMap());
+            modelBuilder.Configurations.Add(new MediaMap());
+            modelBuilder.Configurations.Add(new MediaTypeMap());
+        }
     }
 }
