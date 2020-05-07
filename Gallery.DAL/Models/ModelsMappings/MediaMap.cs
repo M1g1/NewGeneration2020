@@ -12,7 +12,7 @@ namespace Gallery.DAL.Models.ModelsMappings
                 .IsRequired()
                 .HasColumnName("MediaId");
 
-            this.Property(m => m.PathToMedia)
+            this.Property(m => m.Path)
                 .IsRequired();
 
             this.HasRequired(m => m.Type)
