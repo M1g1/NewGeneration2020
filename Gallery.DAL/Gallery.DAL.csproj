@@ -74,10 +74,10 @@
       <DependentUpon>202005072051413_FieldNameChanged.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Attempt.cs" />
+    <Compile Include="Models\LoginAttempt.cs" />
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\MediaType.cs" />
-    <Compile Include="Models\ModelsMappings\AttemptMap.cs" />
+    <Compile Include="Models\ModelsMappings\LoginAttemptMap.cs" />
     <Compile Include="Models\ModelsMappings\MediaMap.cs" />
     <Compile Include="Models\ModelsMappings\MediaTypeMap.cs" />
     <Compile Include="Models\ModelsMappings\RoleMap.cs" />

@@ -9,6 +9,6 @@ namespace Gallery.DAL.Models
         public string Password { get; set; }
         public virtual ICollection<Role> Roles { get; set; } = new HashSet<Role>();
         public virtual ICollection<Media> Media { get; set; } = new HashSet<Media>();
-        public virtual ICollection<Attempt> Attempts { get; set; } = new HashSet<Attempt>();
+        public virtual ICollection<LoginAttempt> LoginAttempts { get; set; } = new HashSet<LoginAttempt>();
     }
 }

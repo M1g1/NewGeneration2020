@@ -2,7 +2,7 @@
 
 namespace Gallery.DAL.Models
 {
-    public class Attempt
+    public class LoginAttempt
     {
         public int Id { get; set; }
         public int UserId { get; set; }

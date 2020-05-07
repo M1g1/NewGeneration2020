@@ -3,9 +3,9 @@ using System.Runtime.CompilerServices;
 
 namespace Gallery.DAL.Models.ModelsMappings
 {
-    public class AttemptMap : EntityTypeConfiguration<Attempt>
+    public class LoginAttemptMap : EntityTypeConfiguration<LoginAttempt>
     {
-        public AttemptMap()
+        public LoginAttemptMap()
         {
             this.HasKey(a => a.Id);
 
@@ -25,10 +25,10 @@ namespace Gallery.DAL.Models.ModelsMappings
                 .HasColumnType("datetime2");
 
             this.HasRequired(a => a.User)
-                .WithMany(u => u.Attempts)
+                .WithMany(u => u.LoginAttempts)
                 .HasForeignKey(a => a.UserId);
 
-            this.ToTable("Attempts");
+            this.ToTable("LoginAttempts");
         }
     }
 }
