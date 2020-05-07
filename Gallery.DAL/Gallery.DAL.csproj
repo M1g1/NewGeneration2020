@@ -69,6 +69,10 @@
     <Compile Include="Migrations\202005072006373_AddAttemptsTable.designer.cs">
       <DependentUpon>202005072006373_AddAttemptsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005072051413_FieldNameChanged.cs" />
+    <Compile Include="Migrations\202005072051413_FieldNameChanged.designer.cs">
+      <DependentUpon>202005072051413_FieldNameChanged.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attempt.cs" />
     <Compile Include="Models\Media.cs" />
@@ -103,6 +107,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005072006373_AddAttemptsTable.resx">
       <DependentUpon>202005072006373_AddAttemptsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005072051413_FieldNameChanged.resx">
+      <DependentUpon>202005072051413_FieldNameChanged.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
