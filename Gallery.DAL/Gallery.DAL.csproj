@@ -65,9 +65,15 @@
     <Compile Include="Migrations\202005070152597_AddNewDefaultSchema.designer.cs">
       <DependentUpon>202005070152597_AddNewDefaultSchema.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005072006373_AddAttemptsTable.cs" />
+    <Compile Include="Migrations\202005072006373_AddAttemptsTable.designer.cs">
+      <DependentUpon>202005072006373_AddAttemptsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Attempt.cs" />
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\MediaType.cs" />
+    <Compile Include="Models\ModelsMappings\AttemptMap.cs" />
     <Compile Include="Models\ModelsMappings\MediaMap.cs" />
     <Compile Include="Models\ModelsMappings\MediaTypeMap.cs" />
     <Compile Include="Models\ModelsMappings\RoleMap.cs" />
@@ -94,6 +100,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005070152597_AddNewDefaultSchema.resx">
       <DependentUpon>202005070152597_AddNewDefaultSchema.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005072006373_AddAttemptsTable.resx">
+      <DependentUpon>202005072006373_AddAttemptsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
