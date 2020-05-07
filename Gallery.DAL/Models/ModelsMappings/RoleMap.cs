@@ -15,6 +15,8 @@ namespace Gallery.DAL.Models.ModelsMappings
             this.Property(r => r.Name)
                 .IsRequired()
                 .HasMaxLength(26);
+
+            this.ToTable("Roles");
         }
     }
 }

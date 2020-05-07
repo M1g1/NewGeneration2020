@@ -18,6 +18,8 @@ namespace Gallery.DAL.Models.ModelsMappings
             this.HasRequired(m => m.Type)
                 .WithMany(mt => mt.Media)
                 .HasForeignKey(m => m.MediaTypeId);
+            
+            this.ToTable("Media");
         }
     }
 }

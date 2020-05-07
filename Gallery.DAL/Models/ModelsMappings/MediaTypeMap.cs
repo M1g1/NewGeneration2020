@@ -15,6 +15,8 @@ namespace Gallery.DAL.Models.ModelsMappings
             this.Property(mt => mt.Type)
                 .IsRequired()
                 .HasMaxLength(16);
+
+            this.ToTable("MediaTypes");
         }
     }
 }
