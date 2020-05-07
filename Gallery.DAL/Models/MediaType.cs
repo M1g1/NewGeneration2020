@@ -7,6 +7,6 @@ namespace Gallery.DAL.Models
         public int Id { get; set; }
         public string Type { get; set; }
 
-        public List<Media> Media { get; set; } = new List<Media>();
+        public virtual ICollection<Media> Media { get; set; } = new HashSet<Media>();
     }
 }

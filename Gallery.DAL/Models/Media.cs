@@ -6,9 +6,9 @@
         public string PathToMedia { get; set; }
 
         public int UserId { get; set; }
-        public User User { get; set; }
+        public virtual User User { get; set; }
 
         public int MediaTypeId { get; set; }
-        public MediaType Type { get; set; }
+        public virtual MediaType Type { get; set; }
     }
 }
