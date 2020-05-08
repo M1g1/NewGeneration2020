@@ -10,7 +10,7 @@
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            ContextKey = "Gallery.DAL.Models.UserContext";
+            ContextKey = "Gallery.DAL.Models.GalleryDbContext";
         }
 
         protected override void Seed(Gallery.DAL.Models.GalleryDbContext context)
