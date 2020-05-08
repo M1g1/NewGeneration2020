@@ -27,10 +27,10 @@ namespace Gallery.DAL
             _ctx.Users.Add(new User { Email = email, Password = password });
             await _ctx.SaveChangesAsync();
         }
-
-        public int GetUserId(string email)
+  
+        public User GetUserByEmail(string email)
         {
-            return _ctx.Users.Where(u => u.Email == email).Select(u => u.Id).FirstOrDefault();
+            return _ctx.Users.Where(u => u.Email == email).Select(u => u).FirstOrDefault();
         }
 
     }

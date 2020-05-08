@@ -46,7 +46,7 @@ namespace Gallery.Controllers
 
                 await _usersService.AddUserToDatabaseAsync(model.Email, model.Password);
 
-                var userId = _usersService.GetUserId(model.Email).ToString();
+                var userId = _usersService.GetUserByEmail(model.Email).Id.ToString();
 
                 ClaimsIdentity claims = _authenticationService.CreateClaimsIdentity(userId);
 
@@ -76,11 +76,11 @@ namespace Gallery.Controllers
         public async Task<ActionResult> Login(LoginModel model)
         {
             var canAuthorize = await _usersService.IsUserExistAsync(model.Email, model.Password);
-            
+
             if (canAuthorize)
             {
 
-                var userId = _usersService.GetUserId(model.Email).ToString();
+                var userId = _usersService.GetUserByEmail(model.Email).Id.ToString();
 
                 ClaimsIdentity claims = _authenticationService.CreateClaimsIdentity(userId);
 

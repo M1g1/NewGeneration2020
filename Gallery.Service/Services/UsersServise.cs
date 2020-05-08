@@ -2,6 +2,7 @@
 using Gallery.Service.Contract;
 using System;
 using System.Threading.Tasks;
+using Gallery.DAL.Models;
 
 namespace Gallery.Service
 {
@@ -27,9 +28,9 @@ namespace Gallery.Service
             await _repo.AddUserToDatabaseAsync(email, password);
         }
 
-        public int GetUserId(string email)
+        public User GetUserByEmail(string email)
         {
-           return _repo.GetUserId(email);
+           return _repo.GetUserByEmail(email);
         }
 
     }
