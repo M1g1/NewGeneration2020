@@ -77,6 +77,10 @@ namespace Gallery.Controllers
         {
             var canAuthorize = await _usersService.IsUserExistAsync(model.Email, model.Password);
 
+            var ipAddress = HttpContext.Request.UserHostAddress;
+            
+            await _usersService.AddLoginAttemptToDatabaseAsync(model.Email, ipAddress, canAuthorize);
+
             if (canAuthorize)
             {
 
