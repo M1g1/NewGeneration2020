@@ -81,11 +81,11 @@
     <Compile Include="Models\LoginAttempt.cs" />
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\MediaType.cs" />
-    <Compile Include="Models\ModelsMappings\LoginAttemptMap.cs" />
-    <Compile Include="Models\ModelsMappings\MediaMap.cs" />
-    <Compile Include="Models\ModelsMappings\MediaTypeMap.cs" />
-    <Compile Include="Models\ModelsMappings\RoleMap.cs" />
-    <Compile Include="Models\ModelsMappings\UserMap.cs" />
+    <Compile Include="Models\EntitiesConfiguration\LoginAttemptConfiguration.cs" />
+    <Compile Include="Models\EntitiesConfiguration\MediaConfiguration.cs" />
+    <Compile Include="Models\EntitiesConfiguration\MediaTypeConfiguration.cs" />
+    <Compile Include="Models\EntitiesConfiguration\RoleConfiguration.cs" />
+    <Compile Include="Models\EntitiesConfiguration\UserConfiguration.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserContext.cs" />

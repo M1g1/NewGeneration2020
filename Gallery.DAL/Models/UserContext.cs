@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity;
-using Gallery.DAL.Models.ModelsMappings;
+using Gallery.DAL.Models.EntitiesConfiguration;
 
 namespace Gallery.DAL.Models
 {
@@ -17,11 +17,11 @@ namespace Gallery.DAL.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("Gallery");
-            modelBuilder.Configurations.Add(new UserMap());
-            modelBuilder.Configurations.Add(new RoleMap());
-            modelBuilder.Configurations.Add(new MediaMap());
-            modelBuilder.Configurations.Add(new MediaTypeMap());
-            modelBuilder.Configurations.Add(new LoginAttemptMap());
+            modelBuilder.Configurations.Add(new UserConfiguration());
+            modelBuilder.Configurations.Add(new RoleConfiguration());
+            modelBuilder.Configurations.Add(new MediaConfiguration());
+            modelBuilder.Configurations.Add(new MediaTypeConfiguration());
+            modelBuilder.Configurations.Add(new LoginAttemptConfiguration());
         }
     }
 }

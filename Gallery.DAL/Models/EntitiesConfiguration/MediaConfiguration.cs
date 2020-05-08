@@ -1,10 +1,10 @@
 ﻿using System.Data.Entity.ModelConfiguration;
 
-namespace Gallery.DAL.Models.ModelsMappings
+namespace Gallery.DAL.Models.EntitiesConfiguration
 {
-    public class MediaMap : EntityTypeConfiguration<Media>
+    public class MediaConfiguration : EntityTypeConfiguration<Media>
     {
-        public MediaMap()
+        public MediaConfiguration()
         {
             this.HasKey(m => m.Id);
 

@@ -1,10 +1,10 @@
 ﻿using System.Data.Entity.ModelConfiguration;
 
-namespace Gallery.DAL.Models.ModelsMappings
+namespace Gallery.DAL.Models.EntitiesConfiguration
 {
-    public class UserMap : EntityTypeConfiguration<User>
+    public class UserConfiguration : EntityTypeConfiguration<User>
     {
-        public UserMap()
+        public UserConfiguration()
         {
             this.HasKey(u => u.Id);
 

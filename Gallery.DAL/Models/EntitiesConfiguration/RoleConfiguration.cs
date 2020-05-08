@@ -1,10 +1,10 @@
 ﻿using System.Data.Entity.ModelConfiguration;
 
-namespace Gallery.DAL.Models.ModelsMappings
+namespace Gallery.DAL.Models.EntitiesConfiguration
 {
-    public class RoleMap : EntityTypeConfiguration<Role>
+    public class RoleConfiguration : EntityTypeConfiguration<Role>
     {
-        public RoleMap()
+        public RoleConfiguration()
         {
             this.HasKey(r => r.Id);
 

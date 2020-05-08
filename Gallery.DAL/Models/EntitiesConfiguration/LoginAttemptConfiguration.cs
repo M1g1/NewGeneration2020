@@ -1,11 +1,10 @@
 ﻿using System.Data.Entity.ModelConfiguration;
-using System.Runtime.CompilerServices;
 
-namespace Gallery.DAL.Models.ModelsMappings
+namespace Gallery.DAL.Models.EntitiesConfiguration
 {
-    public class LoginAttemptMap : EntityTypeConfiguration<LoginAttempt>
+    public class LoginAttemptConfiguration : EntityTypeConfiguration<LoginAttempt>
     {
-        public LoginAttemptMap()
+        public LoginAttemptConfiguration()
         {
             this.HasKey(a => a.Id);
 
