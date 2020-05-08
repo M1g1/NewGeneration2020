@@ -27,7 +27,23 @@ namespace Gallery.DAL
             _ctx.Users.Add(new User { Email = email, Password = password });
             await _ctx.SaveChangesAsync();
         }
-  
+        public async Task AddLoginAttemptToDatabaseAsync(string email, string ipAddress, bool isSuccess)
+        {
+            var user = GetUserByEmail(email);
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+
+            _ctx.LoginAttempts.Add(
+                new LoginAttempt
+                {
+                    IsSuccess = isSuccess,
+                    IpAddress = ipAddress,
+                    User = user,
+                    TimeStamp = DateTime.Now
+                });
+
+            await _ctx.SaveChangesAsync();
+        }
         public User GetUserByEmail(string email)
         {
             return _ctx.Users.Where(u => u.Email == email).Select(u => u).FirstOrDefault();

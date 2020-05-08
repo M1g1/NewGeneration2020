@@ -7,6 +7,7 @@ namespace Gallery.DAL
     {
         Task<bool> IsUserExistAsync(string email, string password);
         Task AddUserToDatabaseAsync(string email, string password);
+        Task AddLoginAttemptToDatabaseAsync(string email, string ipAddress, bool isSuccess);
         User GetUserByEmail(string email);
 
     }

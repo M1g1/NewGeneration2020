@@ -28,6 +28,11 @@ namespace Gallery.Service
             await _repo.AddUserToDatabaseAsync(email, password);
         }
 
+        public async Task AddLoginAttemptToDatabaseAsync(string email, string ipAddress, bool isSuccess)
+        {
+            await _repo.AddLoginAttemptToDatabaseAsync(email, ipAddress, isSuccess);
+        }
+
         public User GetUserByEmail(string email)
         {
            return _repo.GetUserByEmail(email);
