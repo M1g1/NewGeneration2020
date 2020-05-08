@@ -13,7 +13,7 @@ namespace Gallery.App_Start.Modules
         {
             var connectionString = GalleryConfigurationManager.GetSqlConnectionString();
 
-            containerBuilder.Register(ctx => new UserContext(connectionString)).AsSelf();
+            containerBuilder.Register(ctx => new GalleryDbContext(connectionString)).AsSelf();
 
             containerBuilder.RegisterType<UsersRepository>().As<IRepository>();
 

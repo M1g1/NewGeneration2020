@@ -3,10 +3,10 @@ using Gallery.DAL.Models.EntitiesConfiguration;
 
 namespace Gallery.DAL.Models
 {
-    public class UserContext : DbContext
+    public class GalleryDbContext : DbContext
     {
-        public UserContext() { }
-        public UserContext(string nameOrConnectionString) : base(nameOrConnectionString)
+        public GalleryDbContext() { }
+        public GalleryDbContext(string nameOrConnectionString) : base(nameOrConnectionString)
         { }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }

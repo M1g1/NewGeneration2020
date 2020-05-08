@@ -8,9 +8,9 @@ namespace Gallery.DAL
 {
     public class UsersRepository : IRepository
     {
-        private readonly UserContext _ctx;
+        private readonly GalleryDbContext _ctx;
 
-        public UsersRepository(UserContext ctx)
+        public UsersRepository(GalleryDbContext ctx)
         {
             _ctx = ctx ?? throw new ArgumentNullException(nameof(ctx));
         }

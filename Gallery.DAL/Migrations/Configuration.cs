@@ -5,7 +5,7 @@
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Gallery.DAL.Models.UserContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Gallery.DAL.Models.GalleryDbContext>
     {
         public Configuration()
         {
@@ -13,7 +13,7 @@
             ContextKey = "Gallery.DAL.Models.UserContext";
         }
 
-        protected override void Seed(Gallery.DAL.Models.UserContext context)
+        protected override void Seed(Gallery.DAL.Models.GalleryDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
