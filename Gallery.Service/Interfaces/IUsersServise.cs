@@ -1,17 +1,15 @@
 ﻿using Gallery.Service.Contract;
 using System.Threading.Tasks;
-using Gallery.DAL.Models;
 
 namespace Gallery.Service
 {
     public interface IUsersService
     { 
         Task<bool> IsUserExistAsync(string email, string password);
-        Task<UserDTO> FindUserAsync(string email, string password);
+        Task<UserDto> FindUserAsync(string email, string password);
         Task AddUserToDatabaseAsync(string email, string password);
         Task AddLoginAttemptToDatabaseAsync(string email, string ipAddress, bool isSuccess);
-        User GetUserByEmail(string email);
+        Task<UserDto> GetUserByEmailAsync(string email);
     }
-
 
 }

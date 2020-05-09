@@ -2,7 +2,6 @@
 using Gallery.Service.Contract;
 using System;
 using System.Threading.Tasks;
-using Gallery.DAL.Models;
 
 namespace Gallery.Service
 {
@@ -18,7 +17,7 @@ namespace Gallery.Service
         {
             return await _repo.IsUserExistAsync(email, password);
         }
-        public Task<UserDTO> FindUserAsync(string email, string password)
+        public Task<UserDto> FindUserAsync(string email, string password)
         {
             throw new NotImplementedException();
         }
@@ -33,9 +32,10 @@ namespace Gallery.Service
             await _repo.AddLoginAttemptToDatabaseAsync(email, ipAddress, isSuccess);
         }
 
-        public User GetUserByEmail(string email)
+        public async Task<UserDto> GetUserByEmailAsync(string email)
         {
-           return _repo.GetUserByEmail(email);
+            var user = await _repo.GetUserByEmailAsync(email);
+            return new UserDto{ Id = user.Id, Email = user.Email, Password = user.Password };
         }
 
     }
