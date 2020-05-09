@@ -77,6 +77,10 @@
     <Compile Include="Migrations\202005072213254_TableNameChanged.designer.cs">
       <DependentUpon>202005072213254_TableNameChanged.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005091903266_AddUniqIndexForUserEmail.cs" />
+    <Compile Include="Migrations\202005091903266_AddUniqIndexForUserEmail.designer.cs">
+      <DependentUpon>202005091903266_AddUniqIndexForUserEmail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LoginAttempt.cs" />
     <Compile Include="Models\Media.cs" />
@@ -117,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005072213254_TableNameChanged.resx">
       <DependentUpon>202005072213254_TableNameChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005091903266_AddUniqIndexForUserEmail.resx">
+      <DependentUpon>202005091903266_AddUniqIndexForUserEmail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
