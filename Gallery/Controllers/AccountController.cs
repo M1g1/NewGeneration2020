@@ -41,12 +41,14 @@ namespace Gallery.Controllers
         {
             var isUserExist = await _usersService.IsUserExistAsync(model.Email, model.Password);
 
+            var userDto = await _usersService.GetUserByEmailAsync(model.Email);
+
             if (isUserExist == false)
             {
 
                 await _usersService.AddUserToDatabaseAsync(model.Email, model.Password);
 
-                var userId = _usersService.GetUserByEmail(model.Email).Id.ToString();
+                var userId = userDto.Id.ToString();
 
                 ClaimsIdentity claims = _authenticationService.CreateClaimsIdentity(userId);
 
@@ -78,13 +80,15 @@ namespace Gallery.Controllers
             var canAuthorize = await _usersService.IsUserExistAsync(model.Email, model.Password);
 
             var ipAddress = HttpContext.Request.UserHostAddress;
-            
+
+            var userDto = await _usersService.GetUserByEmailAsync(model.Email);
+
             await _usersService.AddLoginAttemptToDatabaseAsync(model.Email, ipAddress, canAuthorize);
 
             if (canAuthorize)
             {
 
-                var userId = _usersService.GetUserByEmail(model.Email).Id.ToString();
+                var userId = userDto.Id.ToString();
 
                 ClaimsIdentity claims = _authenticationService.CreateClaimsIdentity(userId);
 
