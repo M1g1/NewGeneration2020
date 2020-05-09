@@ -39,20 +39,24 @@ namespace Gallery.Controllers
         [LogFilter]
         public async Task<ActionResult> Register(RegisterModel model)
         {
-            var isUserExist = await _usersService.IsUserExistAsync(model.Email, model.Password);
-
-            var userDto = await _usersService.GetUserByEmailAsync(model.Email);
+            var isUserExist = await _usersService.IsUserExistAsync(model.Email);
 
             if (isUserExist == false)
             {
 
                 await _usersService.AddUserToDatabaseAsync(model.Email, model.Password);
 
+                var userDto = await _usersService.GetUserByEmailAsync(model.Email);
+
                 var userId = userDto.Id.ToString();
 
                 ClaimsIdentity claims = _authenticationService.CreateClaimsIdentity(userId);
 
                 _authenticationService.AutorizeContext(HttpContext.GetOwinContext(), claims);
+
+                var ipAddress = HttpContext.Request.UserHostAddress;
+
+                await _usersService.AddLoginAttemptToDatabaseAsync(model.Email, ipAddress, true);
 
                 return RedirectToAction("Index", "Home");
 
