@@ -16,6 +16,10 @@ namespace Gallery.Service
         public async Task<bool> IsUserExistAsync(string email, string password)
         {
             return await _repo.IsUserExistAsync(email, password);
+        } 
+        public async Task<bool> IsUserExistAsync(string email)
+        {
+            return await _repo.IsUserExistAsync(email);
         }
         public Task<UserDto> FindUserAsync(string email, string password)
         {
@@ -37,6 +41,5 @@ namespace Gallery.Service
             var user = await _repo.GetUserByEmailAsync(email);
             return new UserDto{ Id = user.Id, Email = user.Email, Password = user.Password };
         }
-
     }
 }
