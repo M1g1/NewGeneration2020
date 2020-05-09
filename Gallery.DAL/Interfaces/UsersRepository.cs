@@ -1,7 +1,6 @@
 ﻿using Gallery.DAL.Models;
 using System;
 using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Gallery.DAL
@@ -29,7 +28,7 @@ namespace Gallery.DAL
         }
         public async Task AddLoginAttemptToDatabaseAsync(string email, string ipAddress, bool isSuccess)
         {
-            var user = GetUserByEmail(email);
+            var user = await GetUserByEmailAsync(email);
             if (user == null)
                 throw new ArgumentNullException(nameof(user));
 
@@ -44,9 +43,9 @@ namespace Gallery.DAL
 
             await _ctx.SaveChangesAsync();
         }
-        public User GetUserByEmail(string email)
+        public async Task<User> GetUserByEmailAsync(string email)
         {
-            return _ctx.Users.Where(u => u.Email == email).Select(u => u).FirstOrDefault();
+            return await _ctx.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
 
     }
