@@ -15,6 +15,8 @@ namespace Gallery.DAL.Models.EntitiesConfiguration
             this.Property(u => u.Email)
                 .IsRequired()
                 .HasMaxLength(64);
+            this.HasIndex(u => u.Email)
+                .IsUnique();
 
             this.Property(u => u.Password)
                 .IsRequired()
