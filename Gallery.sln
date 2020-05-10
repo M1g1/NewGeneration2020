@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallery.Service", "Gallery.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallery.DAL", "Gallery.DAL\Gallery.DAL.csproj", "{92F5610E-65EF-45E1-B50D-843E689381CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileStorageProvider", "FileStorageProvider\FileStorageProvider.csproj", "{24336C6D-7B90-4D24-89EB-0A57ABB834B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{92F5610E-65EF-45E1-B50D-843E689381CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92F5610E-65EF-45E1-B50D-843E689381CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92F5610E-65EF-45E1-B50D-843E689381CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24336C6D-7B90-4D24-89EB-0A57ABB834B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24336C6D-7B90-4D24-89EB-0A57ABB834B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24336C6D-7B90-4D24-89EB-0A57ABB834B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24336C6D-7B90-4D24-89EB-0A57ABB834B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

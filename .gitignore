@@ -9,3 +9,5 @@ Gallery.DAL/obj
 packages
 .vs
 *.user
+/FileStorageProvider/obj
+/FileStorageProvider/bin
