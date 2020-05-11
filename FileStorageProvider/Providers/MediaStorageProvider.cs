@@ -10,7 +10,7 @@ namespace FileStorageProvider.Providers
         {
             if (path == null)
                 throw new ArgumentNullException(nameof(path));
-            if (path.Length == 0)
+            if (string.IsNullOrWhiteSpace(path))
                 throw new ArgumentException("Argument_EmptyPath", nameof(path));
             if (content == null)
                 throw new ArgumentNullException(nameof(content));
@@ -23,7 +23,7 @@ namespace FileStorageProvider.Providers
         {
             if (path == null)
                 throw new ArgumentNullException(nameof(path));
-            if (path.Length == 0)
+            if (string.IsNullOrWhiteSpace(path))
                 throw new ArgumentException("Argument_EmptyPath", nameof(path));
 
             return File.ReadAllBytes(path);
