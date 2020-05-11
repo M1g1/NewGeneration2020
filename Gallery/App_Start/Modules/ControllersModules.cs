@@ -1,5 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
+using FileStorageProvider.Interfaces;
+using FileStorageProvider.Providers;
 using Gallery.Service;
 using Gallery.DAL.Models;
 using Gallery.DAL;
@@ -24,6 +26,8 @@ namespace Gallery.App_Start.Modules
             containerBuilder.RegisterType<ImageService>().As<IImageService>();
 
             containerBuilder.RegisterType<HashService>().As<IHashService>();
+
+            containerBuilder.RegisterType<MediaStorageProvider>().As<IFileStorage>();
         }
     }
 }

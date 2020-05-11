@@ -253,6 +253,10 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FileStorageProvider\FileStorageProvider.csproj">
+      <Project>{24336C6D-7B90-4D24-89EB-0A57ABB834B5}</Project>
+      <Name>FileStorageProvider</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Gallery.DAL\Gallery.DAL.csproj">
       <Project>{92f5610e-65ef-45e1-b50d-843e689381cf}</Project>
       <Name>Gallery.DAL</Name>
