@@ -54,6 +54,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FileStorageProvider\FileStorageProvider.csproj">
+      <Project>{24336c6d-7b90-4d24-89eb-0a57abb834b5}</Project>
+      <Name>FileStorageProvider</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Gallery.DAL\Gallery.DAL.csproj">
       <Project>{92f5610e-65ef-45e1-b50d-843e689381cf}</Project>
       <Name>Gallery.DAL</Name>

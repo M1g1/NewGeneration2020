@@ -4,12 +4,22 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Media.Imaging;
+using FileStorageProvider.Interfaces;
 
 namespace Gallery.Service
 {
     public class ImageService : IImageService
     {
+        private readonly IFileStorage _storage;
 
+        public ImageService()
+        {
+            
+        }
+        public ImageService(IFileStorage storage)
+        {
+            _storage = storage ?? throw new ArgumentNullException(nameof(storage));
+        }
         public string GetTitle(string loadExifPath)
         {
             var fileInfo = new FileInfo(loadExifPath);
@@ -147,7 +157,7 @@ namespace Gallery.Service
             }
         }
 
-        public void UploadImage(byte[] _img, string _pathToSave)
+        public void UploadImage(byte[] content, string path)
         {
             throw new NotImplementedException();
         }
