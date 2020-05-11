@@ -21,6 +21,11 @@ namespace FileStorageProvider.Providers
 
         public byte[] ReadBytes(string path)
         {
+            if (path == null)
+                throw new ArgumentNullException(nameof(path));
+            if (path.Length == 0)
+                throw new ArgumentException("Argument_EmptyPath", nameof(path));
+
             return File.ReadAllBytes(path);
         }
 
