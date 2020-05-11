@@ -11,3 +11,5 @@ packages
 *.user
 /FileStorageProvider/obj
 /FileStorageProvider/bin
+/Tests/FileStorageProvider.NUnitTests/bin
+/Tests/FileStorageProvider.NUnitTests/obj
