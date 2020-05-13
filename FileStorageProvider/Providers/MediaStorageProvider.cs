@@ -31,7 +31,15 @@ namespace FileStorageProvider.Providers
 
         public bool Delete(string path)
         {
-            throw new NotImplementedException();
+            if (path == null)
+                throw new ArgumentNullException(nameof(path));
+            if (string.IsNullOrWhiteSpace(path))
+                throw new ArgumentException("Argument_EmptyPath", nameof(path));
+            if (!File.Exists(path))
+                throw new FileNotFoundException(nameof(path));
+
+            File.Delete(path);
+            return !File.Exists(path);
         }
     }
 }
