@@ -1,11 +1,21 @@
 ﻿using System;
 using System.IO;
+using System.IO.Abstractions;
 using FileStorageProvider.Interfaces;
 
 namespace FileStorageProvider.Providers
 {
     public class MediaStorageProvider : IFileStorage
     {
+        private readonly IFileSystem _fileSystem;
+
+        public MediaStorageProvider() : this(new FileSystem()) { }
+
+        public MediaStorageProvider(IFileSystem fileSystem)
+        {
+            _fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
+        }
+
         public bool Save(byte[] content, string path)
         {
             if (path == null)
@@ -15,8 +25,8 @@ namespace FileStorageProvider.Providers
             if (content == null)
                 throw new ArgumentNullException(nameof(content));
 
-            File.WriteAllBytes(path, content);
-            return File.Exists(path);
+            _fileSystem.File.WriteAllBytes(path, content);
+            return _fileSystem.File.Exists(path);
         }
 
         public byte[] ReadBytes(string path)
@@ -26,7 +36,7 @@ namespace FileStorageProvider.Providers
             if (string.IsNullOrWhiteSpace(path))
                 throw new ArgumentException("Argument_EmptyPath", nameof(path));
 
-            return File.ReadAllBytes(path);
+            return _fileSystem.File.ReadAllBytes(path);
         }
 
         public bool Delete(string path)
@@ -35,11 +45,11 @@ namespace FileStorageProvider.Providers
                 throw new ArgumentNullException(nameof(path));
             if (string.IsNullOrWhiteSpace(path))
                 throw new ArgumentException("Argument_EmptyPath", nameof(path));
-            if (!File.Exists(path))
+            if (!_fileSystem.File.Exists(path))
                 throw new FileNotFoundException(nameof(path));
 
-            File.Delete(path);
-            return !File.Exists(path);
+            _fileSystem.File.Delete(path);
+            return !_fileSystem.File.Exists(path);
         }
     }
 }
