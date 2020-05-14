@@ -9,7 +9,6 @@ namespace FileStorageProvider.Providers
     {
         private readonly IFileSystem _fileSystem;
 
-        public MediaStorageProvider() : this(new FileSystem()) { }
 
         public MediaStorageProvider(IFileSystem fileSystem)
         {
