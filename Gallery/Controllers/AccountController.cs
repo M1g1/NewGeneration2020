@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Gallery.Filters;
 using Gallery.Models;
 using Gallery.Service;
+using Gallery.Service.Contract;
 
 namespace Gallery.Controllers
 {
@@ -44,7 +45,11 @@ namespace Gallery.Controllers
             if (isUserExist == false)
             {
 
-                await _usersService.AddUserToDatabaseAsync(model.Email, model.Password);
+                await _usersService.AddUserToDatabaseAsync(new UserDto
+                {
+                    Email = model.Email, 
+                    Password = model.Password
+                });
 
                 var userDto = await _usersService.GetUserByEmailAsync(model.Email);
 
@@ -56,16 +61,14 @@ namespace Gallery.Controllers
 
                 var ipAddress = HttpContext.Request.UserHostAddress;
 
-                await _usersService.AddLoginAttemptToDatabaseAsync(model.Email, ipAddress, true);
+                await _usersService.AddLoginAttemptToDatabaseAsync(userDto, ipAddress, true);
 
                 return RedirectToAction("Index", "Home");
 
             }
-            else
-            {
-                ModelState.AddModelError("", "User already exists");
-            }
 
+            ModelState.AddModelError("", "User already exists");
+            
             return View(model);
         }
 
@@ -81,29 +84,34 @@ namespace Gallery.Controllers
         [LogFilter]
         public async Task<ActionResult> Login(LoginModel model)
         {
-            var canAuthorize = await _usersService.IsUserExistAsync(model.Email, model.Password);
 
-            var ipAddress = HttpContext.Request.UserHostAddress;
+            var isUserExist = await _usersService.IsUserExistAsync(model.Email);
 
-            var userDto = await _usersService.GetUserByEmailAsync(model.Email);
-
-            await _usersService.AddLoginAttemptToDatabaseAsync(model.Email, ipAddress, canAuthorize);
-
-            if (canAuthorize)
+            if (isUserExist)
             {
+                
+                var canAuthorize = await _usersService.IsUserExistAsync(model.Email, model.Password);
+                
+                var userDto = await _usersService.GetUserByEmailAsync(model.Email);
 
-                var userId = userDto.Id.ToString();
+                var ipAddress = HttpContext.Request.UserHostAddress;
 
-                ClaimsIdentity claims = _authenticationService.CreateClaimsIdentity(userId);
+                await _usersService.AddLoginAttemptToDatabaseAsync(userDto, ipAddress, canAuthorize);
 
-                _authenticationService.AutorizeContext(HttpContext.GetOwinContext(), claims);
+                if (canAuthorize)
+                {
 
-                return RedirectToAction("Index", "Home");
+                    var userId = userDto.Id.ToString();
+
+                    ClaimsIdentity claims = _authenticationService.CreateClaimsIdentity(userId);
+
+                    _authenticationService.AutorizeContext(HttpContext.GetOwinContext(), claims);
+
+                    return RedirectToAction("Index", "Home");
+                }
             }
-            else
-            {
-                ModelState.AddModelError("", "User not found");
-            }
+
+            ModelState.AddModelError("", "User not found");
 
             return View(model);
         }

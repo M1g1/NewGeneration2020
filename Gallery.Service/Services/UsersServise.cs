@@ -2,6 +2,7 @@
 using Gallery.Service.Contract;
 using System;
 using System.Threading.Tasks;
+using Gallery.DAL.Models;
 
 namespace Gallery.Service
 {
@@ -26,14 +27,15 @@ namespace Gallery.Service
             throw new NotImplementedException();
         }
 
-        public async Task AddUserToDatabaseAsync(string email, string password)
+        public async Task AddUserToDatabaseAsync(UserDto userDto)
         {
-            await _repo.AddUserToDatabaseAsync(email, password);
+            await _repo.AddUserToDatabaseAsync(new User { Email = userDto.Email, Password = userDto.Password });
         }
 
-        public async Task AddLoginAttemptToDatabaseAsync(string email, string ipAddress, bool isSuccess)
+        public async Task AddLoginAttemptToDatabaseAsync(UserDto userDto, string ipAddress, bool isSuccess)
         {
-            await _repo.AddLoginAttemptToDatabaseAsync(email, ipAddress, isSuccess);
+            var user = await _repo.GetUserByEmailAsync(userDto.Email);
+            await _repo.AddLoginAttemptToDatabaseAsync(user, ipAddress, isSuccess);
         }
 
         public async Task<UserDto> GetUserByEmailAsync(string email)

@@ -26,17 +26,13 @@ namespace Gallery.DAL
             return await _ctx.Users.AnyAsync(u => u.Email == email.Trim().ToLower());
         }
 
-        public async Task AddUserToDatabaseAsync(string email, string password)
+        public async Task AddUserToDatabaseAsync(User user)
         {
-            _ctx.Users.Add(new User { Email = email, Password = password });
+            _ctx.Users.Add(user);
             await _ctx.SaveChangesAsync();
         }
-        public async Task AddLoginAttemptToDatabaseAsync(string email, string ipAddress, bool isSuccess)
+        public async Task AddLoginAttemptToDatabaseAsync(User user, string ipAddress, bool isSuccess)
         {
-            var user = await GetUserByEmailAsync(email);
-            if (user == null)
-                throw new ArgumentNullException(nameof(user));
-
             _ctx.LoginAttempts.Add(
                 new LoginAttempt
                 {
