@@ -31,6 +31,8 @@ namespace Gallery.App_Start.Modules
             containerBuilder.RegisterType<HashService>().As<IHashService>();
 
             containerBuilder.RegisterType<MediaStorageProvider>().As<IFileStorage>();
+
+            containerBuilder.RegisterType<MediaRepository>().As<IMediaRepository>();
         }
     }
 }
