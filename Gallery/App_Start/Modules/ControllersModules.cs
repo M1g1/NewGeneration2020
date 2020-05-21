@@ -18,7 +18,7 @@ namespace Gallery.App_Start.Modules
 
             containerBuilder.Register(ctx => new GalleryDbContext(connectionString)).AsSelf();
 
-            containerBuilder.RegisterType<UsersRepository>().As<IRepository>();
+            containerBuilder.RegisterType<UsersRepository>().As<IUserRepository>();
 
             containerBuilder.RegisterType<UsersService>().As<IUsersService>();
 

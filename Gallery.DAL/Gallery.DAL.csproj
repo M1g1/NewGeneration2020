@@ -48,7 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Migrations\202005011408201_InitialCreate.cs" />
     <Compile Include="Migrations\202005011408201_InitialCreate.designer.cs">
       <DependentUpon>202005011408201_InitialCreate.cs</DependentUpon>

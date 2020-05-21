@@ -3,7 +3,7 @@ using Gallery.DAL.Models;
 
 namespace Gallery.DAL
 {
-    public interface IRepository
+    public interface IUserRepository
     {
         Task<bool> IsUserExistAsync(string email, string password);
         Task<bool> IsUserExistAsync(string email);

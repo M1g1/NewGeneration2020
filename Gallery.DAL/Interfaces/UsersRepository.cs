@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Gallery.DAL
 {
-    public class UsersRepository : IRepository
+    public class UsersRepository : IUserRepository
     {
         private readonly GalleryDbContext _ctx;
 
