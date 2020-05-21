@@ -7,9 +7,11 @@ namespace Gallery.DAL
     {
         Task<bool> IsUserExistAsync(string email, string password);
         Task<bool> IsUserExistAsync(string email);
+        Task<bool> IsUserExistAsync(int id);
         Task AddUserToDatabaseAsync(User user);
         Task AddLoginAttemptToDatabaseAsync(User user, string ipAddress, bool isSuccess);
         Task<User> GetUserByEmailAsync(string email);
+        Task<User> GetUserByIdAsync(int id);
 
     }
 }

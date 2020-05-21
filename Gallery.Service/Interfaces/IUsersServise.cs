@@ -7,10 +7,11 @@ namespace Gallery.Service
     { 
         Task<bool> IsUserExistAsync(string email, string password);
         Task<bool> IsUserExistAsync(string email);
-        Task<UserDto> FindUserAsync(string email, string password);
+        Task<bool> IsUserExistAsync(int id);
         Task AddUserToDatabaseAsync(UserDto userDto);
         Task AddLoginAttemptToDatabaseAsync(UserDto userDto, string ipAddress, bool isSuccess);
         Task<UserDto> GetUserByEmailAsync(string email);
+        Task<UserDto> GetUserByIdAsync(int id);
     }
 
 }

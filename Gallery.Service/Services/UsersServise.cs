@@ -22,10 +22,12 @@ namespace Gallery.Service
         {
             return await _userRepo.IsUserExistAsync(email);
         }
-        public Task<UserDto> FindUserAsync(string email, string password)
+
+        public async Task<bool> IsUserExistAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _userRepo.IsUserExistAsync(id);
         }
+
 
         public async Task AddUserToDatabaseAsync(UserDto userDto)
         {
@@ -42,6 +44,14 @@ namespace Gallery.Service
         public async Task<UserDto> GetUserByEmailAsync(string email)
         {
             var user = await _userRepo.GetUserByEmailAsync(email);
+            if (user != null)
+                return new UserDto { Id = user.Id, Email = user.Email, Password = user.Password };
+            return null;
+        }
+
+        public async Task<UserDto> GetUserByIdAsync(int id)
+        {
+            var user = await _userRepo.GetUserByIdAsync(id);
             if (user != null)
                 return new UserDto { Id = user.Id, Email = user.Email, Password = user.Password };
             return null;

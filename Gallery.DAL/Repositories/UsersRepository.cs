@@ -26,6 +26,11 @@ namespace Gallery.DAL
             return await _ctx.Users.AnyAsync(u => u.Email == email.Trim().ToLower());
         }
 
+        public async Task<bool> IsUserExistAsync(int id)
+        {
+            return await _ctx.Users.AnyAsync(u => u.Id == id);
+        }
+
         public async Task AddUserToDatabaseAsync(User user)
         {
             _ctx.Users.Add(user);
@@ -49,6 +54,10 @@ namespace Gallery.DAL
             return await _ctx.Users.FirstOrDefaultAsync(u => u.Email == email.Trim().ToLower());
         }
 
+        public async Task<User> GetUserByIdAsync(int id)
+        {
+            return await _ctx.Users.FirstOrDefaultAsync(u => u.Id == id);
+        }
     }
 
 }
