@@ -19,10 +19,11 @@ namespace Gallery.DAL
             _ctx.Media.Add(media);
             await _ctx.SaveChangesAsync();
         } 
-        public async Task UpdateDeletionStatus(string path, bool newStatus)
+        public async Task UpdateDeletionStatusAsync(string path, bool newStatus)
         {
             var media = await _ctx.Media.FirstOrDefaultAsync(m => m.Path == path.Trim().ToLower());
-            media.IsDeleted = newStatus;
+            if (media != null) 
+                media.IsDeleted = newStatus;
             await _ctx.SaveChangesAsync();
         }
     }
