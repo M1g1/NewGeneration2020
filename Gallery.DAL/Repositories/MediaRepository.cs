@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using Gallery.DAL.Models;
 
@@ -16,6 +17,12 @@ namespace Gallery.DAL
         public async Task AddMediaToDatabaseAsync(Media media)
         {
             _ctx.Media.Add(media);
+            await _ctx.SaveChangesAsync();
+        } 
+        public async Task UpdateDeletionStatus(string path, bool newStatus)
+        {
+            var media = await _ctx.Media.FirstOrDefaultAsync(m => m.Path == path.Trim().ToLower());
+            media.IsDeleted = newStatus;
             await _ctx.SaveChangesAsync();
         }
     }
