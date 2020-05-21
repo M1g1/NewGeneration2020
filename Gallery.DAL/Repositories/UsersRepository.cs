@@ -1,7 +1,7 @@
-﻿using Gallery.DAL.Models;
-using System;
+﻿using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using Gallery.DAL.Models;
 
 namespace Gallery.DAL
 {
