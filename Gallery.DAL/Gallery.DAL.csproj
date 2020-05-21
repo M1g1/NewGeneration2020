@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IMediaRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Migrations\202005011408201_InitialCreate.cs" />
     <Compile Include="Migrations\202005011408201_InitialCreate.designer.cs">
@@ -98,6 +99,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\GalleryDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\MediaRepository.cs" />
     <Compile Include="Repositories\UsersRepository.cs" />
   </ItemGroup>
   <ItemGroup>
