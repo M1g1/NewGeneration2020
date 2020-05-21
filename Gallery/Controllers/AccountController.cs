@@ -53,6 +53,12 @@ namespace Gallery.Controllers
 
                 var userDto = await _usersService.GetUserByEmailAsync(model.Email);
 
+                if (userDto == null)
+                {
+                    ModelState.AddModelError("", "Something went wrong, try again.");
+                    return View(model);
+                }
+
                 var userId = userDto.Id.ToString();
 
                 ClaimsIdentity claims = _authenticationService.CreateClaimsIdentity(userId);
@@ -93,6 +99,12 @@ namespace Gallery.Controllers
                 var canAuthorize = await _usersService.IsUserExistAsync(model.Email, model.Password);
                 
                 var userDto = await _usersService.GetUserByEmailAsync(model.Email);
+
+                if (userDto == null)
+                {
+                    ModelState.AddModelError("", "Something went wrong, try again.");
+                    return View(model);
+                }
 
                 var ipAddress = HttpContext.Request.UserHostAddress;
 
