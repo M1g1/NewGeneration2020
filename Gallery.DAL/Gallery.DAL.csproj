@@ -81,6 +81,10 @@
     <Compile Include="Migrations\202005091903266_AddUniqIndexForUserEmail.designer.cs">
       <DependentUpon>202005091903266_AddUniqIndexForUserEmail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005211235467_AddIsDeletedToMediaTable.cs" />
+    <Compile Include="Migrations\202005211235467_AddIsDeletedToMediaTable.designer.cs">
+      <DependentUpon>202005211235467_AddIsDeletedToMediaTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LoginAttempt.cs" />
     <Compile Include="Models\Media.cs" />
@@ -124,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005091903266_AddUniqIndexForUserEmail.resx">
       <DependentUpon>202005091903266_AddUniqIndexForUserEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005211235467_AddIsDeletedToMediaTable.resx">
+      <DependentUpon>202005211235467_AddIsDeletedToMediaTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

@@ -15,6 +15,10 @@ namespace Gallery.DAL.Models.EntitiesConfiguration
             this.Property(m => m.Path)
                 .IsRequired();
 
+
+            this.Property(m => m.IsDeleted)
+                .IsRequired();
+
             this.HasRequired(m => m.Type)
                 .WithMany(mt => mt.Media)
                 .HasForeignKey(m => m.MediaTypeId);
