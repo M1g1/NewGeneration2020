@@ -46,7 +46,7 @@ namespace Gallery.DAL
         }
         public async Task<User> GetUserByEmailAsync(string email)
         {
-            return await _ctx.Users.FirstOrDefaultAsync(u => u.Email == email);
+            return await _ctx.Users.FirstOrDefaultAsync(u => u.Email == email.Trim().ToLower());
         }
 
     }
