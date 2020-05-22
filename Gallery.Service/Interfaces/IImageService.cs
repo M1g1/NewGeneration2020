@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Threading.Tasks;
+using Gallery.Service.Contract;
 
 namespace Gallery.Service
 {
@@ -10,7 +11,7 @@ namespace Gallery.Service
         string GetManufacturer(string loadExifPath);
         string GetModelOfCamera(string loadExifPath);
         string GetDateCreation(string loadExifPath);
-        void Delete(string fileToDelete);
-        void UploadImage(byte[] content, string path);
+        Task DeleteAsync(string path);
+        Task<bool> UploadImageAsync(byte[] content, string path, UserDto userDto);
     }
 }

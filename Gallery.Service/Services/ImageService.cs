@@ -1,25 +1,80 @@
 ﻿using System;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using FileStorageProvider.Interfaces;
+using Gallery.DAL;
+using Gallery.DAL.Models;
+using Gallery.Service.Contract;
 
 namespace Gallery.Service
 {
     public class ImageService : IImageService
     {
         private readonly IFileStorage _storage;
-
+        private readonly IMediaRepository _mediaRepo;
+        private readonly IUserRepository _userRepo;
         public ImageService()
         {
-            
+
         }
-        public ImageService(IFileStorage storage)
+        public ImageService(IFileStorage storage, IMediaRepository mediaRepo, IUserRepository userRepo)
         {
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
+            _mediaRepo = mediaRepo ?? throw new ArgumentNullException(nameof(mediaRepo));
+            _userRepo = userRepo ?? throw new ArgumentNullException(nameof(userRepo));
         }
+
+        public async Task DeleteAsync(string path)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> UploadImageAsync(byte[] content, string path, UserDto userDto)
+        {
+            var directoryName = Path.GetDirectoryName(path);
+            if (!Directory.Exists(directoryName))
+                Directory.CreateDirectory(directoryName);
+            var isMediaExist = await _mediaRepo.IsMediaExistByPathAsync(path);
+
+            //
+            //If the file already exists in the database by this path
+            //and is marked as deleted, mark it as not deleted
+            //
+            if (isMediaExist)
+            {
+                var media = await _mediaRepo.GetMediaByPathAsync(path);
+                if (media.IsDeleted)
+                    await _mediaRepo.UpdateMediaDeletionStatusAsync(media, false);
+            }
+            //
+            //If the file does not exist in the database by this path, add it
+            //
+            else
+            {
+                var isUserExist = await _userRepo.IsUserExistAsync(userDto.Email);
+                if (!isUserExist)
+                    return false;
+                var user = await _userRepo.GetUserByEmailAsync(userDto.Email);
+                var extension = Path.GetExtension(path);
+                var isMediaTypeExist = await _mediaRepo.IsMediaTypeExistAsync(extension);
+                if (!isMediaTypeExist)
+                {
+                    await _mediaRepo.AddMediaTypeToDatabaseAsync(new MediaType {Type = extension});
+                }
+
+                var mediaType = await _mediaRepo.GetMediaTypeAsync(extension);
+                await _mediaRepo.AddMediaToDatabaseAsync(new Media
+                {
+                    Path = path,
+                    UserId = user.Id,
+                    MediaTypeId = mediaType.Id
+                });
+            }
+            return _storage.Save(content, path);
+        }
+
         public string GetTitle(string loadExifPath)
         {
             var fileInfo = new FileInfo(loadExifPath);
@@ -104,19 +159,6 @@ namespace Gallery.Service
                 return string.IsNullOrEmpty(md.DateTaken) ? "Data not found" : md.DateTaken;
             }
 
-        }
-
-        public void Delete(string fileToDelete)
-        {
-            if (File.Exists(fileToDelete))
-            {
-                File.Delete(fileToDelete);
-            }
-        }
-
-        public void UploadImage(byte[] content, string path)
-        {
-            throw new NotImplementedException();
         }
     }
 }
