@@ -11,7 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallery.DAL", "Gallery.DAL\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileStorageProvider", "FileStorageProvider\FileStorageProvider.csproj", "{24336C6D-7B90-4D24-89EB-0A57ABB834B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileStorageProvider.NUnitTests", "Tests\FileStorageProvider.NUnitTests\FileStorageProvider.NUnitTests.csproj", "{44696F2A-A8C9-40BE-9B27-9BB376FE9CC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileStorageProvider.NUnitTests", "Tests\FileStorageProvider.NUnitTests\FileStorageProvider.NUnitTests.csproj", "{44696F2A-A8C9-40BE-9B27-9BB376FE9CC9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F16D7B2D-8444-4440-8D28-CA56AD35BD5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +44,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{44696F2A-A8C9-40BE-9B27-9BB376FE9CC9} = {F16D7B2D-8444-4440-8D28-CA56AD35BD5C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3D4FB45D-DE33-4A86-9736-0358A36763B7}
