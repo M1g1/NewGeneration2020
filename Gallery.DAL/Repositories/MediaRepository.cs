@@ -25,7 +25,7 @@ namespace Gallery.DAL
             await _ctx.SaveChangesAsync();
         }
 
-        public async Task<Media> GetMediaByPath(string path)
+        public async Task<Media> GetMediaByPathAsync(string path)
         {
             return await _ctx.Media.FirstOrDefaultAsync(m => m.Path == path.Trim().ToLower());
         }
@@ -34,6 +34,22 @@ namespace Gallery.DAL
         {
             media.IsDeleted = newStatus;
             await _ctx.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsMediaTypeExistAsync(string extension)
+        {
+            return await _ctx.MediaTypes.AnyAsync(mt => mt.Type == extension.Trim().ToLower());
+        }
+
+        public async Task AddMediaTypeToDatabaseAsync(MediaType mediaType)
+        {
+            _ctx.MediaTypes.Add(mediaType);
+            await _ctx.SaveChangesAsync();
+        }
+
+        public async Task<MediaType> GetMediaTypeAsync(string extension)
+        {
+            return await _ctx.MediaTypes.FirstOrDefaultAsync(mt => mt.Type == extension.Trim().ToLower());
         }
     }
 }
