@@ -13,8 +13,11 @@ namespace Gallery.DAL.Models.EntitiesConfiguration
                 .HasColumnName("MediaId");
 
             this.Property(m => m.Path)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(255);
 
+            this.HasIndex(m => m.Path)
+                .IsUnique();
 
             this.Property(m => m.IsDeleted)
                 .IsRequired();

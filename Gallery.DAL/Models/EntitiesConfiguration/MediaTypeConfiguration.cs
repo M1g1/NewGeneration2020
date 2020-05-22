@@ -16,6 +16,9 @@ namespace Gallery.DAL.Models.EntitiesConfiguration
                 .IsRequired()
                 .HasMaxLength(16);
 
+            this.HasIndex(mt => mt.Type)
+                .IsUnique();
+
             this.ToTable("MediaTypes");
         }
     }

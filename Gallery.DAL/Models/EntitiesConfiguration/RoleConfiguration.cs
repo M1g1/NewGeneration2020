@@ -16,6 +16,9 @@ namespace Gallery.DAL.Models.EntitiesConfiguration
                 .IsRequired()
                 .HasMaxLength(26);
 
+            this.HasIndex(r => r.Name)
+                .IsUnique();
+
             this.ToTable("Roles");
         }
     }
