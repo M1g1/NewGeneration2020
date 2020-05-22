@@ -14,4 +14,6 @@ packages
 /Tests/FileStorageProvider.NUnitTests/bin
 /Tests/FileStorageProvider.NUnitTests/obj
 /Tests/Gallery.DAL.NUnitTests/obj
+/Tests/Gallery.DAL.NUnitTests/bin
 /Tests/Gallery.Service.NUnitTests/obj
+/Tests/Gallery.Service.NUnitTests/bin
