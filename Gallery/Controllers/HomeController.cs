@@ -48,7 +48,7 @@ namespace Gallery.Controllers
                 if (!(inputStream is MemoryStream memoryStream))
                 {
                     memoryStream = new MemoryStream();
-                    inputStream.CopyTo(memoryStream);
+                    await inputStream.CopyToAsync(memoryStream);
                 }
                 data = memoryStream.ToArray();
 
