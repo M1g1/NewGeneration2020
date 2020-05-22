@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using FileStorageProvider.Interfaces;
@@ -26,9 +25,27 @@ namespace Gallery.Service
             _userRepo = userRepo ?? throw new ArgumentNullException(nameof(userRepo));
         }
 
-        public async Task DeleteAsync(string path)
+        public async Task<bool> DeleteAsync(string path)
         {
-            throw new NotImplementedException();
+            var directoryName = Path.GetDirectoryName(path);
+            if (!Directory.Exists(directoryName))
+                throw new DirectoryNotFoundException(nameof(directoryName));
+            if (!File.Exists(path))
+                throw new FileNotFoundException(nameof(path));
+
+            var isMediaExist = await _mediaRepo.IsMediaExistByPathAsync(path);
+            //
+            //If the file already exists in the database by this path
+            //and is marked as not deleted, mark it as deleted
+            //
+            if (isMediaExist)
+            {
+                var media = await _mediaRepo.GetMediaByPathAsync(path);
+                if (!media.IsDeleted)
+                    await _mediaRepo.UpdateMediaDeletionStatusAsync(media, true);
+            }
+
+            return _storage.Delete(path);
         }
 
         public async Task<bool> UploadImageAsync(byte[] content, string path, UserDto userDto)

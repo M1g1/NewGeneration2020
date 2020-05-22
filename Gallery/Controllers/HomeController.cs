@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Windows.Media.Imaging;
-using System.Drawing;
 using System.Threading.Tasks;
+using Gallery.Filters;
 using Gallery.Service;
 using Gallery.Manager;
 
@@ -26,14 +23,22 @@ namespace Gallery.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult Delete(string fileToDelete)
+        [LogFilter]
+        public async Task<ActionResult> Delete(string fileToDelete)
         {
-
+            var path = Server.MapPath(fileToDelete);
+            var isOk = await _imageService.DeleteAsync(path);
+            if (!isOk)
+            {
+                ViewBag.Error = "Something went wrong, try again.";
+                return View("Error");
+            }
             return RedirectToAction("Index");
         }
 
         [Authorize]
         [HttpPost]
+        [LogFilter]
         public async Task<ActionResult> Upload(HttpPostedFileBase files)
         {
             byte[] data;
@@ -59,7 +64,12 @@ namespace Gallery.Controllers
                 return View("Error");
             }
 
-            await _imageService.UploadImageAsync(data, filePath, userDto);
+            var isOk = await _imageService.UploadImageAsync(data, filePath, userDto);
+            if (!isOk)
+            {
+                ViewBag.Error = "Something went wrong, try again.";
+                return View("Error");
+            }
             return RedirectToAction("Index");
         }
 
