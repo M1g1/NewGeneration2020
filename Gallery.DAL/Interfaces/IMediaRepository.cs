@@ -5,7 +5,9 @@ namespace Gallery.DAL
 {
     public interface IMediaRepository
     {
+        Task<bool> IsMediaExistByPathAsync(string path);
         Task AddMediaToDatabaseAsync(Media media);
-        Task UpdateDeletionStatusAsync(string path, bool newStatus);
+        Task<Media> GetMediaByPath(string path);
+        Task UpdateMediaDeletionStatusAsync(Media media, bool newStatus);
     }
 }

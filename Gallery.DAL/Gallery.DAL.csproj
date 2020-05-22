@@ -86,6 +86,10 @@
     <Compile Include="Migrations\202005211235467_AddIsDeletedToMediaTable.designer.cs">
       <DependentUpon>202005211235467_AddIsDeletedToMediaTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005220017309_AddUniqueIndexesFor_RoleName_MediaPath_MediaType.cs" />
+    <Compile Include="Migrations\202005220017309_AddUniqueIndexesFor_RoleName_MediaPath_MediaType.designer.cs">
+      <DependentUpon>202005220017309_AddUniqueIndexesFor_RoleName_MediaPath_MediaType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LoginAttempt.cs" />
     <Compile Include="Models\Media.cs" />
@@ -133,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005211235467_AddIsDeletedToMediaTable.resx">
       <DependentUpon>202005211235467_AddIsDeletedToMediaTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005220017309_AddUniqueIndexesFor_RoleName_MediaPath_MediaType.resx">
+      <DependentUpon>202005220017309_AddUniqueIndexesFor_RoleName_MediaPath_MediaType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

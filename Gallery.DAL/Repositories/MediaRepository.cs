@@ -14,16 +14,25 @@ namespace Gallery.DAL
             _ctx = ctx ?? throw new ArgumentNullException(nameof(ctx));
         }
 
+        public async Task<bool> IsMediaExistByPathAsync(string path)
+        {
+            return await _ctx.Media.AnyAsync(m => m.Path == path.Trim().ToLower());
+        }
+
         public async Task AddMediaToDatabaseAsync(Media media)
         {
             _ctx.Media.Add(media);
             await _ctx.SaveChangesAsync();
-        } 
-        public async Task UpdateDeletionStatusAsync(string path, bool newStatus)
+        }
+
+        public async Task<Media> GetMediaByPath(string path)
         {
-            var media = await _ctx.Media.FirstOrDefaultAsync(m => m.Path == path.Trim().ToLower());
-            if (media != null) 
-                media.IsDeleted = newStatus;
+            return await _ctx.Media.FirstOrDefaultAsync(m => m.Path == path.Trim().ToLower());
+        }
+
+        public async Task UpdateMediaDeletionStatusAsync(Media media, bool newStatus)
+        {
+            media.IsDeleted = newStatus;
             await _ctx.SaveChangesAsync();
         }
     }
