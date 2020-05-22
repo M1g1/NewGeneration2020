@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F16D7B2D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallery.DAL.NUnitTests", "Tests\Gallery.DAL.NUnitTests\Gallery.DAL.NUnitTests.csproj", "{1CF65901-318B-4C94-8656-79C1A87F73F2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallery.Service.NUnitTests", "Tests\Gallery.Service.NUnitTests\Gallery.Service.NUnitTests.csproj", "{690B65E6-6DFC-4796-A4E9-02A8D949517D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{1CF65901-318B-4C94-8656-79C1A87F73F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CF65901-318B-4C94-8656-79C1A87F73F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CF65901-318B-4C94-8656-79C1A87F73F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{690B65E6-6DFC-4796-A4E9-02A8D949517D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{690B65E6-6DFC-4796-A4E9-02A8D949517D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{690B65E6-6DFC-4796-A4E9-02A8D949517D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{690B65E6-6DFC-4796-A4E9-02A8D949517D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +60,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{44696F2A-A8C9-40BE-9B27-9BB376FE9CC9} = {F16D7B2D-8444-4440-8D28-CA56AD35BD5C}
 		{1CF65901-318B-4C94-8656-79C1A87F73F2} = {F16D7B2D-8444-4440-8D28-CA56AD35BD5C}
+		{690B65E6-6DFC-4796-A4E9-02A8D949517D} = {F16D7B2D-8444-4440-8D28-CA56AD35BD5C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3D4FB45D-DE33-4A86-9736-0358A36763B7}
