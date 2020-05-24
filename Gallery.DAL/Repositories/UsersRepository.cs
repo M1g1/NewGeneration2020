@@ -43,7 +43,7 @@ namespace Gallery.DAL
                 {
                     IsSuccess = isSuccess,
                     IpAddress = ipAddress,
-                    User = user,
+                    UserId = user.Id,
                     TimeStamp = DateTime.Now
                 });
 
