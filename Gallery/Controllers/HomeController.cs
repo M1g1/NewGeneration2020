@@ -56,7 +56,7 @@ namespace Gallery.Controllers
 
             var defaultPath = GalleryConfigurationManager.GetPathToSave();
             var DirPath = Server.MapPath(defaultPath) + _hashService.ComputeSha256Hash(User.Identity.Name);
-            var filePath = Path.Combine(DirPath, files.FileName);
+            var filePath = Path.Combine(DirPath, _imageService.CleanFileName(files.FileName));
             var userId = Convert.ToInt32(User.Identity.Name);
             var isOk = await _imageService.UploadImageAsync(userId, data, filePath);
             if (!isOk)
