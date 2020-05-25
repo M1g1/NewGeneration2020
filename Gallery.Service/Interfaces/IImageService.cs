@@ -12,6 +12,6 @@ namespace Gallery.Service
         string GetModelOfCamera(string loadExifPath);
         string GetDateCreation(string loadExifPath);
         Task<bool> DeleteAsync(string path);
-        Task<bool> UploadImageAsync(byte[] content, string path, UserDto userDto);
+        Task<bool> UploadImageAsync(int userId, byte[] content, string path);
     }
 }

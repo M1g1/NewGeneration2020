@@ -48,13 +48,12 @@ namespace Gallery.Service
             return _storage.Delete(path);
         }
 
-        public async Task<bool> UploadImageAsync(byte[] content, string path, UserDto userDto)
+        public async Task<bool> UploadImageAsync(int userId, byte[] content, string path)
         {
             var directoryName = Path.GetDirectoryName(path);
             if (!Directory.Exists(directoryName))
                 Directory.CreateDirectory(directoryName);
             var isMediaExist = await _mediaRepo.IsMediaExistByPathAsync(path);
-
             //
             //If the file already exists in the database by this path
             //and is marked as deleted, mark it as not deleted
@@ -70,22 +69,20 @@ namespace Gallery.Service
             //
             else
             {
-                var isUserExist = await _userRepo.IsUserExistAsync(userDto.Email);
+                var isUserExist = await _userRepo.IsUserExistAsync(userId);
                 if (!isUserExist)
                     return false;
-                var user = await _userRepo.GetUserByEmailAsync(userDto.Email);
                 var extension = Path.GetExtension(path);
                 var isMediaTypeExist = await _mediaRepo.IsMediaTypeExistAsync(extension);
                 if (!isMediaTypeExist)
                 {
                     await _mediaRepo.AddMediaTypeToDatabaseAsync(new MediaType {Type = extension});
                 }
-
                 var mediaType = await _mediaRepo.GetMediaTypeAsync(extension);
                 await _mediaRepo.AddMediaToDatabaseAsync(new Media
                 {
                     Path = path,
-                    UserId = user.Id,
+                    UserId = userId,
                     MediaTypeId = mediaType.Id
                 });
             }

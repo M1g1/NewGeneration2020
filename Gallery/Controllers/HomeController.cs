@@ -57,14 +57,8 @@ namespace Gallery.Controllers
             var defaultPath = GalleryConfigurationManager.GetPathToSave();
             var DirPath = Server.MapPath(defaultPath) + _hashService.ComputeSha256Hash(User.Identity.Name);
             var filePath = Path.Combine(DirPath, files.FileName);
-            var userDto = await _usersService.GetUserByIdAsync(Convert.ToInt32(User.Identity.Name));
-            if (userDto == null)
-            {
-                ViewBag.Error = "Something went wrong, try again.";
-                return View("Error");
-            }
-
-            var isOk = await _imageService.UploadImageAsync(data, filePath, userDto);
+            var userId = Convert.ToInt32(User.Identity.Name);
+            var isOk = await _imageService.UploadImageAsync(userId, data, filePath);
             if (!isOk)
             {
                 ViewBag.Error = "Something went wrong, try again.";
