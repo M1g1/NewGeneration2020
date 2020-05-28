@@ -17,3 +17,5 @@ packages
 /Tests/Gallery.DAL.NUnitTests/bin
 /Tests/Gallery.Service.NUnitTests/obj
 /Tests/Gallery.Service.NUnitTests/bin
+/Gallery.Worker/bin
+/Gallery.Worker/obj

@@ -15,9 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileStorageProvider.NUnitTe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F16D7B2D-8444-4440-8D28-CA56AD35BD5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallery.DAL.NUnitTests", "Tests\Gallery.DAL.NUnitTests\Gallery.DAL.NUnitTests.csproj", "{1CF65901-318B-4C94-8656-79C1A87F73F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gallery.DAL.NUnitTests", "Tests\Gallery.DAL.NUnitTests\Gallery.DAL.NUnitTests.csproj", "{1CF65901-318B-4C94-8656-79C1A87F73F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallery.Service.NUnitTests", "Tests\Gallery.Service.NUnitTests\Gallery.Service.NUnitTests.csproj", "{690B65E6-6DFC-4796-A4E9-02A8D949517D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gallery.Service.NUnitTests", "Tests\Gallery.Service.NUnitTests\Gallery.Service.NUnitTests.csproj", "{690B65E6-6DFC-4796-A4E9-02A8D949517D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallery.Worker", "Gallery.Worker\Gallery.Worker.csproj", "{2E92CECF-6B04-4128-8879-A984821EF4B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{690B65E6-6DFC-4796-A4E9-02A8D949517D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{690B65E6-6DFC-4796-A4E9-02A8D949517D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{690B65E6-6DFC-4796-A4E9-02A8D949517D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E92CECF-6B04-4128-8879-A984821EF4B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E92CECF-6B04-4128-8879-A984821EF4B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E92CECF-6B04-4128-8879-A984821EF4B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E92CECF-6B04-4128-8879-A984821EF4B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
