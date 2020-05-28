@@ -1,12 +1,13 @@
 ﻿using System.IO.Abstractions;
+using System.Messaging;
 using Autofac;
-using Autofac.Integration.Mvc;
 using FileStorageProvider.Interfaces;
 using FileStorageProvider.Providers;
 using Gallery.Service;
 using Gallery.DAL.Models;
 using Gallery.DAL;
 using Gallery.Manager;
+using Gallery.MSMQ;
 
 namespace Gallery.App_Start.Modules
 {
@@ -17,6 +18,16 @@ namespace Gallery.App_Start.Modules
             var connectionString = GalleryConfigurationManager.GetSqlConnectionString();
 
             containerBuilder.Register(ctx => new GalleryDbContext(connectionString)).AsSelf();
+
+            var queueName = GalleryConfigurationManager.GetMessageQueuingName();
+
+            using (var messageQueue = new MessageQueue(queueName))
+            {
+                if (!MessageQueue.Exists(messageQueue.Path))
+                    MessageQueue.Create(messageQueue.Path);
+
+                containerBuilder.Register(pub => new MSMQPublisher(messageQueue)).As<IPublisher>();
+            }
 
             containerBuilder.RegisterType<UsersRepository>().As<IUserRepository>();
 
