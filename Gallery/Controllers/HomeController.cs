@@ -41,24 +41,25 @@ namespace Gallery.Controllers
         [LogFilter]
         public async Task<ActionResult> Upload(HttpPostedFileBase files)
         {
-            byte[] data;
-            using (Stream inputStream = files.InputStream)
+            byte[] fileBytes;
+
+            using (Stream fileInputStream = files.InputStream)
             {
 
-                if (!(inputStream is MemoryStream memoryStream))
+                if (!(fileInputStream is MemoryStream fileMemoryStream))
                 {
-                    memoryStream = new MemoryStream();
-                    await inputStream.CopyToAsync(memoryStream);
+                    fileMemoryStream = new MemoryStream();
+                    await fileInputStream.CopyToAsync(fileMemoryStream);
                 }
-                data = memoryStream.ToArray();
-
+                fileBytes = fileMemoryStream.ToArray();
+                fileMemoryStream.Close();
             }
 
             var defaultPath = GalleryConfigurationManager.GetPathToSave();
             var DirPath = Server.MapPath(defaultPath) + _hashService.ComputeSha256Hash(User.Identity.Name);
             var filePath = Path.Combine(DirPath, _imageService.CleanFileName(files.FileName));
             var userId = Convert.ToInt32(User.Identity.Name);
-            var isOk = await _imageService.UploadImageAsync(userId, data, filePath);
+            var isOk = await _imageService.UploadImageAsync(userId, fileBytes, filePath);
             if (!isOk)
             {
                 ViewBag.Error = "Something went wrong, try again.";
