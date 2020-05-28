@@ -14,7 +14,7 @@ namespace Gallery.Manager
         private static readonly NameValueCollection appSettings = ConfigurationManager.AppSettings;
         private static readonly ConnectionStringSettingsCollection connectionStrings = ConfigurationManager.ConnectionStrings;
 
-        private static string GetMessageQueuingName()
+        public static string GetMessageQueuingName()
         {
             return appSettings[_messageQueuingKeyName] ?? throw new ArgumentNullException(nameof(appSettings));
         }
