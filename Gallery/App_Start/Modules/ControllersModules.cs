@@ -19,9 +19,9 @@ namespace Gallery.App_Start.Modules
 
             containerBuilder.Register(ctx => new GalleryDbContext(connectionString)).AsSelf();
 
-            var queueName = GalleryConfigurationManager.GetMessageQueuingName();
+            var messageQueuingPath = GalleryConfigurationManager.GetMessageQueuingPath();
 
-            using (var messageQueue = new MessageQueue(queueName))
+            using (var messageQueue = new MessageQueue(messageQueuingPath))
             {
                 if (!MessageQueue.Exists(messageQueue.Path))
                     MessageQueue.Create(messageQueue.Path);

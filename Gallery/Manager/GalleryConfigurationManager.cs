@@ -10,11 +10,11 @@ namespace Gallery.Manager
         private const string _pathKeyName = "PathToSave";
         private const string _imageTypeKeyName = "ImageFormat";
         private const string _connectionStringKeyName = "SqlConnection";
-        private const string _messageQueuingKeyName = "MessageQueuingName";
+        private const string _messageQueuingKeyName = "MessageQueuingPath";
         private static readonly NameValueCollection appSettings = ConfigurationManager.AppSettings;
         private static readonly ConnectionStringSettingsCollection connectionStrings = ConfigurationManager.ConnectionStrings;
 
-        public static string GetMessageQueuingName()
+        public static string GetMessageQueuingPath()
         {
             return appSettings[_messageQueuingKeyName] ?? throw new ArgumentNullException(nameof(appSettings));
         }
