@@ -28,7 +28,7 @@
     if (Request.IsAuthenticated)
     {
         // Encrypted User's directory path
-        string DirPath = Server.MapPath(pathToSave) + _hashService.ComputeSha256Hash("Temporary");
+        string DirPath = Server.MapPath(pathToSave) + _hashService.ComputeSha256Hash(User.Identity.Name);
         if (!Directory.Exists(DirPath))
         {
             Directory.CreateDirectory(DirPath);
