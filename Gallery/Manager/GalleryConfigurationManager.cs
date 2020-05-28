@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Configuration;
 
 namespace Gallery.Manager
@@ -8,40 +9,32 @@ namespace Gallery.Manager
 
         private const string _pathKeyName = "PathToSave";
         private const string _imageTypeKeyName = "ImageFormat";
+        private const string _connectionStringKeyName = "SqlConnection";
+        private const string _messageQueuingKeyName = "MessageQueuingName";
+        private static readonly NameValueCollection appSettings = ConfigurationManager.AppSettings;
+        private static readonly ConnectionStringSettingsCollection connectionStrings = ConfigurationManager.ConnectionStrings;
 
-        private const string _defaultPathToSave = "/Images/";
-        private const string _defaultImageTypes = "image/jpeg; image/png";
+        private static string GetMessageQueuingName()
+        {
+            return appSettings[_messageQueuingKeyName] ?? throw new ArgumentNullException(nameof(appSettings));
+        }
 
         public static string GetSqlConnectionString()
         {
-            var connectionStrings = ConfigurationManager.ConnectionStrings;
-            var sqlConnectionString = connectionStrings["SqlConnection"] ?? throw new ArgumentException("SQL");
+            var sqlConnectionString = connectionStrings[_connectionStringKeyName] ?? throw new ArgumentNullException(nameof(connectionStrings));
             return sqlConnectionString.ConnectionString;
         }
 
         public static string GetPathToSave()
         {
-            var appSettings = ConfigurationManager.AppSettings;
-            string _pathToSave = _defaultPathToSave;
-            if (!string.IsNullOrEmpty(appSettings[_pathKeyName]))
-            {
-                _pathToSave = appSettings[_pathKeyName] + "/";
-            }
-            return _pathToSave;
+            return appSettings[_pathKeyName] ?? throw new ArgumentNullException(nameof(appSettings));
         }
 
 
         public static string GetAvailableImageTypes()
         {
-            var appSettings = ConfigurationManager.AppSettings;
-            string _imageTypes = _defaultImageTypes;
-            if (!string.IsNullOrEmpty(appSettings[_imageTypeKeyName]))
-            {
-                _imageTypes = appSettings[_imageTypeKeyName];
-            } 
-            return _imageTypes;
+            return appSettings[_imageTypeKeyName] ?? throw new ArgumentNullException(nameof(appSettings));
         }
-
 
     }
 }
