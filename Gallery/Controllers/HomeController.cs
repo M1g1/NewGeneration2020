@@ -13,12 +13,13 @@ namespace Gallery.Controllers
     {
         private readonly IImageService _imageService;
         private readonly IHashService _hashService;
-        private readonly IUsersService _usersService;
-        public HomeController(IImageService imageService, IHashService hashService, IUsersService usersService)
+        private readonly IPublisher _publisher;
+        public HomeController(IImageService imageService, IHashService hashService, IPublisher publisher)
         {
             _imageService = imageService ?? throw new ArgumentNullException(nameof(imageService));
             _hashService = hashService ?? throw new ArgumentNullException(nameof(hashService));
-            _usersService = usersService ?? throw new ArgumentNullException(nameof(usersService));
+            _publisher = publisher ?? throw new ArgumentNullException(nameof(publisher));
+            
         }
 
         [Authorize]
