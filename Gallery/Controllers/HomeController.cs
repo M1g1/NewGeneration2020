@@ -58,7 +58,7 @@ namespace Gallery.Controllers
             }
 
             var defaultTempPath = GalleryConfigurationManager.GetPathToTempSave();
-            var dirTempPath = Server.MapPath(defaultTempPath) + _hashService.ComputeSha256Hash(User.Identity.Name);
+            var dirTempPath = Server.MapPath(defaultTempPath);
             var fileTempPath = Path.Combine(dirTempPath, _imageService.CleanFileName(files.FileName));
             var userId = Convert.ToInt32(User.Identity.Name);
             var label = _hashService.ComputeSha256Hash(fileTempPath);
