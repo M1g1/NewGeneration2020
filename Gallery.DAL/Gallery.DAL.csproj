@@ -87,6 +87,7 @@
       <DependentUpon>202005220017309_AddUniqueIndexesFor_RoleName_MediaPath_MediaType.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\EntitiesConfiguration\MediaUploadAttemptConfiguration.cs" />
     <Compile Include="Models\LoginAttempt.cs" />
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\MediaType.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Models\EntitiesConfiguration\MediaTypeConfiguration.cs" />
     <Compile Include="Models\EntitiesConfiguration\RoleConfiguration.cs" />
     <Compile Include="Models\EntitiesConfiguration\UserConfiguration.cs" />
+    <Compile Include="Models\MediaUploadAttempt.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\GalleryDbContext.cs" />

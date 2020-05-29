@@ -23,6 +23,7 @@ namespace Gallery.DAL.Models
             modelBuilder.Configurations.Add(new MediaConfiguration());
             modelBuilder.Configurations.Add(new MediaTypeConfiguration());
             modelBuilder.Configurations.Add(new LoginAttemptConfiguration());
+            modelBuilder.Configurations.Add(new MediaUploadAttemptConfiguration());
         }
     }
 }
