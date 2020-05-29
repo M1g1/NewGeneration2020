@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contract\LoginAttemptDto.cs" />
+    <Compile Include="Contract\MediaUploadAttemptDto.cs" />
     <Compile Include="Contract\UserDto.cs" />
     <Compile Include="Interfaces\IHashService.cs" />
     <Compile Include="Interfaces\IImageService.cs" />
@@ -48,7 +49,7 @@
     <Compile Include="Services\ImageService.cs" />
     <Compile Include="Services\HashService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\UsersServise.cs" />
+    <Compile Include="Services\UsersService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
