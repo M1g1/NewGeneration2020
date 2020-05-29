@@ -90,6 +90,10 @@
     <Compile Include="Migrations\202005290035484_AddTableMediaUploadAttempts.designer.cs">
       <DependentUpon>202005290035484_AddTableMediaUploadAttempts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005290041387_InMediaUploadAttemptTableRenamedFieldNameToMediaName.cs" />
+    <Compile Include="Migrations\202005290041387_InMediaUploadAttemptTableRenamedFieldNameToMediaName.designer.cs">
+      <DependentUpon>202005290041387_InMediaUploadAttemptTableRenamedFieldNameToMediaName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\EntitiesConfiguration\MediaUploadAttemptConfiguration.cs" />
     <Compile Include="Models\LoginAttempt.cs" />
@@ -145,6 +149,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005290035484_AddTableMediaUploadAttempts.resx">
       <DependentUpon>202005290035484_AddTableMediaUploadAttempts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005290041387_InMediaUploadAttemptTableRenamedFieldNameToMediaName.resx">
+      <DependentUpon>202005290041387_InMediaUploadAttemptTableRenamedFieldNameToMediaName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
