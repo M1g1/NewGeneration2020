@@ -115,8 +115,8 @@ namespace Gallery.Service
                 UserId = mediaUploadAttemptDto.UserId,
                 IsInProgress = mediaUploadAttemptDto.IsInProgress,
                 IsSuccess = mediaUploadAttemptDto.IsSuccess,
+                IpAddress = mediaUploadAttemptDto.IpAddress,
                 TimeStamp = mediaUploadAttemptDto.TimeStamp
-
             });
             return _storage.Save(content, path);
         }

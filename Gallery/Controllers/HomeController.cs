@@ -62,12 +62,14 @@ namespace Gallery.Controllers
             var fileTempPath = Path.Combine(dirTempPath, _imageService.CleanFileName(files.FileName));
             var userId = Convert.ToInt32(User.Identity.Name);
             var label = _hashService.ComputeSha256Hash(fileTempPath);
+            var ipAddress = HttpContext.Request.UserHostAddress;
             var mediaUploadAttemptDto = new MediaUploadAttemptDto
             {
                 Label = label,
                 UserId = userId,
                 IsInProgress = true,
                 IsSuccess = false,
+                IpAddress = ipAddress,
                 TimeStamp = DateTime.Now
             };
             var isOk = await _imageService.UploadImageTemporaryAsync(mediaUploadAttemptDto, fileBytes, fileTempPath);

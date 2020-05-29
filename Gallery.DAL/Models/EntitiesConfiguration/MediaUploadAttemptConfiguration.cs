@@ -22,6 +22,10 @@ namespace Gallery.DAL.Models.EntitiesConfiguration
             this.Property(a => a.IsSuccess)
                 .IsRequired();
 
+            this.Property(a => a.IpAddress)
+                .IsRequired()
+                .HasMaxLength(64);
+
             this.Property(a => a.TimeStamp)
                 .IsRequired()
                 .HasColumnType("datetime2");
