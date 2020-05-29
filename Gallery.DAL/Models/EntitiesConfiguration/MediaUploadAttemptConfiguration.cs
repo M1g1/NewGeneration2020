@@ -12,7 +12,7 @@ namespace Gallery.DAL.Models.EntitiesConfiguration
                 .IsRequired()
                 .HasColumnName("AttemptId");
 
-            this.Property(a => a.MediaName)
+            this.Property(a => a.Label)
                 .IsRequired()
                 .HasMaxLength(64);
 

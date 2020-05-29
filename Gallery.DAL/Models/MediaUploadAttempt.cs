@@ -5,7 +5,7 @@ namespace Gallery.DAL.Models
     public class MediaUploadAttempt
     {
         public int Id { get; set; }
-        public string MediaName { get; set; }
+        public string Label { get; set; }
         public int UserId { get; set; }
         public virtual User User { get; set; }
         public bool IsInProgress{ get; set; }

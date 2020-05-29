@@ -94,6 +94,10 @@
     <Compile Include="Migrations\202005290041387_InMediaUploadAttemptTableRenamedFieldNameToMediaName.designer.cs">
       <DependentUpon>202005290041387_InMediaUploadAttemptTableRenamedFieldNameToMediaName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005291150006_InMediaUploadAttemptTableRenamedFieldFromMediaNameToLabel.cs" />
+    <Compile Include="Migrations\202005291150006_InMediaUploadAttemptTableRenamedFieldFromMediaNameToLabel.designer.cs">
+      <DependentUpon>202005291150006_InMediaUploadAttemptTableRenamedFieldFromMediaNameToLabel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\EntitiesConfiguration\MediaUploadAttemptConfiguration.cs" />
     <Compile Include="Models\LoginAttempt.cs" />
@@ -152,6 +156,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005290041387_InMediaUploadAttemptTableRenamedFieldNameToMediaName.resx">
       <DependentUpon>202005290041387_InMediaUploadAttemptTableRenamedFieldNameToMediaName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005291150006_InMediaUploadAttemptTableRenamedFieldFromMediaNameToLabel.resx">
+      <DependentUpon>202005291150006_InMediaUploadAttemptTableRenamedFieldFromMediaNameToLabel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
