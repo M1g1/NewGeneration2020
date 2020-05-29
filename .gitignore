@@ -19,3 +19,5 @@ packages
 /Tests/Gallery.Service.NUnitTests/bin
 /Gallery.Worker/bin
 /Gallery.Worker/obj
+/Gallery.MessageQueues/obj
+/Gallery.MessageQueues/bin

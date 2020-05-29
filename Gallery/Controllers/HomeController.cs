@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Gallery.Filters;
 using Gallery.Service;
 using Gallery.Manager;
+using Gallery.MessageQueues;
 using Gallery.Service.Contract;
 
 namespace Gallery.Controllers
@@ -60,13 +61,13 @@ namespace Gallery.Controllers
             var defaultTempPath = GalleryConfigurationManager.GetPathToTempSave();
             var dirTempPath = Server.MapPath(defaultTempPath);
             var extension = Path.GetExtension(files.FileName);
-            var fileTempPath = Path.Combine(dirTempPath, _imageService.FileNameCreation() + extension);
+            var uniqFileName = _imageService.FileNameCreation();
+            var fileTempPath = Path.Combine(dirTempPath, uniqFileName + extension);
             var userId = Convert.ToInt32(User.Identity.Name);
-            var label = _hashService.ComputeSha256Hash(fileTempPath);
             var ipAddress = HttpContext.Request.UserHostAddress;
             var mediaUploadAttemptDto = new MediaUploadAttemptDto
             {
-                Label = label,
+                Label = uniqFileName,
                 UserId = userId,
                 IsInProgress = true,
                 IsSuccess = false,
@@ -79,7 +80,7 @@ namespace Gallery.Controllers
                 ViewBag.Error = "Something went wrong, try again.";
                 return View("Error");
             }
-            _publisher.SendMessage(fileTempPath, label);
+            _publisher.SendMessage(fileTempPath, uniqFileName);
             return RedirectToAction("Index");
         }
 

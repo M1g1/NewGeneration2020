@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Messaging;
 
-namespace Gallery.MSMQ
+namespace Gallery.MessageQueues
 {
     public class MSMQPublisher : IPublisher
     {

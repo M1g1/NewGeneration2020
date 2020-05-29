@@ -180,11 +180,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IAuthentication .cs" />
-    <Compile Include="Interfaces\IPublisher.cs" />
     <Compile Include="Manager\GalleryConfigurationManager.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
-    <Compile Include="MSMQ\MSMQPublisher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Manager\AuthenticationManager.cs" />
   </ItemGroup>
@@ -259,6 +257,10 @@
     <ProjectReference Include="..\Gallery.DAL\Gallery.DAL.csproj">
       <Project>{92f5610e-65ef-45e1-b50d-843e689381cf}</Project>
       <Name>Gallery.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gallery.MessageQueues\Gallery.MessageQueues.csproj">
+      <Project>{C83EB6AB-429A-4F15-A2C3-57C0644ADFD4}</Project>
+      <Name>Gallery.MessageQueues</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gallery.Service\Gallery.Service.csproj">
       <Project>{29825c47-b563-4fe5-93a5-6fcdcc55a23c}</Project>

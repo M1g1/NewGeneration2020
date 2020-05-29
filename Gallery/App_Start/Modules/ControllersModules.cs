@@ -7,7 +7,7 @@ using Gallery.Service;
 using Gallery.DAL.Models;
 using Gallery.DAL;
 using Gallery.Manager;
-using Gallery.MSMQ;
+using Gallery.MessageQueues;
 
 namespace Gallery.App_Start.Modules
 {
