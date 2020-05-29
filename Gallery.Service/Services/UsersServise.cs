@@ -42,7 +42,7 @@ namespace Gallery.Service
                 IsSuccess = loginAttemptDto.IsSuccess,
                 IpAddress = loginAttemptDto.IpAddress,
                 UserId = loginAttemptDto.UserId,
-                TimeStamp = DateTime.Now
+                TimeStamp = loginAttemptDto.TimeStamp
             });
         }
 
