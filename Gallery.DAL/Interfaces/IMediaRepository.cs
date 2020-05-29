@@ -8,7 +8,7 @@ namespace Gallery.DAL
         Task<bool> IsMediaExistByPathAsync(string path);
         Task AddMediaToDatabaseAsync(Media media);
         Task<Media> GetMediaByPathAsync(string path);
-        Task UpdateMediaDeletionStatusAsync(Media media, bool newStatus);
+        Task UpdateMediaAsync(Media oldMedia, Media newMedia);
 
         Task<bool> IsMediaTypeExistAsync(string extension);
         Task AddMediaTypeToDatabaseAsync(MediaType mediaType);

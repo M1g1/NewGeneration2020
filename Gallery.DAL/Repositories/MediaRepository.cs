@@ -30,9 +30,10 @@ namespace Gallery.DAL
             return await _ctx.Media.FirstOrDefaultAsync(m => m.Path == path.Trim().ToLower());
         }
 
-        public async Task UpdateMediaDeletionStatusAsync(Media media, bool newStatus)
+        public async Task UpdateMediaAsync(Media oldMedia, Media newMedia)
         {
-            media.IsDeleted = newStatus;
+            oldMedia = newMedia;
+            _ctx.Entry(oldMedia).State = EntityState.Modified;
             await _ctx.SaveChangesAsync();
         }
 

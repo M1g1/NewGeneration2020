@@ -48,7 +48,11 @@ namespace Gallery.Service
             {
                 var media = await _mediaRepo.GetMediaByPathAsync(path);
                 if (!media.IsDeleted)
-                    await _mediaRepo.UpdateMediaDeletionStatusAsync(media, true);
+                {
+                    var newMedia = media;
+                    newMedia.IsDeleted = !media.IsDeleted;
+                    await _mediaRepo.UpdateMediaAsync(media, newMedia);
+                }
             }
 
             return _storage.Delete(path);
@@ -68,7 +72,11 @@ namespace Gallery.Service
             {
                 var media = await _mediaRepo.GetMediaByPathAsync(path);
                 if (media.IsDeleted)
-                    await _mediaRepo.UpdateMediaDeletionStatusAsync(media, false);
+                {
+                    var newMedia = media;
+                    newMedia.IsDeleted = !media.IsDeleted;
+                    await _mediaRepo.UpdateMediaAsync(media, newMedia);
+                }
             }
             //
             //If the file does not exist in the database by this path, add it
