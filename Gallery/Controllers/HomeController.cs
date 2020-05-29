@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Gallery.Filters;
 using Gallery.Service;
 using Gallery.Manager;
+using Gallery.Service.Contract;
 
 namespace Gallery.Controllers
 {
@@ -56,16 +57,26 @@ namespace Gallery.Controllers
                 fileMemoryStream.Close();
             }
 
-            var defaultPath = GalleryConfigurationManager.GetPathToSave();
-            var DirPath = Server.MapPath(defaultPath) + _hashService.ComputeSha256Hash(User.Identity.Name);
-            var filePath = Path.Combine(DirPath, _imageService.CleanFileName(files.FileName));
+            var defaultTempPath = GalleryConfigurationManager.GetPathToTempSave();
+            var dirTempPath = Server.MapPath(defaultTempPath) + _hashService.ComputeSha256Hash(User.Identity.Name);
+            var fileTempPath = Path.Combine(dirTempPath, _imageService.CleanFileName(files.FileName));
             var userId = Convert.ToInt32(User.Identity.Name);
-            var isOk = await _imageService.UploadImageAsync(userId, fileBytes, filePath);
+            var label = _hashService.ComputeSha256Hash(fileTempPath);
+            var mediaUploadAttemptDto = new MediaUploadAttemptDto
+            {
+                Label = label,
+                UserId = userId,
+                IsInProgress = true,
+                IsSuccess = false,
+                TimeStamp = DateTime.Now
+            };
+            var isOk = await _imageService.UploadImageTemporaryAsync(mediaUploadAttemptDto, fileBytes, fileTempPath);
             if (!isOk)
             {
                 ViewBag.Error = "Something went wrong, try again.";
                 return View("Error");
             }
+            _publisher.SendMessage(fileTempPath, label);
             return RedirectToAction("Index");
         }
 
