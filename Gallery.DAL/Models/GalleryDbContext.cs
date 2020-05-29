@@ -13,6 +13,7 @@ namespace Gallery.DAL.Models
         public DbSet<Media> Media { get; set; }
         public DbSet<MediaType> MediaTypes { get; set; }
         public DbSet<LoginAttempt> LoginAttempts { get; set; }
+        public DbSet<MediaUploadAttempt> MediaUploadAttempts { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
