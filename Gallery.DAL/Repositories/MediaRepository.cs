@@ -58,5 +58,20 @@ namespace Gallery.DAL
             _ctx.MediaUploadAttempts.Add(mediaUploadAttempt);
             await _ctx.SaveChangesAsync();
         }
+
+        public async Task<bool> IsMediaUploadAttemptExistByLabelAndProgressStatus(string label, bool progressStatus)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<MediaUploadAttempt> GetMediaUploadAttemptByLabelAndProgressStatus(string label, bool progressStatus)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task UpdateMediaUploadAttemptAsync(MediaUploadAttempt oldMediaAttempt, MediaUploadAttempt newMediaAttempt)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
