@@ -14,5 +14,6 @@ namespace Gallery.Service
         string CleanFileName(string filename);
         Task<bool> DeleteAsync(string path);
         Task<bool> UploadImageAsync(int userId, byte[] content, string path);
+        Task<bool> UploadImageTemporaryAsync(MediaUploadAttemptDto mediaUploadAttemptDto, byte[] content, string path);
     }
 }

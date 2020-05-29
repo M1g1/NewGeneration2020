@@ -90,7 +90,7 @@ namespace Gallery.Service
                 var isMediaTypeExist = await _mediaRepo.IsMediaTypeExistAsync(extension);
                 if (!isMediaTypeExist)
                 {
-                    await _mediaRepo.AddMediaTypeToDatabaseAsync(new MediaType {Type = extension});
+                    await _mediaRepo.AddMediaTypeToDatabaseAsync(new MediaType { Type = extension });
                 }
                 var mediaType = await _mediaRepo.GetMediaTypeAsync(extension);
                 await _mediaRepo.AddMediaToDatabaseAsync(new Media
@@ -100,6 +100,24 @@ namespace Gallery.Service
                     MediaTypeId = mediaType.Id
                 });
             }
+            return _storage.Save(content, path);
+        }
+
+        public async Task<bool> UploadImageTemporaryAsync(MediaUploadAttemptDto mediaUploadAttemptDto, byte[] content, string path)
+        {
+            var directoryName = Path.GetDirectoryName(path);
+            if (!Directory.Exists(directoryName))
+                Directory.CreateDirectory(directoryName);
+
+            await _mediaRepo.AddMediaUploadAttemptToDatabaseAsync(new MediaUploadAttempt
+            {
+                Label = mediaUploadAttemptDto.Label,
+                UserId = mediaUploadAttemptDto.UserId,
+                IsInProgress = mediaUploadAttemptDto.IsInProgress,
+                IsSuccess = mediaUploadAttemptDto.IsSuccess,
+                TimeStamp = mediaUploadAttemptDto.TimeStamp
+
+            });
             return _storage.Save(content, path);
         }
 
