@@ -52,5 +52,11 @@ namespace Gallery.DAL
         {
             return await _ctx.MediaTypes.FirstOrDefaultAsync(mt => mt.Type == extension.Trim().ToLower());
         }
+
+        public async Task AddMediaUploadAttemptToDatabaseAsync(MediaUploadAttempt mediaUploadAttempt)
+        {
+            _ctx.MediaUploadAttempts.Add(mediaUploadAttempt);
+            await _ctx.SaveChangesAsync();
+        }
     }
 }

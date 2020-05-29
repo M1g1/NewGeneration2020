@@ -13,5 +13,7 @@ namespace Gallery.DAL
         Task<bool> IsMediaTypeExistAsync(string extension);
         Task AddMediaTypeToDatabaseAsync(MediaType mediaType);
         Task<MediaType> GetMediaTypeAsync(string extension);
+
+        Task AddMediaUploadAttemptToDatabaseAsync(MediaUploadAttempt mediaUploadAttempt);
     }
 }
