@@ -25,10 +25,9 @@ namespace Gallery.Service
             _userRepo = userRepo ?? throw new ArgumentNullException(nameof(userRepo));
         }
 
-        public string CleanFileName(string filename)
+        public string FileNameCreation()
         {
-            var file = filename.Trim().Replace(" ", "_");
-            return string.Concat(file.Split(Path.GetInvalidFileNameChars(), StringSplitOptions.RemoveEmptyEntries));
+            return string.Format(@"{0}", Guid.NewGuid());
         }
 
         public async Task<bool> DeleteAsync(string path)
