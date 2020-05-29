@@ -61,17 +61,21 @@ namespace Gallery.DAL
 
         public async Task<bool> IsMediaUploadAttemptExistByLabelAndProgressStatus(string label, bool progressStatus)
         {
-            throw new NotImplementedException();
+            return await _ctx.MediaUploadAttempts.AnyAsync(mua =>
+                mua.Label == label.Trim() && mua.IsInProgress == progressStatus);
         }
 
         public async Task<MediaUploadAttempt> GetMediaUploadAttemptByLabelAndProgressStatus(string label, bool progressStatus)
         {
-            throw new NotImplementedException();
+            return await _ctx.MediaUploadAttempts.FirstOrDefaultAsync(mua =>
+                mua.Label == label.Trim() && mua.IsInProgress == progressStatus);
         }
 
         public async Task UpdateMediaUploadAttemptAsync(MediaUploadAttempt oldMediaAttempt, MediaUploadAttempt newMediaAttempt)
         {
-            throw new NotImplementedException();
+            oldMediaAttempt = newMediaAttempt;
+            _ctx.Entry(oldMediaAttempt).State = EntityState.Modified;
+            await _ctx.SaveChangesAsync();
         }
     }
 }
