@@ -8,6 +8,7 @@ namespace Gallery.Manager
     {
 
         private const string _pathKeyName = "PathToSave";
+        private const string _pathTempKeyName = "PathToTempSave";
         private const string _imageTypeKeyName = "ImageFormat";
         private const string _connectionStringKeyName = "SqlConnection";
         private const string _messageQueuingKeyName = "MessageQueuingPath";
@@ -23,6 +24,11 @@ namespace Gallery.Manager
         {
             var sqlConnectionString = connectionStrings[_connectionStringKeyName] ?? throw new ArgumentNullException(nameof(connectionStrings));
             return sqlConnectionString.ConnectionString;
+        }
+
+        public static string GetPathToTempSave()
+        {
+            return appSettings[_pathTempKeyName] ?? throw new ArgumentNullException(nameof(appSettings));
         }
 
         public static string GetPathToSave()
