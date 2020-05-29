@@ -40,6 +40,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contract\LoginAttemptDto.cs" />
     <Compile Include="Contract\UserDto.cs" />
     <Compile Include="Interfaces\IHashService.cs" />
     <Compile Include="Interfaces\IImageService.cs" />

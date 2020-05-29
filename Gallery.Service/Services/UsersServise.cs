@@ -34,11 +34,16 @@ namespace Gallery.Service
             await _userRepo.AddUserToDatabaseAsync(new User { Email = userDto.Email, Password = userDto.Password });
         }
 
-        public async Task AddLoginAttemptToDatabaseAsync(UserDto userDto, string ipAddress, bool isSuccess)
+        public async Task AddLoginAttemptToDatabaseAsync(LoginAttemptDto loginAttemptDto)
         {
-            var user = await _userRepo.GetUserByEmailAsync(userDto.Email);
-            if (user != null)
-                await _userRepo.AddLoginAttemptToDatabaseAsync(user, ipAddress, isSuccess);
+
+            await _userRepo.AddLoginAttemptToDatabaseAsync(new LoginAttempt
+            {
+                IsSuccess = loginAttemptDto.IsSuccess,
+                IpAddress = loginAttemptDto.IpAddress,
+                UserId = loginAttemptDto.UserId,
+                TimeStamp = DateTime.Now
+            });
         }
 
         public async Task<UserDto> GetUserByEmailAsync(string email)

@@ -36,17 +36,9 @@ namespace Gallery.DAL
             _ctx.Users.Add(user);
             await _ctx.SaveChangesAsync();
         }
-        public async Task AddLoginAttemptToDatabaseAsync(User user, string ipAddress, bool isSuccess)
+        public async Task AddLoginAttemptToDatabaseAsync(LoginAttempt loginAttempt)
         {
-            _ctx.LoginAttempts.Add(
-                new LoginAttempt
-                {
-                    IsSuccess = isSuccess,
-                    IpAddress = ipAddress,
-                    UserId = user.Id,
-                    TimeStamp = DateTime.Now
-                });
-
+            _ctx.LoginAttempts.Add(loginAttempt);
             await _ctx.SaveChangesAsync();
         }
         public async Task<User> GetUserByEmailAsync(string email)

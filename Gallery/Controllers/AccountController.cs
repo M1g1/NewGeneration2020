@@ -59,15 +59,23 @@ namespace Gallery.Controllers
                     return View(model);
                 }
 
-                var userId = userDto.Id.ToString();
+                var userId = userDto.Id;
 
-                ClaimsIdentity claims = _authenticationService.CreateClaimsIdentity(userId);
+                ClaimsIdentity claims = _authenticationService.CreateClaimsIdentity(userId.ToString());
 
                 _authenticationService.AutorizeContext(HttpContext.GetOwinContext(), claims);
 
                 var ipAddress = HttpContext.Request.UserHostAddress;
 
-                await _usersService.AddLoginAttemptToDatabaseAsync(userDto, ipAddress, true);
+                var loginAttemptDto = new LoginAttemptDto
+                {
+                    IsSuccess = true,
+                    IpAddress = ipAddress,
+                    UserId = userId,
+                    TimeStamp = DateTime.Now
+                };
+
+                await _usersService.AddLoginAttemptToDatabaseAsync(loginAttemptDto);
 
                 return RedirectToAction("Index", "Home");
 
@@ -106,16 +114,24 @@ namespace Gallery.Controllers
                     return View(model);
                 }
 
+                var userId = userDto.Id;
+
                 var ipAddress = HttpContext.Request.UserHostAddress;
 
-                await _usersService.AddLoginAttemptToDatabaseAsync(userDto, ipAddress, canAuthorize);
+                var loginAttemptDto = new LoginAttemptDto
+                {
+                    IsSuccess = canAuthorize,
+                    IpAddress = ipAddress,
+                    UserId = userId,
+                    TimeStamp = DateTime.Now
+                };
+
+                await _usersService.AddLoginAttemptToDatabaseAsync(loginAttemptDto);
 
                 if (canAuthorize)
                 {
 
-                    var userId = userDto.Id.ToString();
-
-                    ClaimsIdentity claims = _authenticationService.CreateClaimsIdentity(userId);
+                    ClaimsIdentity claims = _authenticationService.CreateClaimsIdentity(userId.ToString());
 
                     _authenticationService.AutorizeContext(HttpContext.GetOwinContext(), claims);
 
