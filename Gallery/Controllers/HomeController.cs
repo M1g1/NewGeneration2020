@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Threading.Tasks;
@@ -15,13 +16,15 @@ namespace Gallery.Controllers
     {
         private readonly IImageService _imageService;
         private readonly IHashService _hashService;
+        private readonly IUsersService _usersService;
         private readonly IPublisher _publisher;
-        public HomeController(IImageService imageService, IHashService hashService, IPublisher publisher)
+        public HomeController(IImageService imageService, IHashService hashService, IUsersService usersService, IPublisher publisher)
         {
             _imageService = imageService ?? throw new ArgumentNullException(nameof(imageService));
             _hashService = hashService ?? throw new ArgumentNullException(nameof(hashService));
+            _usersService = usersService ?? throw new ArgumentNullException(nameof(usersService));
             _publisher = publisher ?? throw new ArgumentNullException(nameof(publisher));
-            
+
         }
 
         [Authorize]
@@ -85,8 +88,47 @@ namespace Gallery.Controllers
         }
 
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
+            var pathToSave = GalleryConfigurationManager.GetPathToSave();
+
+            // Directory path with all User's directories
+            var fullPathToSave = Server.MapPath(pathToSave);
+
+            //Directory paths with all User's files
+            var imgDirsNames = Directory.GetDirectories(fullPathToSave);
+
+            // Directory path with temp files
+            var pathToTempDirs = Server.MapPath(GalleryConfigurationManager.GetPathToTempSave());
+
+            if (!Directory.Exists(fullPathToSave))
+            {
+                Directory.CreateDirectory(fullPathToSave);
+            }
+
+            if (!Directory.Exists(pathToTempDirs))
+            {
+                Directory.CreateDirectory(pathToTempDirs);
+            }
+
+            if (Request.IsAuthenticated)
+            {
+                // Encrypted User's directory path
+                var userDirPath = fullPathToSave + _hashService.ComputeSha256Hash(User.Identity.Name);
+                if (!Directory.Exists(userDirPath))
+                {
+                    Directory.CreateDirectory(userDirPath);
+                }
+                var userId = Convert.ToInt32(User.Identity.Name);
+                var user = await _usersService.GetUserByIdAsync(userId);
+                ViewData["Email"] = user.Email;
+            }
+            ViewBag.Titles = (from dir in imgDirsNames from fl in Directory.GetFiles(dir) select _imageService.GetTitle(fl)).ToList();
+            ViewBag.Manufacturers = (from dir in imgDirsNames from fl in Directory.GetFiles(dir) select _imageService.GetManufacturer(fl)).ToList();
+            ViewBag.CameraModels = (from dir in imgDirsNames from fl in Directory.GetFiles(dir) select _imageService.GetModelOfCamera(fl)).ToList();
+            ViewBag.FileSizes = (from dir in imgDirsNames from fl in Directory.GetFiles(dir) select _imageService.GetFileSize(fl)).ToList();
+            ViewBag.CreationDates = (from dir in imgDirsNames from fl in Directory.GetFiles(dir) select _imageService.GetDateCreation(fl)).ToList();
+            ViewBag.UploadDates = (from dir in imgDirsNames from fl in Directory.GetFiles(dir) select _imageService.GetDateUpload(fl)).ToList();
             return View();
         }
         public ActionResult Error()
@@ -94,8 +136,14 @@ namespace Gallery.Controllers
             return View();
         }
 
-        public ActionResult Upload()
+        public async Task<ActionResult> Upload()
         {
+            if (Request.IsAuthenticated)
+            {
+                var userId = Convert.ToInt32(User.Identity.Name);
+                var user = await _usersService.GetUserByIdAsync(userId);
+                ViewData["Email"] = user.Email;
+            }
             return View();
         }
 

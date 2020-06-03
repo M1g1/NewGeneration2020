@@ -4,47 +4,8 @@
 
 
 @using Gallery.Manager
-@using Gallery.Service
 @{
-    IHashService _hashService = new HashService(); 
-
-    string pathToSave = GalleryConfigurationManager.GetPathToSave();
-    // Directory path with all User's directories
-    string ImagesDirFullPath = Server.MapPath(pathToSave);
-
-    // Directory path with temp files
-    string TempDirPath = Server.MapPath("~/Content/Temp");
-
-    if (!Directory.Exists(ImagesDirFullPath))
-    {
-        Directory.CreateDirectory(ImagesDirFullPath);
-    }
-
-    if (!Directory.Exists(TempDirPath))
-    {
-        Directory.CreateDirectory(TempDirPath);
-    }
-
-    if (Request.IsAuthenticated)
-    {
-        // Encrypted User's directory path
-        string DirPath = Server.MapPath(pathToSave) + _hashService.ComputeSha256Hash(User.Identity.Name);
-        if (!Directory.Exists(DirPath))
-        {
-            Directory.CreateDirectory(DirPath);
-        }
-    }
-
-    List<string> dirsname = Directory.GetDirectories(Server.MapPath(pathToSave)).ToList<string>();
-    List<string> filesname;
-    int i = 0;
-    string hashNamesUsers;
-    string fullPathToImage;
-
-    IImageService _imageService = new ImageService();
-
     //The Modal
-
     <div id="myModal" class="modal">
         <img class="modal-content" id="img01">
         <div id="caption"></div>
@@ -59,45 +20,53 @@
             modal.style.display = "none";
         }
     </script>
-    foreach (string dir in dirsname)
-    {
-        filesname = Directory.GetFiles(dir).ToList<string>();
 
-        foreach (string fl in filesname)
+
+    var pathToSave = GalleryConfigurationManager.GetPathToSave();
+    // Directory path with all User's directories
+    var fullPathToSave = Server.MapPath(pathToSave);
+
+    //Directory paths with all User's files
+    var imgDirsNames = Directory.GetDirectories(fullPathToSave);
+    var i = 0;
+    foreach (var dir in imgDirsNames)
+    {
+        var imgFilesNames = Directory.GetFiles(dir);
+
+        foreach (var fl in imgFilesNames)
         {
-            i++;
-            hashNamesUsers = dir.Replace(Server.MapPath(pathToSave), "");
-            fullPathToImage = pathToSave + hashNamesUsers + "/" + Path.GetFileName(fl);
+            var hashNamesUsers = dir.Replace(fullPathToSave, "");
+            var fullPathToImage = pathToSave + hashNamesUsers + "/" + Path.GetFileName(fl);
+
             <div class="body">
                 <div class="bodyT">
 
                     <p class="textT">
-                        <b>Photo title: @_imageService.GetTitle(fl)</b>
+                        <b>Photo title: @ViewBag.Titles[i]</b>
                     </p>
                     <p class="textT">
-                        <b>Manufacturer of the camera: @_imageService.GetManufacturer(fl)</b>
+                        <b>Manufacturer of the camera: @ViewBag.Manufacturers[i]</b>
                     </p>
                     <p class="textT">
-                        <b>Model of the camera: @_imageService.GetModelOfCamera(fl)</b>
+                        <b>Model of the camera: @ViewBag.CameraModels[i]</b>
                     </p>
                     <p class="textT">
-                        <b>File size: @_imageService.GetFileSize(fl)</b>
+                        <b>File size: @ViewBag.FileSizes[i]</b>
                     </p>
                     <p class="textT">
-                        <b>Date of creation of the photo: @_imageService.GetDateCreation(fl)</b>
+                        <b>Date of creation of the photo: @ViewBag.CreationDates[i]</b>
                     </p>
                     <p class="textT">
-                        <b>Date of uploading of the photo: @_imageService.GetDateUpload(fl)</b>
+                        <b>Date of uploading of the photo: @ViewBag.UploadDates[i]</b>
                     </p>
                 </div>
-
                 <div class="hov">
                     <a class="picture">
                         <img id="@i" class="pictureIMG" src="@fullPathToImage" alt="@Path.GetFileName(fl)">
                     </a>
                     <ul class="pictureDownload">
                         <a href="@fullPathToImage" download>
-                            <i class="fa fa-download" style="color:green; text-shadow: 2px 2px 3px #000" aria-hidden="true"></i>
+                            <i class="fa fa-download" style="color: green; text-shadow: 2px 2px 3px #000" aria-hidden="true"></i>
                         </a>
                     </ul>
                     @using (Html.BeginForm("Delete", "Home", FormMethod.Post, new { enctype = "string" }))
@@ -115,19 +84,19 @@
                     }
 
                 </div>
-
                 <script>
-            // Get the image and insert it inside the modal - use its "alt" text as a caption
-            var img = document.getElementById("@i");
-    var modalImg = document.getElementById("img01");
-    var captionText = document.getElementById("caption");
-    img.onclick = function () {
-        modal.style.display = "block";
-        modalImg.src = this.src;
-        captionText.innerHTML = this.alt;
-    }
+                    // Get the image and insert it inside the modal - use its "alt" text as a caption
+                    var img = document.getElementById("@i");
+                    var modalImg = document.getElementById("img01");
+                    var captionText = document.getElementById("caption");
+                    img.onclick = function () {
+                        modal.style.display = "block";
+                        modalImg.src = this.src;
+                        captionText.innerHTML = this.alt;
+                    }
                 </script>
             </div>
+            i++;
         }
     }
 }

@@ -28,9 +28,8 @@
                 @if (Request.IsAuthenticated)
                 {
                     <ul class="nav navbar-nav navbar-right">
-                        <li>@Html.ActionLink("Hello, " + User.Identity.Name + "!", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Hello, " + ViewData["Email"] + "!", "Index", "Home")</li>
                         <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
-                        <!-- Temporary Logout -->
                     </ul>
                 }
                 else
