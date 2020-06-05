@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementations\MSMQPublisher.cs" />
+    <Compile Include="Implementations\MSMQConsumer.cs" />
+    <Compile Include="Interfaces\IConsumer.cs" />
     <Compile Include="Interfaces\IPublisher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
