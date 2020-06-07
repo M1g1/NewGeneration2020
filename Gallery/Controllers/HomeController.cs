@@ -62,10 +62,10 @@ namespace Gallery.Controllers
             }
 
             var defaultTempPath = GalleryConfigurationManager.GetPathToTempSave();
-            var dirTempPath = Server.MapPath(defaultTempPath);
+            var fullDirTempPath = Server.MapPath(defaultTempPath);
             var extension = Path.GetExtension(files.FileName);
             var uniqFileName = _imageService.FileNameCreation();
-            var fileTempPath = Path.Combine(dirTempPath, uniqFileName + extension);
+            var fileTempPath = Path.Combine(fullDirTempPath, uniqFileName + extension);
             var userId = Convert.ToInt32(User.Identity.Name);
             var ipAddress = HttpContext.Request.UserHostAddress;
             var mediaUploadAttemptDto = new MediaUploadAttemptDto
@@ -83,7 +83,22 @@ namespace Gallery.Controllers
                 ViewBag.Error = "Something went wrong, try again.";
                 return View("Error");
             }
-            _publisher.SendMessage(fileTempPath, uniqFileName);
+
+            var pathToSave = GalleryConfigurationManager.GetPathToSave();
+            // Directory path with all User's directories
+            var fullPathToSave = Server.MapPath(pathToSave);
+            // Encrypted User's directory path
+            var userDirPath = fullPathToSave + _hashService.ComputeSha256Hash(User.Identity.Name);
+
+            var filePath = Path.Combine(userDirPath, uniqFileName + extension);
+
+            var message = new MessageDto
+            {
+                UserId = userId, 
+                Path = filePath, 
+                TempPath = fileTempPath
+            };
+            _publisher.SendMessage(message, uniqFileName);
             return RedirectToAction("Index");
         }
 
