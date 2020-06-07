@@ -33,7 +33,6 @@
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsBase.4.6.1055.0\lib\WindowsBase.dll</HintPath>
@@ -42,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Contract\LoginAttemptDto.cs" />
     <Compile Include="Contract\MediaUploadAttemptDto.cs" />
+    <Compile Include="Contract\MessageDto.cs" />
     <Compile Include="Contract\UserDto.cs" />
     <Compile Include="Interfaces\IHashService.cs" />
     <Compile Include="Interfaces\IImageService.cs" />
