@@ -33,8 +33,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Abstractions, Version=11.0.0.0, Culture=neutral, PublicKeyToken=96bf224d23c43e59, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Abstractions.11.0.7\lib\net461\System.IO.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Messaging" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,11 +54,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IWork.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Work.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FileStorageProvider\FileStorageProvider.csproj">
+      <Project>{24336c6d-7b90-4d24-89eb-0a57abb834b5}</Project>
+      <Name>FileStorageProvider</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gallery.DAL\Gallery.DAL.csproj">
+      <Project>{92f5610e-65ef-45e1-b50d-843e689381cf}</Project>
+      <Name>Gallery.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gallery.MessageQueues\Gallery.MessageQueues.csproj">
+      <Project>{c83eb6ab-429a-4f15-a2c3-57c0644adfd4}</Project>
+      <Name>Gallery.MessageQueues</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gallery.Service\Gallery.Service.csproj">
+      <Project>{29825c47-b563-4fe5-93a5-6fcdcc55a23c}</Project>
+      <Name>Gallery.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
