@@ -68,6 +68,7 @@ namespace Gallery.Controllers
             var fileTempPath = Path.Combine(fullDirTempPath, uniqFileName + extension);
             var userId = Convert.ToInt32(User.Identity.Name);
             var ipAddress = HttpContext.Request.UserHostAddress;
+
             var mediaUploadAttemptDto = new MediaUploadAttemptDto
             {
                 Label = uniqFileName,
@@ -94,7 +95,8 @@ namespace Gallery.Controllers
 
             var message = new MessageDto
             {
-                UserId = userId, 
+                UserId = userId,
+                Label = uniqFileName,
                 Path = filePath, 
                 TempPath = fileTempPath
             };
