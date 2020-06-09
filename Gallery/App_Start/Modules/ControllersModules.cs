@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO.Abstractions;
-using System.Messaging;
+﻿using System.IO.Abstractions;
 using Autofac;
 using FileStorageProvider.Interfaces;
 using FileStorageProvider.Providers;
@@ -9,7 +7,6 @@ using Gallery.DAL.Models;
 using Gallery.DAL;
 using Gallery.Manager;
 using Gallery.MessageQueues;
-using Gallery.Service.Contract;
 
 namespace Gallery.App_Start.Modules
 {
@@ -23,20 +20,10 @@ namespace Gallery.App_Start.Modules
 
             var messageQueuingPath = GalleryConfigurationManager.GetMessageQueuingPath();
 
-           
-            using (var messageQueue = new MessageQueue(messageQueuingPath))
-            {
-                if (!MessageQueue.Exists(messageQueue.Path))
-                    MessageQueue.Create(messageQueue.Path);
-                messageQueue.Formatter = new XmlMessageFormatter(
-                    new Type[]
-                    {
-                        typeof(MessageDto)
-                        
-                    });
-                containerBuilder.Register(pub => new MSMQPublisher(messageQueue)).As<IPublisher>();
-                containerBuilder.Register(cons => new MSMQConsumer(messageQueue)).As<IConsumer>();
-            }
+            containerBuilder.Register(pub => new MSMQPublisher(messageQueuingPath)).As<IPublisher>();
+                
+            containerBuilder.Register(cons => new MSMQConsumer(messageQueuingPath)).As<IConsumer>();
+
             containerBuilder.RegisterType<UsersRepository>().As<IUserRepository>();
 
             containerBuilder.RegisterType<UsersService>().As<IUsersService>();
