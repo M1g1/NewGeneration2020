@@ -25,11 +25,12 @@ namespace Gallery.Worker
 
         public async Task Upload()
         {
-            var message = _consumer.ReadFirstMessage();
-            if (message == null)
-                return;
+            _consumer.SetFormat(new Type[]
+            {
+                typeof(MessageDto)
+            });
 
-            var body = message.Body;
+            var body = _consumer.GetFirstMessageBody();;
             var messageDto = (body as MessageDto) ?? throw new ArgumentNullException(nameof(body));
 
             if (!File.Exists(messageDto.TempPath))
