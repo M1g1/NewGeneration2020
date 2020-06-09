@@ -100,6 +100,10 @@ namespace Gallery.Controllers
                 Path = filePath, 
                 TempPath = fileTempPath
             };
+            _publisher.SetFormat(new Type[]
+            {
+                typeof(MessageDto)
+            });
             _publisher.SendMessage(message, uniqFileName);
             return RedirectToAction("Index");
         }
