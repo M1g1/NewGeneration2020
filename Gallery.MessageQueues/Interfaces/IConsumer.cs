@@ -1,9 +1,10 @@
-﻿using System.Messaging;
+﻿using System;
 
 namespace Gallery.MessageQueues
 {
     public interface IConsumer
     {
-        Message ReadFirstMessage();
+        object GetFirstMessageBody();
+        void SetFormat(Type[] types);
     }
 }
