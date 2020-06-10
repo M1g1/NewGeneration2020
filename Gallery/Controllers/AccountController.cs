@@ -23,8 +23,8 @@ namespace Gallery.Controllers
         [LogFilter]
         public ActionResult Logout()
         {
-            HttpContext.GetOwinContext().Authentication.SignOut();
-
+            _authenticationService.LogOut(HttpContext.GetOwinContext());
+            
             return RedirectToAction("Index", "Home");
         }
 
@@ -63,7 +63,7 @@ namespace Gallery.Controllers
 
                 ClaimsIdentity claims = _authenticationService.CreateClaimsIdentity(userId.ToString());
 
-                _authenticationService.AutorizeContext(HttpContext.GetOwinContext(), claims);
+                _authenticationService.LogIn(HttpContext.GetOwinContext(), claims);
 
                 var ipAddress = HttpContext.Request.UserHostAddress;
 
@@ -133,7 +133,7 @@ namespace Gallery.Controllers
 
                     ClaimsIdentity claims = _authenticationService.CreateClaimsIdentity(userId.ToString());
 
-                    _authenticationService.AutorizeContext(HttpContext.GetOwinContext(), claims);
+                    _authenticationService.LogIn(HttpContext.GetOwinContext(), claims);
 
                     return RedirectToAction("Index", "Home");
                 }
