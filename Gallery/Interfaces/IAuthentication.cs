@@ -5,8 +5,8 @@ namespace Gallery
 {
     public interface IAuthentication
     {
-        void AutorizeContext(IOwinContext ctx, ClaimsIdentity claims);
+        void LogIn(IOwinContext ctx, ClaimsIdentity claims);
         ClaimsIdentity CreateClaimsIdentity(string userId);
-
+        void LogOut(IOwinContext ctx);
     }
 }
