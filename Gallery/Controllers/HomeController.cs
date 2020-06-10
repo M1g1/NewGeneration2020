@@ -116,9 +116,6 @@ namespace Gallery.Controllers
             // Directory path with all User's directories
             var fullPathToSave = Server.MapPath(pathToSave);
 
-            //Directory paths with all User's files
-            var imgDirsNames = Directory.GetDirectories(fullPathToSave);
-
             // Directory path with temp files
             var pathToTempDirs = Server.MapPath(GalleryConfigurationManager.GetPathToTempSave());
 
@@ -144,6 +141,8 @@ namespace Gallery.Controllers
                 var user = await _usersService.GetUserByIdAsync(userId);
                 ViewData["Email"] = user.Email;
             }
+            //Directory paths with all User's files
+            var imgDirsNames = Directory.GetDirectories(fullPathToSave);
             ViewBag.Titles = (from dir in imgDirsNames from fl in Directory.GetFiles(dir) select _imageService.GetTitle(fl)).ToList();
             ViewBag.Manufacturers = (from dir in imgDirsNames from fl in Directory.GetFiles(dir) select _imageService.GetManufacturer(fl)).ToList();
             ViewBag.CameraModels = (from dir in imgDirsNames from fl in Directory.GetFiles(dir) select _imageService.GetModelOfCamera(fl)).ToList();
