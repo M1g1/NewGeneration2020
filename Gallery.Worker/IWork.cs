@@ -4,6 +4,7 @@ namespace Gallery.Worker
 {
     public interface IWork
     {
-        Task Upload();
+        Task StartAsync();
+        void Stop();
     }
 }

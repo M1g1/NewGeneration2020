@@ -1,11 +1,14 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using FileStorageProvider.Providers;
 using Gallery.MessageQueues;
 using System.IO.Abstractions;
+using System.Threading;
+using Gallery.Config.Manager;
 using Gallery.DAL;
 using Gallery.DAL.Models;
 using Gallery.Service;
-using Gallery.Worker.Manager;
+
 
 namespace Gallery.Worker
 {
@@ -13,10 +16,10 @@ namespace Gallery.Worker
     {
         static async Task Main(string[] args)
         {
-
-            var connectionString = GalleryWorkerConfigurationManager.GetSqlConnectionString();
-            var messageQueuingPath = GalleryWorkerConfigurationManager.GetMessageQueuingPath();
-            IWork a = new Work(
+            var allStops = new CancellationTokenSource();
+            var connectionString = GalleryConfigurationManager.GetSqlConnectionString();
+            var messageQueuingPath = GalleryConfigurationManager.GetMessageQueuingPath();
+            IWork work = new UploadImageWork(
             new MSMQConsumer(messageQueuingPath),
             new MediaStorageProvider(new FileSystem()),
             new ImageService(
@@ -24,14 +27,15 @@ namespace Gallery.Worker
                 new MediaRepository(new GalleryDbContext(connectionString)),
                 new UsersRepository(new GalleryDbContext(connectionString))),
             new MediaRepository(new GalleryDbContext(connectionString)));
-            int i = 0;
-            while (true)
-            {
-                //Console.WriteLine(i++);
-                await a.Upload();
-            }
 
+            await Task.Factory.StartNew(work.StartAsync, 
+                allStops.Token, 
+                TaskCreationOptions.LongRunning,
+                TaskScheduler.Current);
 
+           
+            allStops.Cancel();
+            work.Stop();
         }
     }
 }
