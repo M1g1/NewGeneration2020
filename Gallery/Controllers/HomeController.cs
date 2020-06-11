@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Threading.Tasks;
+using Gallery.Config.Manager;
 using Gallery.Filters;
 using Gallery.Service;
-using Gallery.Manager;
 using Gallery.MessageQueues;
 using Gallery.Service.Contract;
 

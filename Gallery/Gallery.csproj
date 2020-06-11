@@ -183,7 +183,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IAuthentication.cs" />
-    <Compile Include="Manager\GalleryConfigurationManager.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -256,6 +255,10 @@
     <ProjectReference Include="..\FileStorageProvider\FileStorageProvider.csproj">
       <Project>{24336C6D-7B90-4D24-89EB-0A57ABB834B5}</Project>
       <Name>FileStorageProvider</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gallery.Config\Gallery.Config.csproj">
+      <Project>{FCA03529-F889-4378-9F33-789D12658C3B}</Project>
+      <Name>Gallery.Config</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gallery.DAL\Gallery.DAL.csproj">
       <Project>{92f5610e-65ef-45e1-b50d-843e689381cf}</Project>

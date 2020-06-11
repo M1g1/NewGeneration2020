@@ -1,7 +1,8 @@
 ﻿using Autofac;
 using Gallery.DAL.Models;
 using Gallery.DAL;
-using Gallery.Manager;
+using Gallery.Config.Manager;
+
 
 namespace Gallery.App_Start.Modules
 {

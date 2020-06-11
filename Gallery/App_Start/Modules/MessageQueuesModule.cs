@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using Gallery.Manager;
+using Gallery.Config.Manager;
 using Gallery.MessageQueues;
 
 namespace Gallery.App_Start.Modules

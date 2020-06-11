@@ -2,7 +2,7 @@
 using System.Collections.Specialized;
 using System.Configuration;
 
-namespace Gallery.Manager
+namespace Gallery.Config.Manager
 {
     public static class GalleryConfigurationManager
     {
