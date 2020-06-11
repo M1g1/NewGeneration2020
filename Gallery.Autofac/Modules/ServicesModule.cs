@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using Gallery.Service;
 
-namespace Gallery.App_Start.Modules
+namespace Gallery.Autofac.Modules
 {
     public class ServicesModule : Module
     {

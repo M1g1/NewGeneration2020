@@ -45,8 +45,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=5.1.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.5.1.2\lib\net461\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=5.2.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.5.2.0\lib\net461\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Autofac.Integration.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.Mvc5.5.0.0\lib\net461\Autofac.Integration.Mvc.dll</HintPath>
@@ -87,10 +87,6 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.IO.Abstractions, Version=11.0.0.0, Culture=neutral, PublicKeyToken=96bf224d23c43e59, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Bin\System.IO.Abstractions.dll</HintPath>
-    </Reference>
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -169,10 +165,6 @@
     <Compile Include="App_Start\DIConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\Modules\ControllersModule.cs" />
-    <Compile Include="App_Start\Modules\DALModule.cs" />
-    <Compile Include="App_Start\Modules\FileStorageModule.cs" />
-    <Compile Include="App_Start\Modules\MessageQueuesModule.cs" />
-    <Compile Include="App_Start\Modules\ServicesModule.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -252,17 +244,13 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FileStorageProvider\FileStorageProvider.csproj">
-      <Project>{24336C6D-7B90-4D24-89EB-0A57ABB834B5}</Project>
-      <Name>FileStorageProvider</Name>
+    <ProjectReference Include="..\Gallery.Autofac\Gallery.Autofac.csproj">
+      <Project>{0f504683-eb44-4bbf-8e78-02bf3078deec}</Project>
+      <Name>Gallery.Autofac</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gallery.Config\Gallery.Config.csproj">
       <Project>{FCA03529-F889-4378-9F33-789D12658C3B}</Project>
       <Name>Gallery.Config</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gallery.DAL\Gallery.DAL.csproj">
-      <Project>{92f5610e-65ef-45e1-b50d-843e689381cf}</Project>
-      <Name>Gallery.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gallery.MessageQueues\Gallery.MessageQueues.csproj">
       <Project>{C83EB6AB-429A-4F15-A2C3-57C0644ADFD4}</Project>

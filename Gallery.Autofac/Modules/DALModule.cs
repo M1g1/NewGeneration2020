@@ -1,10 +1,9 @@
 ﻿using Autofac;
-using Gallery.DAL.Models;
-using Gallery.DAL;
 using Gallery.Config.Manager;
+using Gallery.DAL;
+using Gallery.DAL.Models;
 
-
-namespace Gallery.App_Start.Modules
+namespace Gallery.Autofac.Modules
 {
     public class DALModule : Module
     {

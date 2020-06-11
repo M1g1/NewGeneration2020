@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallery.MessageQueues", "Ga
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallery.Config", "Gallery.Config\Gallery.Config.csproj", "{FCA03529-F889-4378-9F33-789D12658C3B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallery.Autofac", "Gallery.Autofac\Gallery.Autofac.csproj", "{0F504683-EB44-4BBF-8E78-02BF3078DEEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{FCA03529-F889-4378-9F33-789D12658C3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCA03529-F889-4378-9F33-789D12658C3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCA03529-F889-4378-9F33-789D12658C3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F504683-EB44-4BBF-8E78-02BF3078DEEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F504683-EB44-4BBF-8E78-02BF3078DEEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F504683-EB44-4BBF-8E78-02BF3078DEEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F504683-EB44-4BBF-8E78-02BF3078DEEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

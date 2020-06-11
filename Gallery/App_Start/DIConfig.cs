@@ -3,6 +3,7 @@ using Autofac.Integration.Mvc;
 using System.Web.Mvc;
 using System.Web.Http;
 using Gallery.App_Start.Modules;
+using Gallery.Autofac.Modules;
 
 namespace Gallery.App_Start
 {

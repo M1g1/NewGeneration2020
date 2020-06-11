@@ -1,9 +1,9 @@
-﻿using System.IO.Abstractions;
-using Autofac;
+﻿using Autofac;
 using FileStorageProvider.Interfaces;
 using FileStorageProvider.Providers;
+using System.IO.Abstractions;
 
-namespace Gallery.App_Start.Modules
+namespace Gallery.Autofac.Modules
 {
     public class FileStorageModule : Module
     {

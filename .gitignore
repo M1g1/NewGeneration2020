@@ -23,3 +23,5 @@ packages
 /Gallery.MessageQueues/bin
 /Gallery.Config/obj
 /Gallery.Config/bin
+/Gallery.Autofac/obj
+/Gallery.Autofac/bin
