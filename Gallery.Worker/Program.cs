@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Autofac;
 using Gallery.Worker.Works;
-
+using Topshelf;
 
 namespace Gallery.Worker
 {
@@ -11,14 +11,28 @@ namespace Gallery.Worker
         static async Task Main(string[] args)
         {
             var container = DIConfig.Configure();
+            var exitCode = HostFactory.Run(
+                config =>
+                {
+                    config.Service<WorkerWrapper>(sc =>
+                    {
+                        sc.ConstructUsing(() => new WorkerWrapper(container.Resolve<UploadImageWork>()));
+                        // the start and stop methods for the service
+                        sc.WhenStarted(async s => await s.StartAsync());
+                        sc.WhenStopped(s => s.Stop());
+                    });
 
-            var wrapper = new WorkerWrapper(container.Resolve<UploadImageWork>());
+                    config.RunAsLocalSystem();
 
-            await wrapper.StartAsync();
+                    config.SetDescription("This service for Gallery Worker.");
+                    config.SetDisplayName("Worker Wrapper Service");
+                    config.SetServiceName("WorkerWrapperService");
+                }
+            );
 
-            var input = Console.ReadKey();
+            var exitCodeValue = (int)Convert.ChangeType(exitCode, exitCode.GetTypeCode());
+            Environment.ExitCode = exitCodeValue;
 
-            wrapper.Stop();
         }
     }
 }
