@@ -7,8 +7,9 @@ using Gallery.DAL;
 using Gallery.MessageQueues;
 using Gallery.Service;
 using Gallery.Service.Contract;
+using Gallery.Worker.Interfaces;
 
-namespace Gallery.Worker
+namespace Gallery.Worker.Works
 {
     public class UploadImageWork : IWork
     {
@@ -18,6 +19,8 @@ namespace Gallery.Worker
         private readonly IMediaRepository _mediaRepo;
         private readonly CancellationTokenSource _cancelTokenSource = new CancellationTokenSource();
         private readonly TimeSpan _delay = TimeSpan.FromSeconds(1);
+
+
         public UploadImageWork(IConsumer consumer, IFileStorage storage, IImageService imgService, IMediaRepository mediaRepo)
         {
             _consumer = consumer ?? throw new ArgumentNullException(nameof(consumer));

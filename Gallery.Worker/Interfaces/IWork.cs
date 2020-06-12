@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Gallery.Worker
+namespace Gallery.Worker.Interfaces
 {
     public interface IWork
     {
