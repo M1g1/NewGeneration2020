@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Gallery.Worker.Interfaces;
 using Gallery.Worker.Works;
 
 namespace Gallery.App_Start.Modules
@@ -7,7 +8,7 @@ namespace Gallery.App_Start.Modules
     {
         protected override void Load(ContainerBuilder containerBuilder)
         {
-            containerBuilder.RegisterType<UploadImageWork>().AsSelf();
+            containerBuilder.RegisterType<UploadImageWork>().As<IWork>().Named<IWork>(nameof(UploadImageWork));
         }
     }
 }

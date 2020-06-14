@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Autofac;
+using Gallery.Worker.Interfaces;
 using Gallery.Worker.Works;
 using Topshelf;
 
@@ -16,7 +17,7 @@ namespace Gallery.Worker
                 {
                     config.Service<WorkerWrapper>(sc =>
                     {
-                        sc.ConstructUsing(() => new WorkerWrapper(container.Resolve<UploadImageWork>()));
+                        sc.ConstructUsing(() => new WorkerWrapper(container.ResolveNamed<IWork>(nameof(UploadImageWork))));
                         // the start and stop methods for the service
                         sc.WhenStarted(async s => await s.StartAsync());
                         sc.WhenStopped(s => s.Stop());
