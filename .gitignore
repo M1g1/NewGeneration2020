@@ -1,27 +1,31 @@
-#Folders for ignore
-Gallery/bin
-Gallery/obj
-Gallery/logs
-Gallery.Service/bin
-Gallery.Service/obj
-Gallery.DAL/bin
-Gallery.DAL/obj
-packages
-.vs
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+[Pp]ackages/
+
+# Visual Studio cache/options directory
+.vs/
+
+# User-specific files
+*.rsuser
+*.suo
 *.user
-/FileStorageProvider/obj
-/FileStorageProvider/bin
-/Tests/FileStorageProvider.NUnitTests/bin
-/Tests/FileStorageProvider.NUnitTests/obj
-/Tests/Gallery.DAL.NUnitTests/obj
-/Tests/Gallery.DAL.NUnitTests/bin
-/Tests/Gallery.Service.NUnitTests/obj
-/Tests/Gallery.Service.NUnitTests/bin
-/Gallery.Worker/bin
-/Gallery.Worker/obj
-/Gallery.MessageQueues/obj
-/Gallery.MessageQueues/bin
-/Gallery.Config/obj
-/Gallery.Config/bin
-/Gallery.Autofac/obj
-/Gallery.Autofac/bin
+*.userosscache
+*.sln.docstates
+
+# ReSharper is a .NET coding add-in
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
