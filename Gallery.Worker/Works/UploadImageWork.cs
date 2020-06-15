@@ -8,6 +8,7 @@ using Gallery.MessageQueues;
 using Gallery.Service;
 using Gallery.Service.Contract;
 using Gallery.Worker.Interfaces;
+using NLog;
 
 namespace Gallery.Worker.Works
 {
@@ -19,7 +20,7 @@ namespace Gallery.Worker.Works
         private readonly IMediaRepository _mediaRepo;
         private readonly CancellationTokenSource _cancelTokenSource = new CancellationTokenSource();
         private readonly TimeSpan _delay = TimeSpan.FromSeconds(1);
-
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
         public UploadImageWork(IConsumer consumer, IFileStorage storage, IImageService imgService, IMediaRepository mediaRepo)
         {
@@ -31,6 +32,7 @@ namespace Gallery.Worker.Works
 
         public async Task StartAsync()
         {
+            _logger.Info("Started " + nameof(UploadImageWork) + ".");
             _consumer.SetFormat(new Type[]
             {
                 typeof(MessageDto)
@@ -66,7 +68,9 @@ namespace Gallery.Worker.Works
 
         public void Stop()
         {
+            _logger.Info("Stopping " + nameof(UploadImageWork) + "...");
             _cancelTokenSource.Cancel();
+            _logger.Info("Stopped " + nameof(UploadImageWork) + "successfully.");
         }
     }
 }
