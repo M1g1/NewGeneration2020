@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallery.Config", "Gallery.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallery.Autofac", "Gallery.Autofac\Gallery.Autofac.csproj", "{0F504683-EB44-4BBF-8E78-02BF3078DEEC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallery.WorkerUsingServiceBase", "Gallery.WorkerUsingServiceBase\Gallery.WorkerUsingServiceBase.csproj", "{55C1AC40-7903-4FCB-8F4F-F1DB86680C40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{0F504683-EB44-4BBF-8E78-02BF3078DEEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F504683-EB44-4BBF-8E78-02BF3078DEEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F504683-EB44-4BBF-8E78-02BF3078DEEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55C1AC40-7903-4FCB-8F4F-F1DB86680C40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55C1AC40-7903-4FCB-8F4F-F1DB86680C40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55C1AC40-7903-4FCB-8F4F-F1DB86680C40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55C1AC40-7903-4FCB-8F4F-F1DB86680C40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
