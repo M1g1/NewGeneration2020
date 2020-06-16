@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Autofac;
-using Gallery.Worker.Interfaces;
-using Gallery.Worker.Works;
 using Topshelf;
+using Topshelf.Autofac;
 
 namespace Gallery.Worker
 {
@@ -15,9 +13,10 @@ namespace Gallery.Worker
             var exitCode = HostFactory.Run(
                 config =>
                 {
+                    config.UseAutofacContainer(container);
                     config.Service<WorkerWrapper>(sc =>
                     {
-                        sc.ConstructUsing(() => new WorkerWrapper(container.ResolveNamed<IWork>(nameof(UploadImageWork))));
+                        sc.ConstructUsingAutofacContainer();
                         // the start and stop methods for the service
                         sc.WhenStarted(async s => await s.StartAsync());
                         sc.WhenStopped(s => s.Stop());
