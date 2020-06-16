@@ -15,8 +15,6 @@ namespace Gallery.App_Start
 
             containerBuilder.RegisterControllers(typeof(MvcApplication).Assembly);
 
-            containerBuilder.RegisterModule<ControllersModule>();
-
             containerBuilder.RegisterModule<DALModule>();
 
             containerBuilder.RegisterModule<FileStorageModule>();
@@ -24,6 +22,8 @@ namespace Gallery.App_Start
             containerBuilder.RegisterModule<ServicesModule>();
 
             containerBuilder.RegisterModule<MessageQueuesModule>();
+
+            containerBuilder.RegisterModule<ControllersModule>();
 
             var container = containerBuilder.Build();
 

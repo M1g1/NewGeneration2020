@@ -1,5 +1,8 @@
 ﻿using Autofac;
+using Gallery.Controllers;
 using Gallery.Manager;
+using Gallery.MessageQueues;
+using Gallery.Service;
 
 namespace Gallery.App_Start.Modules
 {
@@ -8,6 +11,19 @@ namespace Gallery.App_Start.Modules
         protected override void Load(ContainerBuilder containerBuilder)
         {
             containerBuilder.RegisterType<AuthenticationManager>().As<IAuthentication>();
+            containerBuilder.Register(c =>
+                new HomeController(
+                    c.Resolve<IImageService>(),
+                    c.Resolve<IHashService>(),
+                    c.Resolve<IUsersService>(),
+                    c.Resolve<MSMQPublisher>()))
+                .InstancePerRequest();
+
+            containerBuilder.Register(c =>
+                new AccountController(
+                    c.Resolve<IUsersService>(),
+                    c.Resolve<IAuthentication>()))
+            .InstancePerRequest();
         }
     }
 }
