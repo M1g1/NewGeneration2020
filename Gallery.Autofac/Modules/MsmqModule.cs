@@ -8,11 +8,13 @@ namespace Gallery.Autofac.Modules
     {
         protected override void Load(ContainerBuilder containerBuilder)
         {
-            var messageQueuingPath = GalleryConfigurationManager.GetMsmqPaths();
+            var queuePaths = GalleryConfigurationManager.GetMsmqPaths();
 
-            containerBuilder.Register(pub => new MSMQPublisher(messageQueuingPath)).AsSelf().As<IPublisher>();
+            MsmqInitializer.CreateIfNotExist(Parser.ParseQueuePaths());
 
-            containerBuilder.Register(cons => new MSMQConsumer(messageQueuingPath)).AsSelf().As<IConsumer>();
+            containerBuilder.Register(pub => new MSMQPublisher(queuePaths)).AsSelf().As<IPublisher>();
+
+            containerBuilder.Register(cons => new MSMQConsumer()).AsSelf().As<IConsumer>();
         }
     }
 }
