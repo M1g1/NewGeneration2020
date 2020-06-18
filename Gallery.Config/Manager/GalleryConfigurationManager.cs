@@ -11,13 +11,13 @@ namespace Gallery.Config.Manager
         private const string _pathTempKeyName = "PathToTempSave";
         private const string _imageTypeKeyName = "ImageFormat";
         private const string _connectionStringKeyName = "SqlConnection";
-        private const string _messageQueuingKeyName = "MessageQueuingPath";
+        private const string _msmqPathsKeyName = "msmq:paths";
         private static readonly NameValueCollection appSettings = ConfigurationManager.AppSettings;
         private static readonly ConnectionStringSettingsCollection connectionStrings = ConfigurationManager.ConnectionStrings;
 
-        public static string GetMessageQueuingPath()
+        public static string GetMsmqPaths()
         {
-            return appSettings[_messageQueuingKeyName] ?? throw new ArgumentNullException(nameof(appSettings));
+            return appSettings[_msmqPathsKeyName] ?? throw new ArgumentNullException(nameof(appSettings));
         }
 
         public static string GetSqlConnectionString()

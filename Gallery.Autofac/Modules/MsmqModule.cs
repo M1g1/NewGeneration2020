@@ -8,7 +8,7 @@ namespace Gallery.Autofac.Modules
     {
         protected override void Load(ContainerBuilder containerBuilder)
         {
-            var messageQueuingPath = GalleryConfigurationManager.GetMessageQueuingPath();
+            var messageQueuingPath = GalleryConfigurationManager.GetMsmqPaths();
 
             containerBuilder.Register(pub => new MSMQPublisher(messageQueuingPath)).AsSelf().As<IPublisher>();
 
