@@ -33,33 +33,27 @@ namespace Gallery.Worker.Works
         public async Task StartAsync()
         {
             _logger.Info("Started " + nameof(UploadImageWork) + ".");
-            _consumer.SetFormat(new Type[]
-            {
-                typeof(MessageDto)
-            });
 
             while (!_cancelTokenSource.IsCancellationRequested)
             {
+                var queuePaths = Parser.ParseQueuePaths();
+                var msgBody = _consumer.GetFirstMessage<MessageDto>(queuePaths[0]);
 
-                var body = _consumer.GetFirstMessageBody();
-                
-                var messageDto = (body as MessageDto) ?? throw new ArgumentNullException(nameof(body));
-
-                if (!File.Exists(messageDto.TempPath))
-                    throw new FileNotFoundException("File not found", messageDto.TempPath);
+                if (!File.Exists(msgBody.TempPath))
+                    throw new FileNotFoundException("File not found", msgBody.TempPath);
 
                 var isMediaUploadAttemptExist =
-                    await _mediaRepo.IsMediaUploadAttemptExistByLabelAndProgressStatus(messageDto.Label, true);
+                    await _mediaRepo.IsMediaUploadAttemptExistByLabelAndProgressStatus(msgBody.Label, true);
                 if (isMediaUploadAttemptExist)
                 {
                     var mediaUploadAttempt =
-                        await _mediaRepo.GetMediaUploadAttemptByLabelAndProgressStatus(messageDto.Label, true);
+                        await _mediaRepo.GetMediaUploadAttemptByLabelAndProgressStatus(msgBody.Label, true);
                     var newUploadAttempt = mediaUploadAttempt;
                     newUploadAttempt.IsInProgress = false;
                     newUploadAttempt.IsSuccess = true;
                     await _mediaRepo.UpdateMediaUploadAttemptAsync(mediaUploadAttempt, newUploadAttempt);
-                    var fileBytes = _storage.ReadBytes(messageDto.TempPath);
-                    await _imgService.UploadImageAsync(messageDto.UserId, fileBytes, messageDto.Path);
+                    var fileBytes = _storage.ReadBytes(msgBody.TempPath);
+                    await _imgService.UploadImageAsync(msgBody.UserId, fileBytes, msgBody.Path);
                 }
 
                 await Task.Delay(_delay);
