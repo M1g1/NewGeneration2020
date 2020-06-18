@@ -16,7 +16,7 @@ namespace Gallery.Worker
 
             containerBuilder.RegisterModule<ServicesModule>();
 
-            containerBuilder.RegisterModule<MessageQueuesModule>();
+            containerBuilder.RegisterModule<MsmqModule>();
 
             containerBuilder.RegisterModule<WorksModule>();
 

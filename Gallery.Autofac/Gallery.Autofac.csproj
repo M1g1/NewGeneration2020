@@ -53,7 +53,7 @@
   <ItemGroup>
     <Compile Include="Modules\DALModule.cs" />
     <Compile Include="Modules\FileStorageModule.cs" />
-    <Compile Include="Modules\MessageQueuesModule.cs" />
+    <Compile Include="Modules\MsmqModule.cs" />
     <Compile Include="Modules\ServicesModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

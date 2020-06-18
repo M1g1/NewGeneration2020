@@ -21,7 +21,7 @@ namespace Gallery.App_Start
 
             containerBuilder.RegisterModule<ServicesModule>();
 
-            containerBuilder.RegisterModule<MessageQueuesModule>();
+            containerBuilder.RegisterModule<MsmqModule>();
 
             containerBuilder.RegisterModule<ControllersModule>();
 
