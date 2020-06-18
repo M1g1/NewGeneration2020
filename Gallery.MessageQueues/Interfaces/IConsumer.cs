@@ -1,10 +1,7 @@
-﻿using System;
-
-namespace Gallery.MessageQueues
+﻿namespace Gallery.MessageQueues
 {
     public interface IConsumer
     {
-        object GetFirstMessageBody();
-        void SetFormat(Type[] types);
+        T GetFirstMessage<T>(string messageQueuePath) where T : class;
     }
 }
