@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Gallery.MessageQueues
+﻿namespace Gallery.MessageQueues
 {
     public interface IPublisher
     {

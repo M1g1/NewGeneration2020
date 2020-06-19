@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Gallery.MessageQueues;
+using Gallery.MessageQueues.MSMQ;
 
 namespace Gallery.Autofac.Modules
 {

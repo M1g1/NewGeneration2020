@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-using System.Messaging;
+﻿using System.Messaging;
+using Newtonsoft.Json;
 
-namespace Gallery.MessageQueues
+namespace Gallery.MessageQueues.MSMQ
 {
     public class MSMQConsumer : IConsumer
     {

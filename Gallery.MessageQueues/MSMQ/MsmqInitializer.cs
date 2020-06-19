@@ -1,6 +1,6 @@
 ﻿using System.Messaging;
 
-namespace Gallery.MessageQueues
+namespace Gallery.MessageQueues.MSMQ
 {
     public static class MsmqInitializer
     {

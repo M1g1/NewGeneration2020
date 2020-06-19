@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using Gallery.Controllers;
 using Gallery.Manager;
-using Gallery.MessageQueues;
+using Gallery.MessageQueues.MSMQ;
 using Gallery.Service;
 
 namespace Gallery.App_Start.Modules
