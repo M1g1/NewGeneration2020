@@ -37,8 +37,9 @@ namespace Gallery.Worker.Works
             while (!_cancelTokenSource.IsCancellationRequested)
             {
                 var queuePaths = Parser.ParseQueuePaths();
+                _logger.Info("Waiting for new message...");
                 var msgBody = _consumer.GetFirstMessage<MessageDto>(queuePaths[0]);
-
+                _logger.Info("New message received...");
                 if (!File.Exists(msgBody.TempPath))
                     throw new FileNotFoundException("File not found", msgBody.TempPath);
 
@@ -54,6 +55,11 @@ namespace Gallery.Worker.Works
                     await _mediaRepo.UpdateMediaUploadAttemptAsync(mediaUploadAttempt, newUploadAttempt);
                     var fileBytes = _storage.ReadBytes(msgBody.TempPath);
                     await _imgService.UploadImageAsync(msgBody.UserId, fileBytes, msgBody.Path);
+                    _logger.Info("Image uploaded successfully.");
+                }
+                else
+                {
+                    _logger.Info("Failed to upload image.");
                 }
 
                 await Task.Delay(_delay);
