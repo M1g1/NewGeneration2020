@@ -9,10 +9,9 @@ namespace Gallery.MessageQueues
         {
             var _messageQueue = new MessageQueue(messageQueuePath)
             {
-                Formatter = new XmlMessageFormatter(new[] {typeof(T)})
+                Formatter = new XmlMessageFormatter(new[] { typeof(string) })
             };
-            var msgBodyObj = _messageQueue.Receive()?.Body;
-            var msgBodyString = JsonConvert.SerializeObject(msgBodyObj);
+            var msgBodyString = _messageQueue.Receive()?.Body.ToString();
             return JsonConvert.DeserializeObject<T>(msgBodyString);
         }
     }
