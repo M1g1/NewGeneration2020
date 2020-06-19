@@ -1,5 +1,4 @@
 ﻿using System.Messaging;
-using Newtonsoft.Json;
 
 namespace Gallery.MessageQueues.MSMQ
 {
@@ -11,7 +10,7 @@ namespace Gallery.MessageQueues.MSMQ
             {
                 Formatter = new XmlMessageFormatter(new[] { typeof(string) })
             };
-            var jsonMessage = JsonConvert.SerializeObject(message);
+            var jsonMessage = Serializer.SerializeToJson<T>(message);
             _messageQueue.Send(jsonMessage);
         }
     }
