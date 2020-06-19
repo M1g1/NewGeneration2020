@@ -4,7 +4,6 @@ namespace Gallery.MessageQueues
 {
     public interface IPublisher
     {
-        void SendMessage(object message, string label);
-        void SetFormat(Type[] types);
+        void SendMessage<T>(T message, string queuePath) where T : class;
     }
 }
