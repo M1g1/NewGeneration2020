@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Gallery.Config.Manager;
 using Gallery.MessageQueues;
 
 namespace Gallery.Autofac.Modules
@@ -8,11 +7,10 @@ namespace Gallery.Autofac.Modules
     {
         protected override void Load(ContainerBuilder containerBuilder)
         {
-            var queuePaths = GalleryConfigurationManager.GetMsmqPaths();
 
             MsmqInitializer.CreateIfNotExist(Parser.ParseQueuePaths());
 
-            containerBuilder.Register(pub => new MSMQPublisher(queuePaths)).AsSelf().As<IPublisher>();
+            containerBuilder.Register(pub => new MSMQPublisher()).AsSelf().As<IPublisher>();
 
             containerBuilder.Register(cons => new MSMQConsumer()).AsSelf().As<IConsumer>();
         }
