@@ -11,7 +11,7 @@ namespace Gallery.Autofac.Modules
         {
             containerBuilder.RegisterType<FileSystem>().As<IFileSystem>();
 
-            containerBuilder.RegisterType<MediaStorageProvider>().As<IFileStorage>();
+            containerBuilder.RegisterType<MediaStorageProvider>().AsSelf().As<IFileStorage>();
         }
     }
 }
