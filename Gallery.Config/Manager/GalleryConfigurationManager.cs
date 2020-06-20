@@ -10,10 +10,23 @@ namespace Gallery.Config.Manager
         private const string _pathKeyName = "PathToSave";
         private const string _pathTempKeyName = "PathToTempSave";
         private const string _imageTypeKeyName = "ImageFormat";
-        private const string _connectionStringKeyName = "SqlConnection";
+        private const string _sqlConnectionStringKeyName = "SqlConnection";
         private const string _msmqPathsKeyName = "msmq:paths";
+        private const string _rabbitmqPathsKeyName = "rabbitmq:paths";
+        private const string _rabbitmqConnectionStringKeyName = "RabbitMqConnection";
         private static readonly NameValueCollection appSettings = ConfigurationManager.AppSettings;
         private static readonly ConnectionStringSettingsCollection connectionStrings = ConfigurationManager.ConnectionStrings;
+
+        public static string GetRabbitMqConnectionString()
+        {
+            var rabbitMqConnectionString = connectionStrings[_rabbitmqConnectionStringKeyName] ?? throw new ArgumentNullException(nameof(connectionStrings));
+            return rabbitMqConnectionString.ConnectionString;
+        }
+
+        public static string GetRabbitMqPaths()
+        {
+            return appSettings[_rabbitmqPathsKeyName] ?? throw new ArgumentNullException(nameof(appSettings));
+        }
 
         public static string GetMsmqPaths()
         {
@@ -22,7 +35,7 @@ namespace Gallery.Config.Manager
 
         public static string GetSqlConnectionString()
         {
-            var sqlConnectionString = connectionStrings[_connectionStringKeyName] ?? throw new ArgumentNullException(nameof(connectionStrings));
+            var sqlConnectionString = connectionStrings[_sqlConnectionStringKeyName] ?? throw new ArgumentNullException(nameof(connectionStrings));
             return sqlConnectionString.ConnectionString;
         }
 
