@@ -2,9 +2,9 @@
 
 namespace Gallery.MessageQueues.MSMQ
 {
-    public static class MsmqInitializer
+    public class MsmqInitializer
     {
-        public static void CreateIfNotExist(string[] paths)
+        public void CreateIfNotExist(string[] paths)
         {
             foreach (var path in paths)
             {
