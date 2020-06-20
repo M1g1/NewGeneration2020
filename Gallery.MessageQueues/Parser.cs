@@ -6,7 +6,7 @@ namespace Gallery.MessageQueues
 {
     public static class Parser
     {
-        public static string[] ParseQueuePaths()
+        public static string[] ParseMsmqPaths()
         {
             var queuePaths = GalleryConfigurationManager.GetMsmqPaths();
             var separator = new [] {","};

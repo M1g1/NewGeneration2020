@@ -36,7 +36,7 @@ namespace Gallery.Worker.Works
 
             while (!_cancelTokenSource.IsCancellationRequested)
             {
-                var queuePaths = Parser.ParseQueuePaths();
+                var queuePaths = Parser.ParseMsmqPaths();
                 _logger.Info("Waiting for new message...");
                 var msgBody = _consumer.GetFirstMessage<MessageDto>(queuePaths[0]);
                 _logger.Info("New message received...");

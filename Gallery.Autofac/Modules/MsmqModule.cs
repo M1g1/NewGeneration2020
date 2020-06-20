@@ -10,7 +10,7 @@ namespace Gallery.Autofac.Modules
         {
             var msmqInitializer = new MsmqInitializer();
 
-            msmqInitializer.CreateIfNotExist(Parser.ParseQueuePaths());
+            msmqInitializer.CreateIfNotExist(Parser.ParseMsmqPaths());
 
             containerBuilder.Register(pub => new MSMQPublisher()).AsSelf().As<IPublisher>();
 

@@ -100,7 +100,7 @@ namespace Gallery.Controllers
                 Path = filePath, 
                 TempPath = fileTempPath
             };
-            var queuePaths = Parser.ParseQueuePaths();
+            var queuePaths = Parser.ParseMsmqPaths();
             _publisher.SendMessage<MessageDto>(message, queuePaths[0]);
             return RedirectToAction("Index");
         }
