@@ -2,7 +2,7 @@
 
 namespace Gallery.MessageQueues.MSMQ
 {
-    public class MsmqInitializer
+    public class MsmqInitializer : IQueueInitialize
     {
         public void CreateIfNotExist(string[] paths)
         {

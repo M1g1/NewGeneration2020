@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Deserializer.cs" />
+    <Compile Include="Interfaces\IQueueInitialize.cs" />
     <Compile Include="MSMQ\MSMQPublisher.cs" />
     <Compile Include="MSMQ\MSMQConsumer.cs" />
     <Compile Include="Interfaces\IConsumer.cs" />
