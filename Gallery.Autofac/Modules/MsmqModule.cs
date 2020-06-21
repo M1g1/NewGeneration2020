@@ -8,9 +8,16 @@ namespace Gallery.Autofac.Modules
     {
         protected override void Load(ContainerBuilder containerBuilder)
         {
+            
+            containerBuilder.Register(p => new MsmqParser()).AsSelf().As<IQueueParser>();
+
+            containerBuilder.Register(init => new MsmqInitializer()).AsSelf().As<IQueueInitialize>();
+
             var msmqInitializer = new MsmqInitializer();
 
-            msmqInitializer.CreateIfNotExist(Parser.ParseMsmqPaths());
+            var msmqParser = new MsmqParser();
+
+            msmqInitializer.CreateIfNotExist(msmqParser.ParseQueuePaths());
 
             containerBuilder.Register(pub => new MSMQPublisher()).AsSelf().As<IPublisher>();
 

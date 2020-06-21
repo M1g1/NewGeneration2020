@@ -63,14 +63,16 @@
   <ItemGroup>
     <Compile Include="Deserializer.cs" />
     <Compile Include="Interfaces\IQueueInitialize.cs" />
+    <Compile Include="Interfaces\IQueueParser.cs" />
     <Compile Include="MSMQ\MSMQPublisher.cs" />
     <Compile Include="MSMQ\MSMQConsumer.cs" />
     <Compile Include="Interfaces\IConsumer.cs" />
     <Compile Include="Interfaces\IPublisher.cs" />
     <Compile Include="MSMQ\MsmqInitializer.cs" />
-    <Compile Include="Parser.cs" />
+    <Compile Include="MSMQ\MsmqParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RabbitMq\RabbitMqConsumer.cs" />
+    <Compile Include="RabbitMq\RabbitMqInitializer.cs" />
     <Compile Include="RabbitMq\RabbitMqPublisher.cs" />
     <Compile Include="Serializer.cs" />
   </ItemGroup>

@@ -2,11 +2,11 @@
 using System.Linq;
 using Gallery.Config.Manager;
 
-namespace Gallery.MessageQueues
+namespace Gallery.MessageQueues.MSMQ
 {
-    public static class Parser
+    public class MsmqParser : IQueueParser
     {
-        public static string[] ParseMsmqPaths()
+        public string[] ParseQueuePaths()
         {
             var queuePaths = GalleryConfigurationManager.GetMsmqPaths();
             var separator = new [] {","};

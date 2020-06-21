@@ -18,7 +18,8 @@ namespace Gallery.App_Start.Modules
                     c.Resolve<MSMQConsumer>(),
                     c.Resolve<MediaStorageProvider>(),
                     c.Resolve<IImageService>(),
-                    c.Resolve<IMediaRepository>()
+                    c.Resolve<IMediaRepository>(),
+                    c.Resolve<MsmqParser>()
                     ))
                 .AsSelf()
                 .As<IWork>();
