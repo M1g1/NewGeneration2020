@@ -1,4 +1,3 @@
-
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -29,3 +28,6 @@ bld/
 _ReSharper*/
 *.[Rr]e[Ss]harper
 *.DotSettings.user
+
+#Unnecessary project folders
+/Gallery/Media
