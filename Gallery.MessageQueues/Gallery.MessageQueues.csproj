@@ -71,6 +71,7 @@
     <Compile Include="MSMQ\MsmqInitializer.cs" />
     <Compile Include="MSMQ\MsmqParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RabbitMq\RabbitMqParser.cs" />
     <Compile Include="RabbitMq\RabbitMqConsumer.cs" />
     <Compile Include="RabbitMq\RabbitMqInitializer.cs" />
     <Compile Include="RabbitMq\RabbitMqPublisher.cs" />
