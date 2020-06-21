@@ -18,6 +18,8 @@ namespace Gallery.Worker
 
             containerBuilder.RegisterModule<MsmqModule>();
 
+            containerBuilder.RegisterModule<RabbitMqModule>();
+
             containerBuilder.RegisterModule<WorksModule>();
 
             return containerBuilder.Build();

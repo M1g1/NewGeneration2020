@@ -23,6 +23,8 @@ namespace Gallery.App_Start
 
             containerBuilder.RegisterModule<MsmqModule>();
 
+            containerBuilder.RegisterModule<RabbitMqModule>();
+
             containerBuilder.RegisterModule<ControllersModule>();
 
             var container = containerBuilder.Build();
