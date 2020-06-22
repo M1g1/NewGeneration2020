@@ -9,7 +9,7 @@ namespace Gallery.App_Start
 {
     public static class DIConfig
     {
-        public static void Configure(HttpConfiguration config)
+        public static IContainer Configure(HttpConfiguration config)
         {
             var containerBuilder = new ContainerBuilder();
 
@@ -30,6 +30,8 @@ namespace Gallery.App_Start
             var container = containerBuilder.Build();
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+
+            return container;
         }
     }
 }
