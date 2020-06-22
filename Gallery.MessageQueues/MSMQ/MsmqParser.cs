@@ -11,7 +11,9 @@ namespace Gallery.MessageQueues.MSMQ
             var queuePaths = GalleryConfigurationManager.GetMsmqPaths();
             var separator = new [] {","};
             return queuePaths.Split(separator, StringSplitOptions.RemoveEmptyEntries)
-                .Select(e => e.Trim()).ToArray();
+                .Select(e => e.Trim())
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .ToArray();
         }
     }
 }
