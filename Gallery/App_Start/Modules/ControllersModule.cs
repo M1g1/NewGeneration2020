@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using Gallery.Controllers;
 using Gallery.Manager;
-using Gallery.MessageQueues.MSMQ;
+using Gallery.MessageQueues;
 using Gallery.Service;
 
 namespace Gallery.App_Start.Modules
@@ -16,8 +16,8 @@ namespace Gallery.App_Start.Modules
                     c.Resolve<IImageService>(),
                     c.Resolve<IHashService>(),
                     c.Resolve<IUsersService>(),
-                    c.Resolve<MSMQPublisher>(),
-                    c.Resolve<MsmqParser>()))
+                    c.Resolve<IPublisher>(),
+                    c.Resolve<IQueueParser>()))
                 .InstancePerRequest();
 
             containerBuilder.Register(c =>

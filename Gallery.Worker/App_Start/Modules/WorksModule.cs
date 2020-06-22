@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using FileStorageProvider.Providers;
 using Gallery.DAL;
-using Gallery.MessageQueues.MSMQ;
+using Gallery.MessageQueues;
 using Gallery.Service;
 using Gallery.Worker;
 using Gallery.Worker.Interfaces;
@@ -15,11 +15,11 @@ namespace Gallery.App_Start.Modules
         {
             containerBuilder.Register<UploadImageWork>(c=>
                 new UploadImageWork(
-                    c.Resolve<MSMQConsumer>(),
+                    c.Resolve<IConsumer>(),
                     c.Resolve<MediaStorageProvider>(),
                     c.Resolve<IImageService>(),
                     c.Resolve<IMediaRepository>(),
-                    c.Resolve<MsmqParser>()
+                    c.Resolve<IQueueParser>()
                     ))
                 .AsSelf()
                 .As<IWork>();
