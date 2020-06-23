@@ -61,6 +61,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AzureStorageQueue\AzureStorageQueueConsumer.cs" />
+    <Compile Include="AzureStorageQueue\AzureStorageQueueInitializer.cs" />
+    <Compile Include="AzureStorageQueue\AzureStorageQueueParser.cs" />
+    <Compile Include="AzureStorageQueue\AzureStorageQueuePublisher.cs" />
     <Compile Include="Deserializer.cs" />
     <Compile Include="Interfaces\IQueueInitialize.cs" />
     <Compile Include="Interfaces\IQueueParser.cs" />
