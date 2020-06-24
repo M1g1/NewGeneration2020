@@ -13,9 +13,22 @@ namespace Gallery.Config.Manager
         private const string _sqlConnectionStringKeyName = "SqlConnection";
         private const string _msmqPathsKeyName = "msmq:paths";
         private const string _rabbitmqPathsKeyName = "rabbitmq:paths";
+        private const string _azuremqPathsKeyName = "azuremq:paths";
         private const string _rabbitmqConnectionStringKeyName = "RabbitMqConnection";
+        private const string _azuremqConnectionStringKeyName = "AzureMqConnection";
         private static readonly NameValueCollection appSettings = ConfigurationManager.AppSettings;
         private static readonly ConnectionStringSettingsCollection connectionStrings = ConfigurationManager.ConnectionStrings;
+
+        public static string GetAzureMqConnectionString()
+        {
+            var azuremqConnectionString = connectionStrings[_azuremqConnectionStringKeyName] ?? throw new ArgumentNullException(nameof(connectionStrings));
+            return azuremqConnectionString.ConnectionString;
+        }
+
+        public static string GetAzureMqPaths()
+        {
+            return appSettings[_azuremqPathsKeyName] ?? throw new ArgumentNullException(nameof(appSettings));
+        }
 
         public static string GetRabbitMqConnectionString()
         {
@@ -48,7 +61,6 @@ namespace Gallery.Config.Manager
         {
             return appSettings[_pathKeyName] ?? throw new ArgumentNullException(nameof(appSettings));
         }
-
 
         public static string GetAvailableImageTypes()
         {
