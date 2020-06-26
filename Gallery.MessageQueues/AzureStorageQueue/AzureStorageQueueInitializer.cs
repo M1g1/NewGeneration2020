@@ -15,9 +15,9 @@ namespace Gallery.MessageQueues.AzureStorageQueue
         public void CreateIfNotExist(string[] names)
         {
             var queueServiceClient = new QueueServiceClient(_connectionString);
-            foreach (var path in names)
+            foreach (var name in names)
             {
-                var queueClient = queueServiceClient.GetQueueClient(path);
+                var queueClient = queueServiceClient.GetQueueClient(name);
                 queueClient.CreateIfNotExists();
             }
         }

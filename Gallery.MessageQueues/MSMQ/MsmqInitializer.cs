@@ -6,11 +6,11 @@ namespace Gallery.MessageQueues.MSMQ
     {
         public void CreateIfNotExist(string[] names)
         {
-            foreach (var path in names)
+            foreach (var name in names)
             {
-                if (!MessageQueue.Exists(path))
+                if (!MessageQueue.Exists(name))
                 {
-                    MessageQueue.Create(path);
+                    MessageQueue.Create(name);
                 }
             }
         }

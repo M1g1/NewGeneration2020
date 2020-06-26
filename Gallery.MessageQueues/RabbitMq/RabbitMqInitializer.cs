@@ -21,10 +21,10 @@ namespace Gallery.MessageQueues.RabbitMq
             using (var connection = factory.CreateConnection())
             using (var model = connection.CreateModel())
             {
-                foreach (var path in names)
+                foreach (var name in names)
                 {
                     model.QueueDeclare(
-                        queue: path,
+                        queue: name,
                         durable: true,
                         exclusive: false,
                         autoDelete: false,
