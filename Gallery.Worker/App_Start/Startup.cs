@@ -7,7 +7,7 @@ using Topshelf.Autofac;
 
 namespace Gallery.Worker
 {
-    class Program
+    internal class Startup
     {
         static async Task Main(string[] args)
         {
