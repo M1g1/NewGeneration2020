@@ -3,6 +3,8 @@ using Owin;
 using Microsoft.Owin.Security.Cookies;
 using System;
 using System.Web.Http;
+using Autofac;
+using Gallery.MessageQueues;
 
 [assembly: OwinStartup(typeof(Gallery.App_Start.Startup))]
 namespace Gallery.App_Start
@@ -19,7 +21,15 @@ namespace Gallery.App_Start
                 ExpireTimeSpan = TimeSpan.FromDays(30),
                 SlidingExpiration = true
             });
-            DIConfig.Configure(new HttpConfiguration());
+            var container = DIConfig.Configure(new HttpConfiguration());
+
+            var queueParser = container.Resolve<IQueueParser>();
+            var queueInit = container.Resolve<IQueueInitialize>();
+            var queueNames = queueParser.ParseQueueNames();
+            foreach (var name in queueNames)
+            {
+                queueInit.CreateIfNotExist(name);
+            }
         }
     }
 }
