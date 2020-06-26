@@ -2,6 +2,6 @@
 {
     public interface IPublisher
     {
-        void SendMessage<T>(T message, string queuePath) where T : class;
+        void SendMessage<T>(T message, string queueName) where T : class;
     }
 }

@@ -4,9 +4,9 @@ namespace Gallery.MessageQueues.MSMQ
 {
     public class MSMQPublisher : IPublisher
     {
-        public void SendMessage<T>(T message, string queuePath) where T : class
+        public void SendMessage<T>(T message, string queueName) where T : class
         {
-            var _messageQueue = new MessageQueue(queuePath)
+            var _messageQueue = new MessageQueue(queueName)
             {
                 Formatter = new XmlMessageFormatter(new[] { typeof(string) })
             };

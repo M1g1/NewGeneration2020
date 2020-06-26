@@ -16,11 +16,11 @@ namespace Gallery.MessageQueues.AzureStorageQueue
             _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
         }
 
-        public T GetFirstMessage<T>(string messageQueuePath) where T : class
+        public T GetFirstMessage<T>(string queueName) where T : class
         {
             var queueServiceClient = new QueueServiceClient(_connectionString);
 
-            var queueClient = queueServiceClient.GetQueueClient(messageQueuePath);
+            var queueClient = queueServiceClient.GetQueueClient(queueName);
             var msg = string.Empty;
             while (true)
             {

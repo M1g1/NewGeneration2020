@@ -2,6 +2,6 @@
 {
     public interface IConsumer
     {
-        T GetFirstMessage<T>(string messageQueuePath) where T : class;
+        T GetFirstMessage<T>(string queueName) where T : class;
     }
 }

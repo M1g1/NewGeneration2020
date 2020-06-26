@@ -14,7 +14,7 @@ namespace Gallery.MessageQueues.RabbitMq
             _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
         }
 
-        public T GetFirstMessage<T>(string messageQueuePath) where T : class
+        public T GetFirstMessage<T>(string queueName) where T : class
         {
             var factory = new ConnectionFactory
             {
@@ -26,10 +26,10 @@ namespace Gallery.MessageQueues.RabbitMq
             {
                 while (true)
                 {
-                    var msgCount = model.MessageCount(messageQueuePath);
+                    var msgCount = model.MessageCount(queueName);
                     if (msgCount > 0)
                     {
-                        var getResult = model.BasicGet(messageQueuePath, true);
+                        var getResult = model.BasicGet(queueName, true);
                         var body = getResult.Body.ToArray();
                         message = Deserializer.DeserializeToObject<T>(Deserializer.DeserializeToString(obj: body));
                         break;

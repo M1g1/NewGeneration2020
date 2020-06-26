@@ -4,9 +4,9 @@ namespace Gallery.MessageQueues.MSMQ
 {
     public class MSMQConsumer : IConsumer
     {
-        public T GetFirstMessage<T>(string messageQueuePath) where T : class
+        public T GetFirstMessage<T>(string queueName) where T : class
         {
-            var _messageQueue = new MessageQueue(messageQueuePath)
+            var _messageQueue = new MessageQueue(queueName)
             {
                 Formatter = new XmlMessageFormatter(new[] { typeof(string) })
             };

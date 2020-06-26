@@ -12,11 +12,11 @@ namespace Gallery.MessageQueues.AzureStorageQueue
             _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
         }
 
-        public void SendMessage<T>(T message, string queuePath) where T : class
+        public void SendMessage<T>(T message, string queueName) where T : class
         {
             var queueServiceClient = new QueueServiceClient(_connectionString);
 
-            var queueClient = queueServiceClient.GetQueueClient(queuePath);
+            var queueClient = queueServiceClient.GetQueueClient(queueName);
 
             var messageJson = Serializer.SerializeToJson<T>(message);
 

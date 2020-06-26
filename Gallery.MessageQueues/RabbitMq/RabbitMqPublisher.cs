@@ -11,7 +11,7 @@ namespace Gallery.MessageQueues.RabbitMq
         {
             _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
         }
-        public void SendMessage<T>(T message, string queuePath) where T : class
+        public void SendMessage<T>(T message, string queueName) where T : class
         {
             
             var factory = new ConnectionFactory
@@ -23,7 +23,7 @@ namespace Gallery.MessageQueues.RabbitMq
             {
                 var messageBody = Serializer.SerializeToBytes(Serializer.SerializeToJson<T>(message));
 
-                model.BasicPublish(string.Empty, queuePath, body: messageBody);
+                model.BasicPublish(string.Empty, queueName, body: messageBody);
             }
         }
     }
