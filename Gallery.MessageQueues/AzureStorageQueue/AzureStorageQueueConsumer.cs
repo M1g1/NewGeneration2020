@@ -21,22 +21,26 @@ namespace Gallery.MessageQueues.AzureStorageQueue
             var queueServiceClient = new QueueServiceClient(_connectionString);
 
             var queueClient = queueServiceClient.GetQueueClient(messageQueuePath);
-
+            var msg = string.Empty;
             while (true)
             {
+                QueueProperties queueProp = queueClient.GetProperties();
+                var msgCount = queueProp.ApproximateMessagesCount;
+                if (msgCount > 0)
+                {
+                    QueueMessage[] receiveMessages = queueClient.ReceiveMessages(maxMessages: 1, _visibilityDelay);
+
+                    if (receiveMessages.Length < 1)
+                        continue;
+
+                    queueClient.DeleteMessage(receiveMessages[0].MessageId, receiveMessages[0].PopReceipt);
+
+                    msg = receiveMessages[0].MessageText;
+                    break;
+                }
                 Thread.Sleep(_delayReceiveMsg);
-
-                QueueMessage[] receiveMessages = queueClient.ReceiveMessages(maxMessages: 1, _visibilityDelay);
-
-                if (receiveMessages.Length < 1)
-                    continue;
-                
-                queueClient.DeleteMessage(receiveMessages[0].MessageId, receiveMessages[0].PopReceipt);
-
-                var msg = receiveMessages[0].MessageText;
-
-                return Deserializer.DeserializeToObject<T>(msg);
             }
+            return Deserializer.DeserializeToObject<T>(msg);
         }
     }
 }
