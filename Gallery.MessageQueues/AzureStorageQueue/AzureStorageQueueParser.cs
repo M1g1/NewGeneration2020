@@ -8,9 +8,9 @@ namespace Gallery.MessageQueues.AzureStorageQueue
     {
         public string[] ParseQueueNames()
         {
-            var queuePaths = GalleryConfigurationManager.GetAzureMqPaths();
+            var queueNames = GalleryConfigurationManager.GetAzureMqNames();
             var separator = new[] { "," };
-            return queuePaths.Split(separator, StringSplitOptions.RemoveEmptyEntries)
+            return queueNames.Split(separator, StringSplitOptions.RemoveEmptyEntries)
                 .Select(e => e.Trim())
                 .Where(x => !string.IsNullOrWhiteSpace(x))
                 .ToArray();

@@ -11,9 +11,9 @@ namespace Gallery.Config.Manager
         private const string _pathTempKeyName = "PathToTempSave";
         private const string _imageTypeKeyName = "ImageFormat";
         private const string _sqlConnectionStringKeyName = "SqlConnection";
-        private const string _msmqPathsKeyName = "msmq:paths";
-        private const string _rabbitmqPathsKeyName = "rabbitmq:paths";
-        private const string _azuremqPathsKeyName = "azuremq:paths";
+        private const string _msmqNamesKeyName = "msmq:names";
+        private const string _rabbitmqNamesKeyName = "rabbitmq:names";
+        private const string _azuremqNamesName = "azuremq:names";
         private const string _rabbitmqConnectionStringKeyName = "RabbitMqConnection";
         private const string _azuremqConnectionStringKeyName = "AzureMqConnection";
         private static readonly NameValueCollection appSettings = ConfigurationManager.AppSettings;
@@ -25,9 +25,9 @@ namespace Gallery.Config.Manager
             return azuremqConnectionString.ConnectionString;
         }
 
-        public static string GetAzureMqPaths()
+        public static string GetAzureMqNames()
         {
-            return appSettings[_azuremqPathsKeyName] ?? throw new ArgumentNullException(nameof(appSettings));
+            return appSettings[_azuremqNamesName] ?? throw new ArgumentNullException(nameof(appSettings));
         }
 
         public static string GetRabbitMqConnectionString()
@@ -36,14 +36,14 @@ namespace Gallery.Config.Manager
             return rabbitMqConnectionString.ConnectionString;
         }
 
-        public static string GetRabbitMqPaths()
+        public static string GetRabbitMqNames()
         {
-            return appSettings[_rabbitmqPathsKeyName] ?? throw new ArgumentNullException(nameof(appSettings));
+            return appSettings[_rabbitmqNamesKeyName] ?? throw new ArgumentNullException(nameof(appSettings));
         }
 
-        public static string GetMsmqPaths()
+        public static string GetMsmqNames()
         {
-            return appSettings[_msmqPathsKeyName] ?? throw new ArgumentNullException(nameof(appSettings));
+            return appSettings[_msmqNamesKeyName] ?? throw new ArgumentNullException(nameof(appSettings));
         }
 
         public static string GetSqlConnectionString()

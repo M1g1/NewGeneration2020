@@ -8,9 +8,9 @@ namespace Gallery.MessageQueues.MSMQ
     {
         public string[] ParseQueueNames()
         {
-            var queuePaths = GalleryConfigurationManager.GetMsmqPaths();
+            var queueNames = GalleryConfigurationManager.GetMsmqNames();
             var separator = new [] {","};
-            return queuePaths.Split(separator, StringSplitOptions.RemoveEmptyEntries)
+            return queueNames.Split(separator, StringSplitOptions.RemoveEmptyEntries)
                 .Select(e => e.Trim())
                 .Where(x => !string.IsNullOrWhiteSpace(x))
                 .ToArray();
