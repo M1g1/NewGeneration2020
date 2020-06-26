@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Threading;
 using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
 
 namespace Gallery.MessageQueues.RabbitMq
 {
     public class RabbitMqConsumer : IConsumer
     {
         private readonly string _connectionString;
-        private readonly EventWaitHandle _waitHandle = new AutoResetEvent(false);
+        private readonly TimeSpan _delayReceiveMsg = TimeSpan.FromSeconds(3);
 
         public RabbitMqConsumer(string connectionString)
         {
@@ -21,27 +20,24 @@ namespace Gallery.MessageQueues.RabbitMq
             {
                 Uri = new Uri(_connectionString)
             };
+            T message;
             using (var connection = factory.CreateConnection())
             using (var model = connection.CreateModel())
             {
-                T message = default(T);
-
-                var consumer = new EventingBasicConsumer(model);
-
-                consumer.Received += (eventModel, ea) =>
+                while (true)
                 {
-                    var body = ea.Body.ToArray();
-                    message = Deserializer.DeserializeToObject<T>(Deserializer.DeserializeToString(obj: body));
-                    _waitHandle.Set();
-                };
-                model.BasicConsume(
-                    queue: messageQueuePath,
-                    autoAck: true,
-                    consumer: consumer);
-
-                _waitHandle.WaitOne();
-                return message;
+                    var msgCount = model.MessageCount(messageQueuePath);
+                    if (msgCount > 0)
+                    {
+                        var getResult = model.BasicGet(messageQueuePath, true);
+                        var body = getResult.Body.ToArray();
+                        message = Deserializer.DeserializeToObject<T>(Deserializer.DeserializeToString(obj: body));
+                        break;
+                    }
+                    Thread.Sleep(_delayReceiveMsg);
+                }
             }
+            return message;
         }
     }
 }
