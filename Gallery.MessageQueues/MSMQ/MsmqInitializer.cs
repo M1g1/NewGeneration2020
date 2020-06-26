@@ -4,15 +4,14 @@ namespace Gallery.MessageQueues.MSMQ
 {
     public class MsmqInitializer : IQueueInitialize
     {
-        public void CreateIfNotExist(string[] names)
+        public void CreateIfNotExist(string queueName)
         {
-            foreach (var name in names)
+
+            if (!MessageQueue.Exists(queueName))
             {
-                if (!MessageQueue.Exists(name))
-                {
-                    MessageQueue.Create(name);
-                }
+                MessageQueue.Create(queueName);
             }
+
         }
     }
 }

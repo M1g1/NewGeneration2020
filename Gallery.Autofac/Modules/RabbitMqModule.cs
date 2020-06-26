@@ -15,12 +15,6 @@ namespace Gallery.Autofac.Modules
 
             containerBuilder.Register(init => new RabbitMqInitializer(cs)).AsSelf().As<IQueueInitialize>();
 
-            var rabbitMqInitializer = new RabbitMqInitializer(cs);
-
-            var rabbitmqParser = new RabbitMqParser();
-
-            rabbitMqInitializer.CreateIfNotExist(rabbitmqParser.ParseQueueNames());
-
             containerBuilder.Register(pub => new RabbitMqPublisher(cs)).AsSelf().As<IPublisher>();
 
             containerBuilder.Register(cons => new RabbitMqConsumer(cs)).AsSelf().As<IConsumer>();

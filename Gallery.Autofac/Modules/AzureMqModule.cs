@@ -15,12 +15,6 @@ namespace Gallery.Autofac.Modules
 
             containerBuilder.Register(init => new AzureStorageQueueInitializer(cs)).AsSelf().As<IQueueInitialize>();
 
-            var azureMqInitializer = new AzureStorageQueueInitializer(cs);
-
-            var azureMqParser = new AzureStorageQueueParser();
-
-            azureMqInitializer.CreateIfNotExist(azureMqParser.ParseQueueNames());
-
             containerBuilder.Register(pub => new AzureStorageQueuePublisher(cs)).AsSelf().As<IPublisher>();
 
             containerBuilder.Register(cons => new AzureStorageQueueConsumer(cs)).AsSelf().As<IConsumer>();

@@ -12,7 +12,7 @@ namespace Gallery.MessageQueues.RabbitMq
             _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
         }
 
-        public void CreateIfNotExist(string[] names)
+        public void CreateIfNotExist(string queueName)
         {
             var factory = new ConnectionFactory()
             {
@@ -21,15 +21,12 @@ namespace Gallery.MessageQueues.RabbitMq
             using (var connection = factory.CreateConnection())
             using (var model = connection.CreateModel())
             {
-                foreach (var name in names)
-                {
-                    model.QueueDeclare(
-                        queue: name,
+                model.QueueDeclare(
+                        queue: queueName,
                         durable: true,
                         exclusive: false,
                         autoDelete: false,
                         arguments: null);
-                }
             }
         }
     }

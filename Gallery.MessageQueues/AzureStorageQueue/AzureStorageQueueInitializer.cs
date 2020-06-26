@@ -12,14 +12,11 @@ namespace Gallery.MessageQueues.AzureStorageQueue
             _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
         }
 
-        public void CreateIfNotExist(string[] names)
+        public void CreateIfNotExist(string queueName)
         {
             var queueServiceClient = new QueueServiceClient(_connectionString);
-            foreach (var name in names)
-            {
-                var queueClient = queueServiceClient.GetQueueClient(name);
-                queueClient.CreateIfNotExists();
-            }
+            var queueClient = queueServiceClient.GetQueueClient(queueName);
+            queueClient.CreateIfNotExists();
         }
     }
 }

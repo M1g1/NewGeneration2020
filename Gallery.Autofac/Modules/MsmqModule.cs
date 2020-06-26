@@ -13,12 +13,6 @@ namespace Gallery.Autofac.Modules
 
             containerBuilder.Register(init => new MsmqInitializer()).AsSelf().As<IQueueInitialize>();
 
-            var msmqInitializer = new MsmqInitializer();
-
-            var msmqParser = new MsmqParser();
-
-            msmqInitializer.CreateIfNotExist(msmqParser.ParseQueueNames());
-
             containerBuilder.Register(pub => new MSMQPublisher()).AsSelf().As<IPublisher>();
 
             containerBuilder.Register(cons => new MSMQConsumer()).AsSelf().As<IConsumer>();
