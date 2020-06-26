@@ -38,9 +38,9 @@ namespace Gallery.Worker.Works
 
             while (!_cancelTokenSource.IsCancellationRequested)
             {
-                var queuePaths = _queueParser.ParseQueuePaths();
+                var queueNames = _queueParser.ParseQueueNames();
                 _logger.Info("Waiting for new message...");
-                var msgBody = _consumer.GetFirstMessage<MessageDto>(queuePaths[0]);
+                var msgBody = _consumer.GetFirstMessage<MessageDto>(queueNames[0]);
                 _logger.Info("New message received...");
                 if (!File.Exists(msgBody.TempPath))
                     throw new FileNotFoundException("File not found", msgBody.TempPath);

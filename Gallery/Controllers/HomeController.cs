@@ -102,8 +102,8 @@ namespace Gallery.Controllers
                 Path = filePath, 
                 TempPath = fileTempPath
             };
-            var queuePaths = _queueParser.ParseQueuePaths();
-            _publisher.SendMessage<MessageDto>(message, queuePaths[0]);
+            var queueNames = _queueParser.ParseQueueNames();
+            _publisher.SendMessage<MessageDto>(message, queueNames[0]);
             return RedirectToAction("Index");
         }
 

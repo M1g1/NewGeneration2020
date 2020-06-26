@@ -6,7 +6,7 @@ namespace Gallery.MessageQueues.MSMQ
 {
     public class MsmqParser : IQueueParser
     {
-        public string[] ParseQueuePaths()
+        public string[] ParseQueueNames()
         {
             var queuePaths = GalleryConfigurationManager.GetMsmqPaths();
             var separator = new [] {","};

@@ -12,7 +12,7 @@ namespace Gallery.MessageQueues.RabbitMq
             _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
         }
 
-        public void CreateIfNotExist(string[] paths)
+        public void CreateIfNotExist(string[] names)
         {
             var factory = new ConnectionFactory()
             {
@@ -21,7 +21,7 @@ namespace Gallery.MessageQueues.RabbitMq
             using (var connection = factory.CreateConnection())
             using (var model = connection.CreateModel())
             {
-                foreach (var path in paths)
+                foreach (var path in names)
                 {
                     model.QueueDeclare(
                         queue: path,

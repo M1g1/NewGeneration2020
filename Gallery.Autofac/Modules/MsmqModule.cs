@@ -17,7 +17,7 @@ namespace Gallery.Autofac.Modules
 
             var msmqParser = new MsmqParser();
 
-            msmqInitializer.CreateIfNotExist(msmqParser.ParseQueuePaths());
+            msmqInitializer.CreateIfNotExist(msmqParser.ParseQueueNames());
 
             containerBuilder.Register(pub => new MSMQPublisher()).AsSelf().As<IPublisher>();
 

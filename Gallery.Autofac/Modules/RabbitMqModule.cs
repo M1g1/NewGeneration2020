@@ -19,7 +19,7 @@ namespace Gallery.Autofac.Modules
 
             var rabbitmqParser = new RabbitMqParser();
 
-            rabbitMqInitializer.CreateIfNotExist(rabbitmqParser.ParseQueuePaths());
+            rabbitMqInitializer.CreateIfNotExist(rabbitmqParser.ParseQueueNames());
 
             containerBuilder.Register(pub => new RabbitMqPublisher(cs)).AsSelf().As<IPublisher>();
 

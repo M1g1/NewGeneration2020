@@ -2,6 +2,6 @@
 {
     public interface IQueueInitialize
     {
-        void CreateIfNotExist(string[] paths);
+        void CreateIfNotExist(string[] names);
     }
 }

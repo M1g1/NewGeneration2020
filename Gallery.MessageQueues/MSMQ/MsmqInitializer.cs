@@ -4,9 +4,9 @@ namespace Gallery.MessageQueues.MSMQ
 {
     public class MsmqInitializer : IQueueInitialize
     {
-        public void CreateIfNotExist(string[] paths)
+        public void CreateIfNotExist(string[] names)
         {
-            foreach (var path in paths)
+            foreach (var path in names)
             {
                 if (!MessageQueue.Exists(path))
                 {

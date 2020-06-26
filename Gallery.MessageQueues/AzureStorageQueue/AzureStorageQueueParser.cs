@@ -6,7 +6,7 @@ namespace Gallery.MessageQueues.AzureStorageQueue
 {
     public class AzureStorageQueueParser : IQueueParser
     {
-        public string[] ParseQueuePaths()
+        public string[] ParseQueueNames()
         {
             var queuePaths = GalleryConfigurationManager.GetAzureMqPaths();
             var separator = new[] { "," };

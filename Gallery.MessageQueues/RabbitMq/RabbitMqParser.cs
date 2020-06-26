@@ -6,7 +6,7 @@ namespace Gallery.MessageQueues.RabbitMq
 {
     public class RabbitMqParser : IQueueParser
     {
-        public string[] ParseQueuePaths()
+        public string[] ParseQueueNames()
         {
             var queuePaths = GalleryConfigurationManager.GetRabbitMqPaths();
             var separator = new [] {","};

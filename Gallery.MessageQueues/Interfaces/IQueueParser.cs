@@ -2,6 +2,6 @@
 {
     public interface IQueueParser
     {
-        string[] ParseQueuePaths();
+        string[] ParseQueueNames();
     }
 }
