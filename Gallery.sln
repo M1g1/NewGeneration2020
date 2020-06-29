@@ -27,6 +27,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallery.Config", "Gallery.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallery.Autofac", "Gallery.Autofac\Gallery.Autofac.csproj", "{0F504683-EB44-4BBF-8E78-02BF3078DEEC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallery.MessageQueues.RabbitMq", "Gallery.MessageQueues.RabbitMq\Gallery.MessageQueues.RabbitMq.csproj", "{CE3D78CB-C6B4-4856-B949-C5EC1A2F6712}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallery.MessageQueues.MSMQ", "Gallery.MessageQueues.MSMQ\Gallery.MessageQueues.MSMQ.csproj", "{716BE7CB-F24C-47F5-9D01-DD9F822E4CF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallery.MessageQueues.AzureStorageQueue", "Gallery.MessageQueues.AzureStorageQueue\Gallery.MessageQueues.AzureStorageQueue.csproj", "{3C7C4429-3E9B-4AE8-B61E-D91F63139A36}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +83,18 @@ Global
 		{0F504683-EB44-4BBF-8E78-02BF3078DEEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F504683-EB44-4BBF-8E78-02BF3078DEEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F504683-EB44-4BBF-8E78-02BF3078DEEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE3D78CB-C6B4-4856-B949-C5EC1A2F6712}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE3D78CB-C6B4-4856-B949-C5EC1A2F6712}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE3D78CB-C6B4-4856-B949-C5EC1A2F6712}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE3D78CB-C6B4-4856-B949-C5EC1A2F6712}.Release|Any CPU.Build.0 = Release|Any CPU
+		{716BE7CB-F24C-47F5-9D01-DD9F822E4CF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{716BE7CB-F24C-47F5-9D01-DD9F822E4CF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{716BE7CB-F24C-47F5-9D01-DD9F822E4CF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{716BE7CB-F24C-47F5-9D01-DD9F822E4CF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C7C4429-3E9B-4AE8-B61E-D91F63139A36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C7C4429-3E9B-4AE8-B61E-D91F63139A36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C7C4429-3E9B-4AE8-B61E-D91F63139A36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C7C4429-3E9B-4AE8-B61E-D91F63139A36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

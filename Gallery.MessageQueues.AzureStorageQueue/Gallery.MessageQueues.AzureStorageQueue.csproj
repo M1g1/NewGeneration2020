@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0F504683-EB44-4BBF-8E78-02BF3078DEEC}</ProjectGuid>
+    <ProjectGuid>{3C7C4429-3E9B-4AE8-B61E-D91F63139A36}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gallery.Autofac</RootNamespace>
-    <AssemblyName>Gallery.Autofac</AssemblyName>
+    <RootNamespace>Gallery.MessageQueues.AzureStorageQueue</RootNamespace>
+    <AssemblyName>Gallery.MessageQueues.AzureStorageQueue</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -31,17 +31,32 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=5.2.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.5.2.0\lib\net461\Autofac.dll</HintPath>
+    <Reference Include="Azure.Core, Version=1.2.2.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Core.1.2.2\lib\netstandard2.0\Azure.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Storage.Common, Version=12.4.3.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Storage.Common.12.4.3\lib\netstandard2.0\Azure.Storage.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Storage.Queues, Version=12.3.2.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Storage.Queues.12.3.2\lib\netstandard2.0\Azure.Storage.Queues.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
-    <Reference Include="System.IO.Abstractions, Version=11.0.0.0, Culture=neutral, PublicKeyToken=96bf224d23c43e59, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.Abstractions.11.0.7\lib\net461\System.IO.Abstractions.dll</HintPath>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.6.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
@@ -49,14 +64,17 @@
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Modules\DALModule.cs" />
-    <Compile Include="Modules\FileStorageModule.cs" />
-    <Compile Include="Modules\AzureMqModule.cs" />
-    <Compile Include="Modules\RabbitMqModule.cs" />
-    <Compile Include="Modules\MsmqModule.cs" />
-    <Compile Include="Modules\ServicesModule.cs" />
+    <Compile Include="AzureStorageQueue\AzureStorageQueueConsumer.cs" />
+    <Compile Include="AzureStorageQueue\AzureStorageQueueInitializer.cs" />
+    <Compile Include="AzureStorageQueue\AzureStorageQueueParser.cs" />
+    <Compile Include="AzureStorageQueue\AzureStorageQueuePublisher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -64,37 +82,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FileStorageProvider\FileStorageProvider.csproj">
-      <Project>{24336c6d-7b90-4d24-89eb-0a57abb834b5}</Project>
-      <Name>FileStorageProvider</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Gallery.Config\Gallery.Config.csproj">
-      <Project>{FCA03529-F889-4378-9F33-789D12658C3B}</Project>
+      <Project>{fca03529-f889-4378-9f33-789d12658c3b}</Project>
       <Name>Gallery.Config</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gallery.DAL\Gallery.DAL.csproj">
-      <Project>{92f5610e-65ef-45e1-b50d-843e689381cf}</Project>
-      <Name>Gallery.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gallery.MessageQueues.AzureStorageQueue\Gallery.MessageQueues.AzureStorageQueue.csproj">
-      <Project>{3c7c4429-3e9b-4ae8-b61e-d91f63139a36}</Project>
-      <Name>Gallery.MessageQueues.AzureStorageQueue</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gallery.MessageQueues.MSMQ\Gallery.MessageQueues.MSMQ.csproj">
-      <Project>{716be7cb-f24c-47f5-9d01-dd9f822e4cf1}</Project>
-      <Name>Gallery.MessageQueues.MSMQ</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gallery.MessageQueues.RabbitMq\Gallery.MessageQueues.RabbitMq.csproj">
-      <Project>{ce3d78cb-c6b4-4856-b949-c5ec1a2f6712}</Project>
-      <Name>Gallery.MessageQueues.RabbitMq</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gallery.MessageQueues\Gallery.MessageQueues.csproj">
       <Project>{c83eb6ab-429a-4f15-a2c3-57c0644adfd4}</Project>
       <Name>Gallery.MessageQueues</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gallery.Service\Gallery.Service.csproj">
-      <Project>{29825c47-b563-4fe5-93a5-6fcdcc55a23c}</Project>
-      <Name>Gallery.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
