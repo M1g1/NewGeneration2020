@@ -6,6 +6,5 @@
         public string Label;
         public string Path;
         public string TempPath;
-        public byte[] MediaBytes;
     }
 }
