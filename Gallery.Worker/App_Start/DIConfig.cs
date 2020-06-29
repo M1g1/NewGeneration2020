@@ -16,16 +16,8 @@ namespace Gallery.Worker
 
             containerBuilder.RegisterModule<ServicesModule>();
 
-            /*If you need to use MSMQ, uncommit this and commit out another MQ
-            containerBuilder.RegisterModule<MsmqModule>();
-            */
-
-            /*If you need to use RabbitMq, uncommit this and commit out another MQ
             containerBuilder.RegisterModule<RabbitMqModule>();
-            */
-
-            containerBuilder.RegisterModule<AzureMqModule>();
-
+           
             containerBuilder.RegisterModule<WorksModule>();
 
             return containerBuilder.Build();
