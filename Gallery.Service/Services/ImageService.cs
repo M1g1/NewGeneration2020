@@ -120,6 +120,31 @@ namespace Gallery.Service
             return _storage.Save(content, path);
         }
 
+        public async Task<bool> MoveImageFromTempToMainAsync(MessageDto messageDto)
+        {
+            if (!File.Exists(messageDto.TempPath))
+                throw new FileNotFoundException("File not found", messageDto.TempPath);
+
+            var isMediaUploadAttemptExist =
+                await _mediaRepo.IsMediaUploadAttemptExistByLabelAndProgressStatus(messageDto.Label, true);
+            if (isMediaUploadAttemptExist)
+            { 
+                var fileBytes = _storage.ReadBytes(messageDto.TempPath);
+                var isOk = await UploadImageAsync(messageDto.UserId, fileBytes, messageDto.Path);
+                if (isOk)
+                {
+                    var mediaUploadAttempt =
+                        await _mediaRepo.GetMediaUploadAttemptByLabelAndProgressStatus(messageDto.Label, true);
+                    var newUploadAttempt = mediaUploadAttempt;
+                    newUploadAttempt.IsInProgress = false;
+                    newUploadAttempt.IsSuccess = true;
+                    await _mediaRepo.UpdateMediaUploadAttemptAsync(mediaUploadAttempt, newUploadAttempt);
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public string GetTitle(string loadExifPath)
         {
             var fileInfo = new FileInfo(loadExifPath);

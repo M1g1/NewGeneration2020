@@ -42,27 +42,10 @@ namespace Gallery.Worker.Works
                 _logger.Info("Waiting for new message...");
                 var msgBody = _consumer.GetFirstMessage<MessageDto>(queueNames[0]);
                 _logger.Info("New message received...");
-                if (!File.Exists(msgBody.TempPath))
-                    throw new FileNotFoundException("File not found", msgBody.TempPath);
 
-                var isMediaUploadAttemptExist =
-                    await _mediaRepo.IsMediaUploadAttemptExistByLabelAndProgressStatus(msgBody.Label, true);
-                if (isMediaUploadAttemptExist)
-                {
-                    var mediaUploadAttempt =
-                        await _mediaRepo.GetMediaUploadAttemptByLabelAndProgressStatus(msgBody.Label, true);
-                    var newUploadAttempt = mediaUploadAttempt;
-                    newUploadAttempt.IsInProgress = false;
-                    newUploadAttempt.IsSuccess = true;
-                    await _mediaRepo.UpdateMediaUploadAttemptAsync(mediaUploadAttempt, newUploadAttempt);
-                    var fileBytes = _storage.ReadBytes(msgBody.TempPath);
-                    await _imgService.UploadImageAsync(msgBody.UserId, fileBytes, msgBody.Path);
-                    _logger.Info("Image uploaded successfully.");
-                }
-                else
-                {
-                    _logger.Info("Failed to upload image.");
-                }
+                var isOk = await _imgService.MoveImageFromTempToMainAsync(msgBody);
+
+                _logger.Info(isOk ? "Image uploaded successfully." : "Failed to upload image.");
 
                 await Task.Delay(_delay);
             }

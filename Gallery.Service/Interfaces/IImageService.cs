@@ -15,5 +15,6 @@ namespace Gallery.Service
         Task<bool> DeleteAsync(string path);
         Task<bool> UploadImageAsync(int userId, byte[] content, string path);
         Task<bool> UploadImageTemporaryAsync(MediaUploadAttemptDto mediaUploadAttemptDto, byte[] content, string path);
+        Task<bool> MoveImageFromTempToMainAsync(MessageDto messageDto);
     }
 }
