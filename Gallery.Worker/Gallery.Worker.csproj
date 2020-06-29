@@ -117,21 +117,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FileStorageProvider\FileStorageProvider.csproj">
-      <Project>{24336c6d-7b90-4d24-89eb-0a57abb834b5}</Project>
-      <Name>FileStorageProvider</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Gallery.Autofac\Gallery.Autofac.csproj">
       <Project>{0f504683-eb44-4bbf-8e78-02bf3078deec}</Project>
       <Name>Gallery.Autofac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gallery.Config\Gallery.Config.csproj">
-      <Project>{fca03529-f889-4378-9f33-789d12658c3b}</Project>
-      <Name>Gallery.Config</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gallery.DAL\Gallery.DAL.csproj">
-      <Project>{92f5610e-65ef-45e1-b50d-843e689381cf}</Project>
-      <Name>Gallery.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gallery.MessageQueues\Gallery.MessageQueues.csproj">
       <Project>{c83eb6ab-429a-4f15-a2c3-57c0644adfd4}</Project>
