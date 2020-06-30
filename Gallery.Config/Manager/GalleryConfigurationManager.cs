@@ -11,11 +11,10 @@ namespace Gallery.Config.Manager
         private const string _pathTempKeyName = "PathToTempSave";
         private const string _imageTypeKeyName = "ImageFormat";
         private const string _sqlConnectionStringKeyName = "SqlConnection";
-        private const string _msmqNamesKeyName = "msmq:names";
-        private const string _rabbitmqNamesKeyName = "rabbitmq:names";
-        private const string _azuremqNamesName = "azuremq:names";
         private const string _rabbitmqConnectionStringKeyName = "RabbitMqConnection";
         private const string _azuremqConnectionStringKeyName = "AzureMqConnection";
+        private const string _uploadImgQueueNameKeyName = "queues:upload-image";
+        private const string _uploadMp4QueueNameKeyName = "queues:upload-mp4";
         private static readonly NameValueCollection appSettings = ConfigurationManager.AppSettings;
         private static readonly ConnectionStringSettingsCollection connectionStrings = ConfigurationManager.ConnectionStrings;
 
@@ -25,25 +24,20 @@ namespace Gallery.Config.Manager
             return azuremqConnectionString.ConnectionString;
         }
 
-        public static string GetAzureMqNames()
-        {
-            return appSettings[_azuremqNamesName] ?? throw new ArgumentNullException(nameof(appSettings));
-        }
-
         public static string GetRabbitMqConnectionString()
         {
             var rabbitMqConnectionString = connectionStrings[_rabbitmqConnectionStringKeyName] ?? throw new ArgumentNullException(nameof(connectionStrings));
             return rabbitMqConnectionString.ConnectionString;
         }
 
-        public static string GetRabbitMqNames()
+        public static string GetUploadImageQueueName()
         {
-            return appSettings[_rabbitmqNamesKeyName] ?? throw new ArgumentNullException(nameof(appSettings));
+            return appSettings[_uploadImgQueueNameKeyName] ?? throw new ArgumentNullException(nameof(appSettings));
         }
 
-        public static string GetMsmqNames()
+        public static string GetUploadMp4QueueName()
         {
-            return appSettings[_msmqNamesKeyName] ?? throw new ArgumentNullException(nameof(appSettings));
+            return appSettings[_uploadMp4QueueNameKeyName] ?? throw new ArgumentNullException(nameof(appSettings));
         }
 
         public static string GetSqlConnectionString()
