@@ -14,9 +14,8 @@ namespace Gallery.App_Start.Modules
             containerBuilder.Register<UploadImageWork>(c=>
                 new UploadImageWork(
                     c.Resolve<IConsumer>(),
-                    c.Resolve<IImageService>(),
-                    c.Resolve<IQueueParser>()
-                    ))
+                    c.Resolve<IImageService>()
+                ))
                 .AsSelf()
                 .As<IWork>();
 

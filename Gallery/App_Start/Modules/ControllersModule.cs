@@ -16,8 +16,7 @@ namespace Gallery.App_Start.Modules
                     c.Resolve<IImageService>(),
                     c.Resolve<IHashService>(),
                     c.Resolve<IUsersService>(),
-                    c.Resolve<IPublisher>(),
-                    c.Resolve<IQueueParser>()))
+                    c.Resolve<IPublisher>()))
                 .InstancePerRequest();
 
             containerBuilder.Register(c =>
