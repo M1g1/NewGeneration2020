@@ -9,9 +9,13 @@ namespace Gallery.MessageQueues
         { 
             var dictionary = new Dictionary<QueueType, string>();
 
-            var uploadImgvalue = GalleryConfigurationManager.GetUploadImageQueueName();
+            var uploadImgQueueNameKeyName = "queues:upload-image";
 
-            var uploadMp4value = GalleryConfigurationManager.GetUploadMp4QueueName();
+            var uploadMp4QueueNameKeyName = "queues:upload-mp4";
+
+            var uploadImgvalue = GalleryConfigurationManager.GetAppSettingValue(uploadImgQueueNameKeyName);
+
+            var uploadMp4value = GalleryConfigurationManager.GetAppSettingValue(uploadMp4QueueNameKeyName);
 
             dictionary.Add(QueueType.UploadImage, uploadImgvalue);
 

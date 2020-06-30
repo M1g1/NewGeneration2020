@@ -60,8 +60,8 @@ namespace Gallery.Controllers
                 fileBytes = fileMemoryStream.ToArray();
                 fileMemoryStream.Close();
             }
-
-            var defaultTempPath = GalleryConfigurationManager.GetPathToTempSave();
+            var pathTempKeyName = "PathToTempSave";
+            var defaultTempPath = GalleryConfigurationManager.GetAppSettingValue(pathTempKeyName);
             var fullDirTempPath = Server.MapPath(defaultTempPath);
             var extension = Path.GetExtension(files.FileName);
             var uniqFileName = _imageService.FileNameCreation();
@@ -84,8 +84,8 @@ namespace Gallery.Controllers
                 ViewBag.Error = "Something went wrong, try again.";
                 return View("Error");
             }
-
-            var pathToSave = GalleryConfigurationManager.GetPathToSave();
+            var pathKeyName = "PathToSave";
+            var pathToSave = GalleryConfigurationManager.GetAppSettingValue(pathKeyName);
             // Directory path with all User's directories
             var fullPathToSave = Server.MapPath(pathToSave);
             // Encrypted User's directory path
@@ -108,13 +108,15 @@ namespace Gallery.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var pathToSave = GalleryConfigurationManager.GetPathToSave();
+            var pathKeyName = "PathToSave";
+            var pathToSave = GalleryConfigurationManager.GetAppSettingValue(pathKeyName);
 
             // Directory path with all User's directories
             var fullPathToSave = Server.MapPath(pathToSave);
 
+            var pathTempKeyName = "PathToTempSave";
             // Directory path with temp files
-            var pathToTempDirs = Server.MapPath(GalleryConfigurationManager.GetPathToTempSave());
+            var pathToTempDirs = Server.MapPath(GalleryConfigurationManager.GetAppSettingValue(pathTempKeyName));
 
             if (!Directory.Exists(fullPathToSave))
             {

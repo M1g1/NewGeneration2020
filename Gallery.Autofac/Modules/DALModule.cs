@@ -9,7 +9,9 @@ namespace Gallery.Autofac.Modules
     {
         protected override void Load(ContainerBuilder containerBuilder)
         {
-            var connectionString = GalleryConfigurationManager.GetSqlConnectionString();
+            var sqlConnectionStringName = "SqlConnection";
+
+            var connectionString = GalleryConfigurationManager.GetConnectionString(sqlConnectionStringName);
 
             containerBuilder.Register(ctx => new GalleryDbContext(connectionString)).AsSelf();
 

@@ -9,7 +9,9 @@ namespace Gallery.Autofac.Modules
     {
         protected override void Load(ContainerBuilder containerBuilder)
         {
-            var cs = GalleryConfigurationManager.GetRabbitMqConnectionString();
+            var rabbitmqConnectionStringName = "RabbitMqConnection";
+
+            var cs = GalleryConfigurationManager.GetConnectionString(rabbitmqConnectionStringName);
 
             containerBuilder.Register(init => new RabbitMqInitializer(cs)).AsSelf().As<IQueueInitialize>();
 

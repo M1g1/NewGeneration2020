@@ -9,7 +9,9 @@ namespace Gallery.Autofac.Modules
     {
         protected override void Load(ContainerBuilder containerBuilder)
         {
-            var cs = GalleryConfigurationManager.GetAzureMqConnectionString();
+            var azuremqConnectionStringName = "AzureMqConnection";
+
+            var cs = GalleryConfigurationManager.GetConnectionString(azuremqConnectionStringName);
 
             containerBuilder.Register(init => new AzureStorageQueueInitializer(cs)).AsSelf().As<IQueueInitialize>();
 

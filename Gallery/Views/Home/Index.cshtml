@@ -2,7 +2,6 @@
     ViewBag.Title = "Home Page";
 }
 
-
 @using Gallery.Config.Manager
 @{
     //The Modal
@@ -22,7 +21,8 @@
     </script>
 
 
-    var pathToSave = GalleryConfigurationManager.GetPathToSave();
+    var pathKeyName = "PathToSave";
+    var pathToSave = GalleryConfigurationManager.GetAppSettingValue(pathKeyName);
     // Directory path with all User's directories
     var fullPathToSave = Server.MapPath(pathToSave);
 
