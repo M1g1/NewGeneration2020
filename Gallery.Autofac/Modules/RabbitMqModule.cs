@@ -11,8 +11,6 @@ namespace Gallery.Autofac.Modules
         {
             var cs = GalleryConfigurationManager.GetRabbitMqConnectionString();
 
-            containerBuilder.Register(p => new RabbitMqParser()).AsSelf().As<IQueueParser>();
-
             containerBuilder.Register(init => new RabbitMqInitializer(cs)).AsSelf().As<IQueueInitialize>();
 
             containerBuilder.Register(pub => new RabbitMqPublisher(cs)).AsSelf().As<IPublisher>();

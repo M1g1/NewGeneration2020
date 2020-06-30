@@ -73,7 +73,6 @@
   <ItemGroup>
     <Compile Include="AzureStorageQueue\AzureStorageQueueConsumer.cs" />
     <Compile Include="AzureStorageQueue\AzureStorageQueueInitializer.cs" />
-    <Compile Include="AzureStorageQueue\AzureStorageQueueParser.cs" />
     <Compile Include="AzureStorageQueue\AzureStorageQueuePublisher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

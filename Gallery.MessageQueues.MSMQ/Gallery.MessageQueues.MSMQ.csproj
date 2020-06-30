@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="MSMQ\MSMQConsumer.cs" />
     <Compile Include="MSMQ\MsmqInitializer.cs" />
-    <Compile Include="MSMQ\MsmqParser.cs" />
     <Compile Include="MSMQ\MSMQPublisher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

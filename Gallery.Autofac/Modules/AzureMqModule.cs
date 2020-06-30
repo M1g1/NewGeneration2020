@@ -11,8 +11,6 @@ namespace Gallery.Autofac.Modules
         {
             var cs = GalleryConfigurationManager.GetAzureMqConnectionString();
 
-            containerBuilder.Register(p => new AzureStorageQueueParser()).AsSelf().As<IQueueParser>();
-
             containerBuilder.Register(init => new AzureStorageQueueInitializer(cs)).AsSelf().As<IQueueInitialize>();
 
             containerBuilder.Register(pub => new AzureStorageQueuePublisher(cs)).AsSelf().As<IPublisher>();

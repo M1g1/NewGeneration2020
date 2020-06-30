@@ -69,7 +69,7 @@
       <Name>FileStorageProvider</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gallery.Config\Gallery.Config.csproj">
-      <Project>{FCA03529-F889-4378-9F33-789D12658C3B}</Project>
+      <Project>{fca03529-f889-4378-9f33-789d12658c3b}</Project>
       <Name>Gallery.Config</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gallery.DAL\Gallery.DAL.csproj">

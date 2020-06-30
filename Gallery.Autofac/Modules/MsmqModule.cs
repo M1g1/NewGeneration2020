@@ -8,8 +8,6 @@ namespace Gallery.Autofac.Modules
     {
         protected override void Load(ContainerBuilder containerBuilder)
         {
-            
-            containerBuilder.Register(p => new MsmqParser()).AsSelf().As<IQueueParser>();
 
             containerBuilder.Register(init => new MsmqInitializer()).AsSelf().As<IQueueInitialize>();
 
