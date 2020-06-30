@@ -18,15 +18,13 @@ namespace Gallery.Controllers
         private readonly IHashService _hashService;
         private readonly IUsersService _usersService;
         private readonly IPublisher _publisher;
-        private readonly IQueueParser _queueParser;
-
-        public HomeController(IImageService imageService, IHashService hashService, IUsersService usersService, IPublisher publisher, IQueueParser queueParser)
+        
+        public HomeController(IImageService imageService, IHashService hashService, IUsersService usersService, IPublisher publisher)
         {
             _imageService = imageService ?? throw new ArgumentNullException(nameof(imageService));
             _hashService = hashService ?? throw new ArgumentNullException(nameof(hashService));
             _usersService = usersService ?? throw new ArgumentNullException(nameof(usersService));
             _publisher = publisher ?? throw new ArgumentNullException(nameof(publisher));
-            _queueParser = queueParser ?? throw new ArgumentNullException(nameof(queueParser)); ;
         }
 
         [Authorize]
@@ -102,8 +100,8 @@ namespace Gallery.Controllers
                 Path = filePath, 
                 TempPath = fileTempPath
             };
-            var queueNames = _queueParser.ParseQueueNames();
-            _publisher.SendMessage<MessageDto>(message, queueNames[0]);
+            var queueDictionary = Parser.ParseQueueNames();
+            _publisher.SendMessage<MessageDto>(message, queueDictionary[QueueType.UploadImage]);
             return RedirectToAction("Index");
         }
 

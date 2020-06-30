@@ -13,12 +13,13 @@ namespace Gallery.Worker
         {
             var container = DIConfig.Configure();
 
-            var queueParser = container.Resolve<IQueueParser>();
+            var parsedDictionary = Parser.ParseQueueNames();
+
             var queueInit = container.Resolve<IQueueInitialize>();
-            var queueNames = queueParser.ParseQueueNames();
-            foreach (var name in queueNames)
+
+            foreach (var kvp in parsedDictionary)
             {
-                queueInit.CreateIfNotExist(name);
+                queueInit.CreateIfNotExist(kvp.Value);
             }
 
             var exitCode = HostFactory.Run(

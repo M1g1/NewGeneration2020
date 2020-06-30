@@ -23,12 +23,14 @@ namespace Gallery.App_Start
             });
             var container = DIConfig.Configure(new HttpConfiguration());
 
-            var queueParser = container.Resolve<IQueueParser>();
+
+            var parsedDictionary = Parser.ParseQueueNames();
+          
             var queueInit = container.Resolve<IQueueInitialize>();
-            var queueNames = queueParser.ParseQueueNames();
-            foreach (var name in queueNames)
+            
+            foreach (var kvp in parsedDictionary)
             {
-                queueInit.CreateIfNotExist(name);
+                queueInit.CreateIfNotExist(kvp.Value);
             }
         }
     }

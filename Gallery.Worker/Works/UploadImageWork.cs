@@ -13,27 +13,26 @@ namespace Gallery.Worker.Works
     {
         private readonly IConsumer _consumer;
         private readonly IImageService _imgService;
-        private readonly IQueueParser _queueParser;
         private readonly CancellationTokenSource _cancelTokenSource = new CancellationTokenSource();
         private readonly TimeSpan _delay = TimeSpan.FromSeconds(1);
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public UploadImageWork(IConsumer consumer, IImageService imgService, IQueueParser queueParser)
+        public UploadImageWork(IConsumer consumer, IImageService imgService)
         {
             _consumer = consumer ?? throw new ArgumentNullException(nameof(consumer));
             _imgService = imgService ?? throw new ArgumentNullException(nameof(imgService));
-            _queueParser = queueParser ?? throw new ArgumentNullException(nameof(queueParser));;
         }
 
         public async Task StartAsync()
         {
             _logger.Info("Started " + nameof(UploadImageWork) + ".");
+            
+            var queueDictionary = Parser.ParseQueueNames();
 
             while (!_cancelTokenSource.IsCancellationRequested)
             {
-                var queueNames = _queueParser.ParseQueueNames();
                 _logger.Info("Waiting for new message...");
-                var msgBody = _consumer.GetFirstMessage<MessageDto>(queueNames[0]);
+                var msgBody = _consumer.GetFirstMessage<MessageDto>(queueDictionary[QueueType.UploadImage]);
                 _logger.Info("New message received...");
 
                 var isOk = await _imgService.MoveImageFromTempToMainAsync(msgBody);
