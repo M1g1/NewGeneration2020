@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Gallery.Config.Manager;
 
 namespace Gallery.MessageQueues
@@ -6,20 +7,21 @@ namespace Gallery.MessageQueues
     public static class Parser
     {
         public static IDictionary<QueueType, string> ParseQueueNames()
-        { 
+        {
             var dictionary = new Dictionary<QueueType, string>();
 
-            var uploadImgQueueNameKeyName = "queues:upload-image";
+            var queueNameKeyNames = new[]
+                {
+                    "queues:upload-image",
+                    "queues:upload-mp4"
+                };
 
-            var uploadMp4QueueNameKeyName = "queues:upload-mp4";
+            var queueTypes = (QueueType[])Enum.GetValues(typeof(QueueType));
 
-            var uploadImgvalue = GalleryConfigurationManager.GetAppSettingValue(uploadImgQueueNameKeyName);
-
-            var uploadMp4value = GalleryConfigurationManager.GetAppSettingValue(uploadMp4QueueNameKeyName);
-
-            dictionary.Add(QueueType.UploadImage, uploadImgvalue);
-
-            dictionary.Add(QueueType.UploadMp4, uploadMp4value);
+            for (var index = 0; index < queueTypes.Length; index++)
+            {
+                dictionary.Add(queueTypes[index], GalleryConfigurationManager.GetAppSettingValue(queueNameKeyNames[index]));
+            }
 
             return dictionary;
         }
