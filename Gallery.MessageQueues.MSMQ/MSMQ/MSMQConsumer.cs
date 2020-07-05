@@ -4,9 +4,11 @@ namespace Gallery.MessageQueues.MSMQ
 {
     public class MSMQConsumer : IConsumer
     {
+        private const string QUEUEPATH_PREFIX = @".\private$\";
         public T GetFirstMessage<T>(string queueName) where T : class
         {
-            var _messageQueue = new MessageQueue(queueName)
+            var queuePath = string.Concat(QUEUEPATH_PREFIX, queueName);
+            var _messageQueue = new MessageQueue(queuePath)
             {
                 Formatter = new XmlMessageFormatter(new[] { typeof(string) })
             };

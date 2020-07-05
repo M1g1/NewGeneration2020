@@ -4,12 +4,13 @@ namespace Gallery.MessageQueues.MSMQ
 {
     public class MsmqInitializer : IQueueInitialize
     {
+        private const string QUEUEPATH_PREFIX = @".\private$\";
         public void CreateIfNotExist(string queueName)
         {
-
-            if (!MessageQueue.Exists(queueName))
+            var queuePath = string.Concat(QUEUEPATH_PREFIX, queueName);
+            if (!MessageQueue.Exists(queuePath))
             {
-                MessageQueue.Create(queueName);
+                MessageQueue.Create(queuePath);
             }
 
         }
