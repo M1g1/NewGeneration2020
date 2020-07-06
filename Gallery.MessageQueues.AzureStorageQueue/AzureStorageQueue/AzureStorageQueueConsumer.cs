@@ -16,7 +16,7 @@ namespace Gallery.MessageQueues.AzureStorageQueue
             _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
         }
 
-        public T GetFirstMessage<T>(string queueName) where T : class
+        private T GetFirstMessage<T>(string queueName) where T : class
         {
             var queueServiceClient = new QueueServiceClient(_connectionString);
 
@@ -30,9 +30,6 @@ namespace Gallery.MessageQueues.AzureStorageQueue
                 {
                     QueueMessage[] receiveMessages = queueClient.ReceiveMessages(maxMessages: 1, _visibilityDelay);
 
-                    if (receiveMessages.Length < 1)
-                        continue;
-
                     queueClient.DeleteMessage(receiveMessages[0].MessageId, receiveMessages[0].PopReceipt);
 
                     msg = receiveMessages[0].MessageText;
@@ -41,6 +38,11 @@ namespace Gallery.MessageQueues.AzureStorageQueue
                 Thread.Sleep(_delayReceiveMsg);
             }
             return Deserializer.DeserializeToObject<T>(msg);
+        }
+
+        public void Consume<T>(string queueName, Action<T> action) where T : class
+        {
+            action(GetFirstMessage<T>(queueName));
         }
     }
 }

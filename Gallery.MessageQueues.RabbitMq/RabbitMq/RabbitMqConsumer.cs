@@ -14,7 +14,7 @@ namespace Gallery.MessageQueues.RabbitMq
             _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
         }
 
-        public T GetFirstMessage<T>(string queueName) where T : class
+        private T GetFirstMessage<T>(string queueName) where T : class
         {
             var factory = new ConnectionFactory
             {
@@ -38,6 +38,10 @@ namespace Gallery.MessageQueues.RabbitMq
                 }
             }
             return message;
+        }
+        public void Consume<T>(string queueName, Action<T> action) where T : class
+        {
+            action(GetFirstMessage<T>(queueName));
         }
     }
 }
