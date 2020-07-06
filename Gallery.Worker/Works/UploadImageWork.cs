@@ -26,19 +26,14 @@ namespace Gallery.Worker.Works
         public async Task StartAsync()
         {
             _logger.Info("Started " + nameof(UploadImageWork) + ".");
-            
+
             var queueDictionary = Parser.ParseQueueNames();
 
             while (!_cancelTokenSource.IsCancellationRequested)
             {
-                _logger.Info("Waiting for new message...");
-                var msgBody = _consumer.GetFirstMessage<MessageDto>(queueDictionary[QueueType.UploadImage]);
-                _logger.Info("New message received...");
-
-                var isOk = await _imgService.MoveImageFromTempToMainAsync(msgBody);
-
-                _logger.Info(isOk ? "Image uploaded successfully." : "Failed to upload image.");
-
+                _consumer.Consume<MessageDto>(
+                    queueDictionary[QueueType.UploadImage],
+                    async msg => await _imgService.MoveImageFromTempToMainAsync(msg));
                 await Task.Delay(_delay);
             }
         }
